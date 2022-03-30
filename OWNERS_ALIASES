@@ -1,237 +1,213 @@
-# This file is auto-generated from peribolos
+# This file is auto-generated from peribolos.
+# Do not modify this file, instead modify peribolos/knative.yaml
 
 aliases:
   api-core-wg-leads:
   - dprotaso
-  async-component-approvers:
-  - beemarie
-  - julz
-  - maximilien
+  autoscaling-reviewers:
+  - nader-ziada
+  - psschwei
+  - skonto
+  - taragu
   autoscaling-wg-leads:
-  - markusthoemmes
-  - vagababov
+  - julz
+  autoscaling-writers:
+  - julz
+  - yanweiguo
+  client-reviewers:
+  - itsmurugappan
   client-wg-leads:
+  - dsimansk
   - navidshaikh
   - rhuss
   client-writers:
+  - dsimansk
+  - maximilien
   - navidshaikh
   - rhuss
-  control-protocol-approvers:
-  - devguyio
-  - grantr
-  - lionelvillard
-  - matzew
-  - slinkydeveloper
-  - vaikas
-  delivery-wg-leads:
-  - matzew
-  - slinkydeveloper
-  discovery-approvers:
-  - lberk
-  - n3wscott
+  conformance-task-force-leads:
+  - omerbensaadon
+  - salaboy
+  conformance-writers:
+  - omerbensaadon
+  - salaboy
+  docs-reviewers:
+  - nainaz
+  - omerbensaadon
+  - pmbanugo
+  - snneji
   docs-wg-leads:
-  - abrennan89
+  - csantanapr
+  - snneji
   docs-writers:
   - abrennan89
-  eventing-autoscaler-keda-approvers:
-  - zroubalik
-  eventing-awssqs-approvers:
-  - lberk
-  eventing-camel-approvers:
-  - nicolaferraro
-  eventing-ceph-approvers:
-  - lberk
-  eventing-couchdb-approvers:
-  - lberk
-  - lionelvillard
-  eventing-github-approvers:
-  - lberk
-  eventing-gitlab-approvers:
+  - csantanapr
+  - psschwei
+  - snneji
+  eventing-reviewers:
+  - aslom
+  - tayarani
+  - tommyreddad
+  eventing-triage:
+  - akashrv
   - antoineco
   - lberk
-  - sebgoa
-  - tzununbekov
-  eventing-kafka-approvers:
-  - aliok
-  - davyodom
-  - lberk
-  - matzew
-  - phamilton
-  - steven0711dong
-  - travis-minke-sap
-  eventing-kafka-broker-approvers:
-  - pierDipi
-  - slinkydeveloper
-  eventing-kafka-mtsource-approvers:
-  - steven0711dong
-  eventing-natss-approvers:
-  - devguyio
-  eventing-prometheus-approvers:
-  - lberk
-  eventing-rabbitmq-approvers:
-  - n3wscott
-  - sbawaska
-  - vaikas
-  eventing-redis-approvers:
-  - aavarghese
-  - lionelvillard
   eventing-wg-leads:
-  - devguyio
-  - grantr
   - lionelvillard
-  - vaikas
   eventing-writers:
-  - devguyio
-  - grantr
+  - akashrv
+  - aliok
+  - antoineco
+  - lberk
   - lionelvillard
   - matzew
-  - n3wscott
-  - slinkydeveloper
+  - odacremolbap
+  - pierDipi
   - vaikas
-  homebrew-kn-plugins-approvers:
-  - dsimansk
-  - maximilien
-  - rhuss
-  kn-plugin-admin-approvers:
-  - maximilien
-  - navidshaikh
-  - rhuss
-  - zhanggbj
-  kn-plugin-diag-approvers:
-  - cdlliuy
-  - maximilien
-  - navidshaikh
-  kn-plugin-event-approvers:
-  - cardil
-  - rhuss
-  kn-plugin-migration-approvers:
-  - maximilien
-  - zhangtbj
-  kn-plugin-sample-approvers:
-  - maximilien
-  - navidshaikh
-  - rhuss
-  kn-plugin-service-log-approvers:
-  - rhuss
-  kn-plugin-source-kafka-approvers:
-  - daisy-ycguo
-  - dsimansk
-  - maximilien
-  - navidshaikh
-  - rhuss
-  kn-plugin-source-kamelet-approvers:
-  - christophd
-  - nicolaferraro
-  - rhuss
   knative-admin:
-  - bsnchan
+  - carlisia
+  - csantanapr
+  - dprotaso
   - evankanderson
-  - fallback-notification-blocker
-  - grantr
+  - itsmurugappan
+  - julz
   - knative-prow-releaser-robot
   - knative-prow-robot
+  - knative-prow-updater-robot
   - knative-test-reporter-robot
-  - markusthoemmes
-  - mbehrendt
+  - kvmware
+  - lance
   - pmorie
   - rhuss
-  - tcnghia
+  - smoser-ibm
+  - spencerdillard
   - thisisnotapril
   - vaikas
-  knative-milestone-maintainers:
-  - ZhiminXiang
-  - akashrv
-  - aslom
-  - chaodaiG
-  - csantanapr
-  - evankanderson
-  - grantr
-  - josephburnett
-  - k4leung4
-  - lionelvillard
-  - markusthoemmes
-  - mikehelmick
-  - n3wscott
-  - nak3
-  - navidshaikh
-  - rhuss
-  - slinkydeveloper
-  - tcnghia
-  - vagababov
-  - vaikas
+  - xtreme-sameer-vohra
   knative-release-leads:
-  - fallback-notification-blocker
-  - tcnghia
-  - vaikas
+  - carlisia
+  - kvmware
+  - xtreme-sameer-vohra
   knative-robots:
   - knative-prow-releaser-robot
   - knative-prow-robot
+  - knative-prow-updater-robot
   - knative-test-reporter-robot
-  kperf-approvers:
-  - maximilien
-  - zhanggbj
-  net-certmanager-approvers:
+  networking-reviewers:
+  - JRBANCEL
   - ZhiminXiang
-  net-contour-approvers:
-  - dprotaso
-  net-http---approvers:
-  - tcnghia
-  net-ingressv--approvers:
-  - markusthoemmes
+  - andrew-su
+  - arturenault
+  - carlisia
   - nak3
-  net-istio-approvers:
+  - shashwathi
+  - tcnghia
+  - vagababov
+  - yanweiguo
+  networking-wg-leads:
+  - ZhiminXiang
+  - nak3
+  networking-writers:
   - JRBANCEL
   - ZhiminXiang
   - nak3
   - vagababov
-  net-kourier-approvers:
-  - davidor
-  - jmprusi
-  networking-wg-leads:
-  - ZhiminXiang
-  - nak3
-  - tcnghia
+  operations-reviewers:
+  - Cynocracy
+  - aliok
+  - houshengbo
+  - jcrossley3
+  - matzew
+  - maximilien
+  - trshafer
   operations-wg-leads:
   - houshengbo
   operations-writers:
+  - Cynocracy
+  - aliok
   - houshengbo
+  - jcrossley3
+  - matzew
+  - maximilien
+  - trshafer
+  pkg-configmap-reviewers:
+  - dprotaso
+  - mattmoor
+  - vagababov
+  pkg-configmap-writers:
+  - dprotaso
+  - mattmoor
+  - vagababov
+  pkg-controller-reviewers:
+  - dprotaso
+  - mattmoor
+  - tcnghia
+  - vagababov
+  - whaught
+  pkg-controller-writers:
+  - dprotaso
+  - mattmoor
+  - tcnghia
+  - vagababov
+  productivity-reviewers:
+  - albertomilan
+  - evankanderson
+  - gerardo-lc
+  - mgencur
+  - shinigambit
   productivity-wg-leads:
   - chizhg
-  - n3wscott
   productivity-writers:
+  - cardil
+  - chaodaiG
   - chizhg
-  - n3wscott
+  - coryrc
+  - kvmware
+  - psschwei
+  - upodroid
   security-wg-leads:
   - evankanderson
   - julz
   security-writers:
   - evankanderson
   - julz
+  serving-observability-reviewers:
+  - skonto
+  - yanweiguo
+  serving-observability-writers:
+  - yanweiguo
+  serving-reviewers:
+  - carlisia
+  - julz
+  - nader-ziada
+  - nealhu
+  - psschwei
+  - skonto
+  - whaught
   serving-writers:
-  - ZhiminXiang
   - dprotaso
-  - markusthoemmes
-  - nak3
+  - julz
   - tcnghia
   - vagababov
-  source-wg-leads:
-  - lionelvillard
-  - n3wscott
   steering-committee:
-  - bsnchan
-  - mbehrendt
+  - csantanapr
+  - itsmurugappan
+  - lance
   - pmorie
   - thisisnotapril
   - vaikas
   technical-oversight-committee:
+  - dprotaso
   - evankanderson
-  - fallback-notification-blocker
-  - grantr
-  - markusthoemmes
+  - julz
   - rhuss
+  trademark-committee:
+  - evankanderson
+  - smoser-ibm
+  - spencerdillard
   ux-wg-leads:
   - csantanapr
-  - omerbensaadon
+  - snneji
   ux-writers:
   - csantanapr
-  - omerbensaadon
+  - snneji
