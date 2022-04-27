@@ -4,6 +4,7 @@ This directory contains Prow jobs used by Prow. The generated prow jobs are made
 
 ## Summary of current directory
 
+- `autobump-config` has all the configurations for all the jobs that use the [kubernetes generic autobump tool](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/generic-autobumper).
 - `custom` directory contains handwritten Prow jobs. Please refrain from adding jobs here and add new jobs to the [../job-definitions/](../job-definitions/) directory.
 - `generated` contains the generated jobs from the meta-definitions defined in [../job-definitions/](../job-definitions/) directory.
 - `run_job.sh` is a useful convience script to run a job manually for testing purposes.
