@@ -23,7 +23,7 @@ periodics:
       command:
       - generic-autobumper
       args:
-      - --config=prow/autobump-config/knative-flaky-test-reporter.yaml
+      - --config=prow/jobs/autobump-config/knative-flaky-test-reporter.yaml
       - --labels-override=skip-review # This label is used by tide for identifying trusted PR
       volumeMounts:
       - name: github-credentials
