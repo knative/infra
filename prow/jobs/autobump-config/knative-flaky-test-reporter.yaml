@@ -1,4 +1,5 @@
 ---
+#TODO: figure out test-infra spit issue
 gitHubLogin: "knative-prow-updater-robot"
 gitHubToken: "/etc/prow-auto-bumper-github-token/token"
 skipPullRequest: false
