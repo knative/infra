@@ -28,7 +28,7 @@ We use the merge automation and all the core components outlined in the [kuberne
 ### Hook and it's plugins
 
 [Hook](https://github.com/kubernetes/test-infra/blob/master/prow/cmd/hook) is the most important piece. It is a stateless server that listens for GitHub webhooks and dispatches them to the appropriate plugins. Hook's plugins are used to trigger jobs, implement 'slash' commands, post to Slack, and more. See the [prow/plugins](https://github.com/kubernetes/test-infra/blob/master/prow/plugins) directory for more information on plugins.
-The plugins we use can be found in the [hook-plugins.yaml](config/hook-plugins.yaml) file.
+The plugins we use can be found in the [config/plugins.yaml](config/plugins.yaml) file.
 
 ## Simple Prow example
 
