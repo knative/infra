@@ -12,7 +12,7 @@ This directory contains the definitions to deploy the following systems:
 - `build/boskos-resources/boskos_resources.yaml` is the resources for the `Boskos pool` outlined above.
 - `core` has the definitions for the `Prow control plane cluster` outlined above.
 - `core/prowjob_customresourcedefinition.yaml` is the Prow job custom resource definition.
-- `monitoring` has the definitions for the monitoring the prow cluster. More information is contained in the `README.md` in this directory.
+- `monitoring` has the definitions for the monitoring the prow cluster. More information in the `README.md` of that directory.
 
 ## Notes on cluster yaml convention
 
