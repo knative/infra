@@ -10,3 +10,5 @@ jobs:
   markdown-lint:
     # https://github.com/marketplace/actions/markdown-lint
     uses: articulate/actions-markdownlint@latest
+    with:
+      fix: true
