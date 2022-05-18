@@ -8,7 +8,7 @@ jobs:
     - uses: PurpleBooth/gfmfmt-action@v2.0.7
       with:
         check: false
-    - run: git config user.email "bot@example.com"
+    - run: git config user.email "automation@knative.team"
     - run: git config user.name "Markdown linting bot"
     - run: git commit -am "Fix markdown formatting."
     - run: git push
