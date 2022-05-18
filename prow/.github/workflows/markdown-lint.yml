@@ -1,14 +1,18 @@
-on: [push, pull_request]
-￼
-￼jobs:
-￼  lint-markdown:
-￼    runs-on: ubuntu-latest
-￼    steps:
-￼    - uses: actions/checkout@v2
-￼    - uses: PurpleBooth/gfmfmt-action@v2.0.7
-￼      with:
-￼        check: false
-￼    - run: git config user.email "automation@knative.team"
-￼    - run: git config user.name "Markdown linting bot"
-￼    - run: git commit -am "Fix markdown formatting."
-￼    - run: git push
+on:  
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-markdown:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: PurpleBooth/gfmfmt-action@v2.0.7
+      with:
+        check: false
+    - run: git config user.email "automation@knative.team"
+    - run: git config user.name "Markdown linting bot"
+    - run: git commit -am "Fix markdown formatting."
+    - run: git push
