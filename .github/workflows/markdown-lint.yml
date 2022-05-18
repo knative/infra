@@ -1,0 +1,12 @@
+name: Markdown Linter Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  markdown-lint:
+    # https://github.com/marketplace/actions/markdown-lint
+    uses: articulate/actions-markdownlint@latest
