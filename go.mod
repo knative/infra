@@ -10,10 +10,12 @@ replace (
 )
 
 require (
+	github.com/hashicorp/errwrap v1.1.0
+	github.com/hashicorp/go-cleanhttp v0.5.2
 	istio.io/test-infra/tools/prowgen v0.0.0-20220912223856-cd655368c7d2
 	k8s.io/apimachinery v0.24.4
 	k8s.io/test-infra v0.0.0-20220801075428-527a7b720677
-	knative.dev/hack v0.0.0-20220725145124-782bbaabb8a1
+	knative.dev/hack v0.0.0-20230330174700-1421f120c36b
 	sigs.k8s.io/yaml v1.3.0
 )
 
@@ -78,8 +80,6 @@ require (
 	github.com/googleapis/go-type-adapters v1.0.0 // indirect
 	github.com/gregjones/httpcache v0.0.0-20190611155906-901d90724c79 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
-	github.com/hashicorp/errwrap v1.1.0 // indirect
-	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
