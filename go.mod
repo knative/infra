@@ -1,4 +1,4 @@
-module knative.dev/test-infra
+module knative.dev/infra
 
 go 1.18
 

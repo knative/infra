@@ -69,7 +69,7 @@ presubmits:
     agent: kubernetes
     optional: false
     decorate: true
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
     cluster: prow-build
     run_if_changed: "^(images/prow-tests/.*|tools/.*|pkg/.*|go.mod)$"
     branches:
@@ -98,7 +98,7 @@ periodics:
   - org: knative
     repo: test-infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   annotations:
     testgrid-dashboards: utilities
     testgrid-tab-name: ci-knative-heartbeat
@@ -127,7 +127,7 @@ periodics:
   - org: knative
     repo: test-infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   annotations:
     testgrid-dashboards: utilities
     testgrid-tab-name: ci-knative-cleanup
@@ -250,7 +250,7 @@ periodics:
   - org: knative
     repo: test-infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   annotations:
     testgrid-dashboards: utilities
     testgrid-tab-name: ci-knative-prow-jobs-syncer
@@ -308,7 +308,7 @@ postsubmits:
   - name: post-knative-test-infra-image-push
     agent: kubernetes
     decorate: true
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
     max_concurrency: 1
     cluster: prow-build
     run_if_changed: "^(images/.*|tools/.*|pkg/.*|go.mod)$"
@@ -348,7 +348,7 @@ postsubmits:
   - name: post-knative-test-infra-prow-tests-image-push
     agent: kubernetes
     decorate: true
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
     max_concurrency: 1
     cluster: prow-build
     run_if_changed: "^(images/prow-tests/.*|tools/kntest/.*|pkg/.*|go.mod)$"

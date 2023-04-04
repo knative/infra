@@ -7,7 +7,7 @@ periodics:
   - org: knative
     repo: test-infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   annotations:
     testgrid-dashboards: utilities
     testgrid-tab-name: ci-knative-prow-tests-auto-bumper

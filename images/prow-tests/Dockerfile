@@ -206,7 +206,7 @@ RUN go install github.com/gogo/protobuf/protoc-gen-gogofaster@${PROTOC_GEN_GOGOF
 RUN go install github.com/GoogleCloudPlatform/docker-credential-gcr@${DOCKER_CREDENTIAL_GCR_VERSION}
 
 # We do this instead of `go get` so the tools are locked to the Dockerfile's commit
-COPY . /go/src/knative.dev/test-infra
+COPY . /go/src/knative.dev/infra
 
 # Build custom tools in the container
 RUN go install knative.dev/toolbox/kntest/cmd/kntest@latest

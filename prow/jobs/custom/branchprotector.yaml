@@ -28,7 +28,7 @@ periodics:
   - org: knative
     repo: test-infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   reporter_config:
     slack:
       channel: knative-productivity

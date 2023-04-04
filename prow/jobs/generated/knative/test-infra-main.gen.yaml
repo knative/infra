@@ -13,7 +13,7 @@ presubmits:
     cluster: prow-build
     decorate: true
     name: build-tests_test-infra_main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
     rerun_command: /test build-tests
     spec:
       containers:
@@ -36,7 +36,7 @@ presubmits:
     cluster: prow-build
     decorate: true
     name: unit-tests_test-infra_main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
     rerun_command: /test unit-tests
     spec:
       containers:
