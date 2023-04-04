@@ -657,7 +657,7 @@ gopkg.in/yaml.v3
 istio.io/test-infra/tools/prowgen/pkg
 istio.io/test-infra/tools/prowgen/pkg/decorator
 istio.io/test-infra/tools/prowgen/pkg/spec
-# k8s.io/api v0.24.4 => k8s.io/api v0.24.2
+# k8s.io/api v0.24.4 => k8s.io/api v0.24.4
 ## explicit; go 1.16
 k8s.io/api/admission/v1
 k8s.io/api/admission/v1beta1
@@ -706,7 +706,7 @@ k8s.io/api/scheduling/v1beta1
 k8s.io/api/storage/v1
 k8s.io/api/storage/v1alpha1
 k8s.io/api/storage/v1beta1
-# k8s.io/apimachinery v0.24.4 => k8s.io/apimachinery v0.24.2
+# k8s.io/apimachinery v0.24.4
 ## explicit; go 1.16
 k8s.io/apimachinery/pkg/api/equality
 k8s.io/apimachinery/pkg/api/errors
@@ -756,7 +756,7 @@ k8s.io/apimachinery/pkg/version
 k8s.io/apimachinery/pkg/watch
 k8s.io/apimachinery/third_party/forked/golang/json
 k8s.io/apimachinery/third_party/forked/golang/reflect
-# k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible => k8s.io/client-go v0.24.2
+# k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible => k8s.io/client-go v0.24.4
 ## explicit; go 1.16
 k8s.io/client-go/applyconfigurations/admissionregistration/v1
 k8s.io/client-go/applyconfigurations/admissionregistration/v1beta1
@@ -1021,6 +1021,5 @@ sigs.k8s.io/structured-merge-diff/v4/value
 ## explicit; go 1.12
 sigs.k8s.io/yaml
 # github.com/Azure/go-autorest => github.com/Azure/go-autorest v14.2.0+incompatible
-# k8s.io/api => k8s.io/api v0.24.2
-# k8s.io/apimachinery => k8s.io/apimachinery v0.24.2
-# k8s.io/client-go => k8s.io/client-go v0.24.2
+# k8s.io/api => k8s.io/api v0.24.4
+# k8s.io/client-go => k8s.io/client-go v0.24.4

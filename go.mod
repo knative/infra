@@ -4,9 +4,8 @@ go 1.18
 
 replace (
 	github.com/Azure/go-autorest => github.com/Azure/go-autorest v14.2.0+incompatible
-	k8s.io/api => k8s.io/api v0.24.2
-	k8s.io/apimachinery => k8s.io/apimachinery v0.24.2
-	k8s.io/client-go => k8s.io/client-go v0.24.2
+	k8s.io/api => k8s.io/api v0.24.4
+	k8s.io/client-go => k8s.io/client-go v0.24.4
 )
 
 require (
