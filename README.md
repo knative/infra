@@ -1,11 +1,11 @@
 # Knative Test Infrastructure
 
-[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/knative/test-infra)
-[![Go Report Card](https://goreportcard.com/badge/knative/test-infra)](https://goreportcard.com/report/knative/test-infra)
-[![LICENSE](https://img.shields.io/github/license/knative/test-infra.svg)](https://github.com/knative/test-infra/blob/main/LICENSE)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/knative/infra)
+[![Go Report Card](https://goreportcard.com/badge/knative/infra)](https://goreportcard.com/report/knative/infra)
+[![LICENSE](https://img.shields.io/github/license/knative/infra.svg)](https://github.com/knative/infra/blob/main/LICENSE)
 [![Slack Status](https://img.shields.io/badge/slack-join_chat-white.svg?logo=slack&style=social)](https://knative.slack.com/archives/CCSNR4FCH)
 
-The `test-infra` repository contains a collection of tools for testing Knative,
+The `infra` repository contains a collection of tools for testing Knative,
 collecting metrics and displaying test results.
 This is the main repo for the [Productivity Working Group](https://github.com/knative/community/blob/main/working-groups/WORKING-GROUPS.md#productivity)
 
@@ -18,6 +18,10 @@ The Productivity Working Group also has other repos:
 
   Shellscripts used across the repos placed in a separate repo to avoid
   dependency cycles
+
+- [knative/toolbox](https://github.com/knative/toolbox)
+
+  Tools used in Knative projects, intended for development and testing
 
 - [knative/release](https://github.com/knative/release)
 

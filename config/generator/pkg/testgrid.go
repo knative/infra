@@ -25,10 +25,9 @@ import (
 	"sort"
 	"strings"
 
-	"knative.dev/test-infra/tools/configgen/pkg/testgrid"
-
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/test-infra/prow/config"
+	"knative.dev/infra/config/generator/pkg/testgrid"
 	"sigs.k8s.io/yaml"
 )
 

@@ -27,9 +27,9 @@ To check out this repository:
 ```shell
 mkdir -p ${GOPATH}/src/knative.dev
 cd ${GOPATH}/src/knative.dev
-git clone git@github.com:${YOUR_GITHUB_USERNAME}/infra.git
-cd infra
-git remote add upstream https://github.com/knative/infra.git
+git clone git@github.com:${YOUR_GITHUB_USERNAME}/test-infra.git
+cd test-infra
+git remote add upstream https://github.com/knative/test-infra.git
 git remote set-url --push upstream no_push
 ```
 
@@ -47,7 +47,7 @@ of:
   - Prow configs templates
     [prow/jobs_config](./prow/jobs_config).
 
-  - Prow configs generator [config/generator](config/generator).
+  - Prow configs generator [tools/configgen](./tools/configgen).
 
 - **If you change a package's deps** (including adding an external dependency),
   then you must run [`./hack/update-deps.sh`](./hack/update-deps.sh).

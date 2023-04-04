@@ -1,13 +1,12 @@
 # README
 
-`configgen` is a tool for generating Prow and TestGrid config files for Knative
-projects.
+`config/generator` is a tool for generating Prow and TestGrid config files for
+Knative projects.
 
-## Prow configgen
+## Prow config generator
 
-Prow configgen part is based on [istio
-prowgen](https://github.com/istio/test-infra/tree/master/tools/prowgen), it does
-the following things:
+Prow config generator part is based on [istio prowgen](https://github.com/istio/test-infra/tree/master/tools/prowgen),
+it does the following things:
 
 1. Add annotations that can be used by [TestGrid
    configurator](https://github.com/kubernetes/test-infra/tree/master/testgrid/cmd/configurator)
@@ -20,8 +19,9 @@ the following things:
    prowgen](https://github.com/istio/test-infra/tree/master/tools/prowgen) to
    generate the Prow config files.
 
-## TestGrid configgen
+## TestGrid config generator
 
-TestGrid configgen part generates the TestGrid config file that can be used by
+TestGrid config generator part generates the TestGrid config file that can be
+used by
 [TestGrid configurator](https://github.com/kubernetes/test-infra/tree/master/testgrid/cmd/configurator)
 to configure [testgrid.knative.dev](https://testgrid.knative.dev)

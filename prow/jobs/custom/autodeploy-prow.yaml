@@ -18,18 +18,18 @@ periodics:
 # For more contexts, check https://github.com/knative/test-infra/issues/3220.
 # Scheduled to run at 12AM PST.
 - cron: "0 7 * * *"
-  name: ci-knative-test-infra-config-bootstrapper
+  name: ci-knative-infra-config-bootstrapper
   agent: kubernetes
   decorate: true
   cluster: "prow-trusted"
   extra_refs:
   - org: knative
-    repo: test-infra
+    repo: infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   annotations:
     testgrid-dashboards: utilities
-    testgrid-tab-name: ci-knative-test-infra-config-bootstrapper
+    testgrid-tab-name: ci-knative-infra-config-bootstrapper
   reporter_config:
     slack:
       channel: knative-productivity
