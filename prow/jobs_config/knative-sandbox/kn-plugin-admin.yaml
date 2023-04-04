@@ -1,7 +1,7 @@
 org: knative-sandbox
 repo: kn-plugin-admin
 branches: [main]
-image: gcr.io/knative-tests/test-infra/prow-tests:v20230320-1305d234
+image: gcr.io/knative-tests/test-infra/prow-tests:v20230331-37ec75c1
 
 jobs:
   - name: build-tests

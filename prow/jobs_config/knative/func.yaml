@@ -1,7 +1,7 @@
 org: knative
 repo: func
 branches: [main]
-image: gcr.io/knative-tests/test-infra/prow-tests:v20230320-1305d234
+image: gcr.io/knative-tests/test-infra/prow-tests:v20230331-37ec75c1
 
 jobs:
   - name: nightly
@@ -15,7 +15,7 @@ jobs:
     max_concurrency: 1
     reporter_config:
       slack:
-        channel: functions
+        channel: knative-functions
         report_template: |
           "The nightly release has failed, please check the logs: <{{.Status.URL}}|View logs>"
         job_states_to_report:

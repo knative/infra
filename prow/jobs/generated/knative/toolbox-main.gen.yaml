@@ -6,14 +6,14 @@
 # #######################################################################
 
 presubmits:
-  knative/test-infra:
+  knative/toolbox:
   - always_run: true
     branches:
     - ^main$
     cluster: prow-build
     decorate: true
-    name: build-tests_test-infra_main
-    path_alias: knative.dev/test-infra
+    name: build-tests_toolbox_main
+    path_alias: knative.dev/toolbox
     rerun_command: /test build-tests
     spec:
       containers:
@@ -29,14 +29,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_test-infra_main,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_toolbox_main,?($|\s.*))
   - always_run: true
     branches:
     - ^main$
     cluster: prow-build
     decorate: true
-    name: unit-tests_test-infra_main
-    path_alias: knative.dev/test-infra
+    name: unit-tests_toolbox_main
+    path_alias: knative.dev/toolbox
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -52,4 +52,4 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_test-infra_main,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_toolbox_main,?($|\s.*))
