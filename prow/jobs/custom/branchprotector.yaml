@@ -18,7 +18,7 @@
 periodics:
 # Run at 10AM PST.
 - cron: "0 17 * * *"
-  name: ci-knative-test-infra-branchprotector
+  name: ci-knative-infra-branchprotector
   agent: kubernetes
   decorate: true
   decoration_config:
@@ -26,9 +26,9 @@ periodics:
   cluster: "prow-trusted"
   extra_refs:
   - org: knative
-    repo: test-infra
+    repo: infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   reporter_config:
     slack:
       channel: knative-productivity
@@ -37,7 +37,7 @@ periodics:
       report_template: '"The branchprotector job fails, check the log: <{{.Status.URL}}|View logs>"'
   annotations:
     testgrid-dashboards: utilities
-    testgrid-tab-name: ci-knative-test-infra-branchprotector
+    testgrid-tab-name: ci-knative-infra-branchprotector
   spec:
     containers:
     - name: branchprotector

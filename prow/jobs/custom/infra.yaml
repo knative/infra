@@ -18,8 +18,8 @@
 # https://github.com/kubernetes/test-infra/blob/5815354584709c3f436e3d682110c673d224d7b1/prow/cmd/autobump/autobump.sh#L164
 
 presubmits:
-  knative/test-infra:
-  - name: pull-test-infra-validate-prow-yaml
+  knative/infra:
+  - name: pull-infra-validate-prow-yaml
     run_if_changed: '^prow/((config|plugins)\.yaml$|jobs/)'
     decorate: true
     cluster: prow-build
@@ -39,7 +39,7 @@ presubmits:
         - --exclude-warning=non-decorated-jobs
         - --exclude-warning=long-job-names
 
-  - name: pull-test-infra-validate-own-testgrid-yaml
+  - name: pull-infra-validate-own-testgrid-yaml
     decorate: true
     optional: false
     run_if_changed: "(^config/prow/k8s-testgrid/.*.yaml$|^prow/jobs/.*.yaml$)"
@@ -65,11 +65,11 @@ presubmits:
         - --oneshot
         - --validate-config-file
 
-  - name: pull-knative-test-infra-prow-tests-image-build
+  - name: pull-knative-infra-prow-tests-image-build
     agent: kubernetes
     optional: false
     decorate: true
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
     cluster: prow-build
     run_if_changed: "^(images/prow-tests/.*|tools/.*|pkg/.*|go.mod)$"
     branches:
@@ -96,9 +96,9 @@ periodics:
   cluster: "default"
   extra_refs:
   - org: knative
-    repo: test-infra
+    repo: infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   annotations:
     testgrid-dashboards: utilities
     testgrid-tab-name: ci-knative-heartbeat
@@ -125,9 +125,9 @@ periodics:
     timeout: 6h
   extra_refs:
   - org: knative
-    repo: test-infra
+    repo: infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   annotations:
     testgrid-dashboards: utilities
     testgrid-tab-name: ci-knative-cleanup
@@ -169,7 +169,7 @@ periodics:
   spec:
     serviceAccountName: flaky-test-reporter
     containers:
-    - image: gcr.io/knative-tests/test-infra/flaky-test-reporter:latest
+    - image: gcr.io/knative-tests/infra/flaky-test-reporter:latest
       imagePullPolicy: Always
       command:
       - "/flaky-test-reporter"
@@ -213,7 +213,7 @@ periodics:
   spec:
     serviceAccountName: flaky-test-reporter
     containers:
-    - image: gcr.io/knative-tests/test-infra/flaky-test-reporter:latest
+    - image: gcr.io/knative-tests/infra/flaky-test-reporter:latest
       imagePullPolicy: Always
       command:
       - "/flaky-test-reporter"
@@ -248,9 +248,9 @@ periodics:
   cluster: prow-build
   extra_refs:
   - org: knative
-    repo: test-infra
+    repo: infra
     base_ref: main
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
   annotations:
     testgrid-dashboards: utilities
     testgrid-tab-name: ci-knative-prow-jobs-syncer
@@ -304,25 +304,25 @@ periodics:
           path: known_hosts
 
 postsubmits:
-  knative/test-infra:
-  - name: post-knative-test-infra-image-push
+  knative/infra:
+  - name: post-knative-infra-image-push
     agent: kubernetes
     decorate: true
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
     max_concurrency: 1
     cluster: prow-build
-    run_if_changed: "^(images/.*|tools/.*|pkg/.*|go.mod)$"
+    run_if_changed: "^(images/.*|go.mod|go.sum)$"
     branches:
     - "main"
     annotations:
       testgrid-dashboards: utilities
-      testgrid-tab-name: post-knative-test-infra-image-push
+      testgrid-tab-name: post-knative-infra-image-push
     reporter_config:
       slack:
         channel: knative-productivity
         job_states_to_report:
           - failure
-        report_template: '"The test-infra-tools-image-push postsubmit job has failed, please check the logs: <{{.Status.URL}}|View logs>"'
+        report_template: '"The infra-tools-image-push postsubmit job has failed, please check the logs: <{{.Status.URL}}|View logs>"'
     spec:
       serviceAccountName: test-runner
       containers:
@@ -345,18 +345,18 @@ postsubmits:
       volumes:
       - name: docker-graph
         emptyDir: {}
-  - name: post-knative-test-infra-prow-tests-image-push
+  - name: post-knative-infra-prow-tests-image-push
     agent: kubernetes
     decorate: true
-    path_alias: knative.dev/test-infra
+    path_alias: knative.dev/infra
     max_concurrency: 1
     cluster: prow-build
-    run_if_changed: "^(images/prow-tests/.*|tools/kntest/.*|pkg/.*|go.mod)$"
+    run_if_changed: "^(images/prow-tests/.*|go.mod|go.sum)$"
     branches:
     - "main"
     annotations:
       testgrid-dashboards: utilities
-      testgrid-tab-name: post-knative-test-infra-prow-tests-image-push
+      testgrid-tab-name: post-knative-infra-prow-tests-image-push
     reporter_config:
       slack:
         channel: knative-productivity
@@ -375,7 +375,7 @@ postsubmits:
         - "-C"
         - "images/prow-tests"
         - "push"
-  - name: post-test-infra-update-testgrid-proto
+  - name: post-infra-update-testgrid-proto
     decorate: true
     run_if_changed: "^(config/prow/k8s-testgrid/|prow/jobs/).*.yaml"
     branches:
@@ -387,7 +387,7 @@ postsubmits:
       base_ref: master
     annotations:
       testgrid-dashboards: utilities
-      testgrid-tab-name: post-test-infra-update-testgrid-proto
+      testgrid-tab-name: post-infra-update-testgrid-proto
     reporter_config:
       slack:
         channel: knative-productivity
