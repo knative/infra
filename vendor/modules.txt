@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# gopkg.in/yaml.v2 v2.4.0
-## explicit; go 1.15
-gopkg.in/yaml.v2
-=======
 # cloud.google.com/go v0.102.1
 ## explicit; go 1.15
 cloud.google.com/go
@@ -27,7 +22,7 @@ contrib.go.opencensus.io/exporter/ocagent
 # contrib.go.opencensus.io/exporter/prometheus v0.4.0
 ## explicit; go 1.13
 contrib.go.opencensus.io/exporter/prometheus
-# github.com/Azure/go-autorest v14.2.0+incompatible => github.com/Azure/go-autorest v14.2.0+incompatible
+# github.com/Azure/go-autorest v14.2.0+incompatible
 ## explicit
 github.com/Azure/go-autorest
 # github.com/Azure/go-autorest/autorest v0.11.24
@@ -145,16 +140,6 @@ github.com/danwakefield/fnmatch
 github.com/davecgh/go-spew/spew
 # github.com/denormal/go-gitignore v0.0.0-20180930084346-ae8ad1d07817
 ## explicit
-<<<<<<< HEAD
-github.com/docker/cli/cli/config
-github.com/docker/cli/cli/config/configfile
-github.com/docker/cli/cli/config/credentials
-github.com/docker/cli/cli/config/types
-# github.com/docker/distribution v2.8.2+incompatible
-## explicit
-github.com/docker/distribution/registry/client/auth/challenge
-# github.com/docker/docker v20.10.24+incompatible
-=======
 github.com/denormal/go-gitignore
 # github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
 ## explicit; go 1.12
@@ -164,7 +149,6 @@ github.com/dgrijalva/jwt-go/v4
 github.com/emicklei/go-restful
 github.com/emicklei/go-restful/log
 # github.com/evanphx/json-patch v4.12.0+incompatible
->>>>>>> a6fe31bdb (Just remove the tools, previously moved out to toolbox (#52))
 ## explicit
 github.com/evanphx/json-patch
 # github.com/evanphx/json-patch/v5 v5.6.0
@@ -374,7 +358,7 @@ github.com/shurcooL/githubv4
 github.com/shurcooL/graphql
 github.com/shurcooL/graphql/ident
 github.com/shurcooL/graphql/internal/jsonutil
-# github.com/sirupsen/logrus v1.8.1
+# github.com/sirupsen/logrus v1.9.0
 ## explicit; go 1.13
 github.com/sirupsen/logrus
 # github.com/spf13/pflag v1.0.5
@@ -668,12 +652,12 @@ gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
-# istio.io/test-infra/tools/prowgen v0.0.0-20220912223856-cd655368c7d2
+# istio.io/test-infra/tools/prowgen v0.0.0-20230406071052-6ac36165aedc
 ## explicit; go 1.18
 istio.io/test-infra/tools/prowgen/pkg
 istio.io/test-infra/tools/prowgen/pkg/decorator
 istio.io/test-infra/tools/prowgen/pkg/spec
-# k8s.io/api v0.24.4 => k8s.io/api v0.24.2
+# k8s.io/api v0.24.4 => k8s.io/api v0.24.4
 ## explicit; go 1.16
 k8s.io/api/admission/v1
 k8s.io/api/admission/v1beta1
@@ -722,7 +706,7 @@ k8s.io/api/scheduling/v1beta1
 k8s.io/api/storage/v1
 k8s.io/api/storage/v1alpha1
 k8s.io/api/storage/v1beta1
-# k8s.io/apimachinery v0.24.4 => k8s.io/apimachinery v0.24.2
+# k8s.io/apimachinery v0.24.4
 ## explicit; go 1.16
 k8s.io/apimachinery/pkg/api/equality
 k8s.io/apimachinery/pkg/api/errors
@@ -772,7 +756,7 @@ k8s.io/apimachinery/pkg/version
 k8s.io/apimachinery/pkg/watch
 k8s.io/apimachinery/third_party/forked/golang/json
 k8s.io/apimachinery/third_party/forked/golang/reflect
-# k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible => k8s.io/client-go v0.24.2
+# k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible => k8s.io/client-go v0.24.4
 ## explicit; go 1.16
 k8s.io/client-go/applyconfigurations/admissionregistration/v1
 k8s.io/client-go/applyconfigurations/admissionregistration/v1beta1
@@ -927,7 +911,7 @@ k8s.io/kube-openapi/pkg/schemamutation
 k8s.io/kube-openapi/pkg/spec3
 k8s.io/kube-openapi/pkg/util/proto
 k8s.io/kube-openapi/pkg/validation/spec
-# k8s.io/test-infra v0.0.0-20220801075428-527a7b720677
+# k8s.io/test-infra v0.0.0-20220913174101-46ac1a6cf806 => k8s.io/test-infra v0.0.0-20220729194712-07f065e00e9b
 ## explicit; go 1.18
 k8s.io/test-infra/ghproxy/ghcache
 k8s.io/test-infra/ghproxy/ghmetrics
@@ -966,10 +950,6 @@ k8s.io/test-infra/prow/secretutil
 k8s.io/test-infra/prow/sidecar
 k8s.io/test-infra/prow/simplifypath
 k8s.io/test-infra/prow/version
-<<<<<<< HEAD
->>>>>>> bab327676 (Just remove the tools, previously moved out to toolbox (#52))
-# knative.dev/hack v0.0.0-20230417170854-f591fea109b3
-=======
 # k8s.io/utils v0.0.0-20220725171434-9bab9ef40391
 ## explicit; go 1.12
 k8s.io/utils/buffer
@@ -982,11 +962,8 @@ k8s.io/utils/pointer
 k8s.io/utils/strings/slices
 k8s.io/utils/trace
 # knative.dev/hack v0.0.0-20230330174700-1421f120c36b
->>>>>>> a6fe31bdb (Just remove the tools, previously moved out to toolbox (#52))
 ## explicit; go 1.18
 knative.dev/hack
-<<<<<<< HEAD
-=======
 # knative.dev/pkg v0.0.0-20220728013737-449f7e6dab63
 ## explicit; go 1.18
 knative.dev/pkg/apis
@@ -1004,6 +981,9 @@ knative.dev/pkg/logging/logkey
 knative.dev/pkg/metrics
 knative.dev/pkg/metrics/metricskey
 knative.dev/pkg/tracker
+# knative.dev/toolbox v0.0.0-20230405192239-56bd4ab0757e
+## explicit; go 1.18
+knative.dev/toolbox
 # sigs.k8s.io/controller-runtime v0.12.3
 ## explicit; go 1.17
 sigs.k8s.io/controller-runtime/pkg/cache
@@ -1040,11 +1020,9 @@ sigs.k8s.io/structured-merge-diff/v4/fieldpath
 sigs.k8s.io/structured-merge-diff/v4/schema
 sigs.k8s.io/structured-merge-diff/v4/typed
 sigs.k8s.io/structured-merge-diff/v4/value
->>>>>>> bab327676 (Just remove the tools, previously moved out to toolbox (#52))
 # sigs.k8s.io/yaml v1.3.0
 ## explicit; go 1.12
 sigs.k8s.io/yaml
-# github.com/Azure/go-autorest => github.com/Azure/go-autorest v14.2.0+incompatible
-# k8s.io/api => k8s.io/api v0.24.2
-# k8s.io/apimachinery => k8s.io/apimachinery v0.24.2
-# k8s.io/client-go => k8s.io/client-go v0.24.2
+# k8s.io/api => k8s.io/api v0.24.4
+# k8s.io/client-go => k8s.io/client-go v0.24.4
+# k8s.io/test-infra => k8s.io/test-infra v0.0.0-20220729194712-07f065e00e9b

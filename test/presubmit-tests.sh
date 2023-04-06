@@ -20,7 +20,9 @@
 # flag, causes all tests to be executed, in the right order.
 # Use the flags --build-tests, --unit-tests and --integration-tests
 # to run a specific set of tests.
-source $(dirname "${BASH_SOURCE[0]}")/../vendor/knative.dev/hack/presubmit-tests.sh
+
+# shellcheck disable=SC1091
+source "$(dirname "${BASH_SOURCE[0]}")/../vendor/knative.dev/hack/presubmit-tests.sh"
 
 # Run our custom build tests after the standard build tests.
 
@@ -29,13 +31,16 @@ function post_build_tests() {
   subheader "Checking Makefiles"
   for makefile in $(find . -name Makefile | grep -v /vendor/); do
     echo "*** Checking ${makefile}"
-    make -n -C $(dirname "${makefile}") || { failed=1; echo "--- FAIL: ${makefile}"; }
+    make -n -C "$(dirname "${makefile}")" || {
+      failed=1
+      echo "--- FAIL: ${makefile}"
+    }
   done
   return ${failed}
 }
 
 function post_unit_tests() {
-  local CONFIG_GENERATOR_DIR="${REPO_ROOT_DIR}/tools/configgen"
+  local CONFIG_GENERATOR_DIR="${REPO_ROOT_DIR}/config/generator"
   cd "${CONFIG_GENERATOR_DIR}" && report_go_test -race -count 1 ./...
 }
 

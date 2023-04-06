@@ -2,21 +2,20 @@ module knative.dev/infra
 
 go 1.18
 
-require knative.dev/hack v0.0.0-20230330174700-1421f120c36b
-
 replace (
-	github.com/Azure/go-autorest => github.com/Azure/go-autorest v14.2.0+incompatible
-	k8s.io/api => k8s.io/api v0.24.2
-	k8s.io/apimachinery => k8s.io/apimachinery v0.24.2
-	k8s.io/client-go => k8s.io/client-go v0.24.2
+	k8s.io/api => k8s.io/api v0.24.4
+	k8s.io/client-go => k8s.io/client-go v0.24.4
+	k8s.io/test-infra => k8s.io/test-infra v0.0.0-20220729194712-07f065e00e9b
 )
 
 require (
 	github.com/hashicorp/errwrap v1.1.0
 	github.com/hashicorp/go-cleanhttp v0.5.2
-	istio.io/test-infra/tools/prowgen v0.0.0-20220912223856-cd655368c7d2
+	istio.io/test-infra/tools/prowgen v0.0.0-20230406071052-6ac36165aedc
 	k8s.io/apimachinery v0.24.4
-	k8s.io/test-infra v0.0.0-20220801075428-527a7b720677
+	k8s.io/test-infra v0.0.0-20220913174101-46ac1a6cf806
+	knative.dev/hack v0.0.0-20230330174700-1421f120c36b
+	knative.dev/toolbox v0.0.0-20230405192239-56bd4ab0757e
 	sigs.k8s.io/yaml v1.3.0
 )
 
@@ -103,7 +102,7 @@ require (
 	github.com/prometheus/statsd_exporter v0.21.0 // indirect
 	github.com/shurcooL/githubv4 v0.0.0-20210725200734-83ba7b4c9228 // indirect
 	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
-	github.com/sirupsen/logrus v1.8.1 // indirect
+	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/tektoncd/pipeline v0.36.0 // indirect
 	github.com/trivago/tgo v1.0.7 // indirect
