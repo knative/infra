@@ -16,7 +16,16 @@ FROM golang:1.20.2
 
 # Required input: -e TOOL_NAME=name, i.e. TOOL_NAME=flaky-test-reporter
 ARG TOOL_NAME
+# (Optional) Passed by automation, so we can inspect labels of built image.
+ARG COMMIT_HASH
+LABEL vcs-ref=$COMMIT_HASH \
+      vcs-type="git" \
+      vcs-url="https://github.com/knative/infra/blob/main/images/tool/Dockerfile"
 
 RUN GOBIN=/tools go install "knative.dev/toolbox/${TOOL_NAME}@latest"
 
-ENTRYPOINT ["/tools/${TOOL_NAME}"]
+# Variable expansion isn't supported in ENTRYPOINT/CMD, so we need to
+# create a symlink. See: https://stackoverflow.com/a/47643816/844449
+RUN ln -s "/tools/${TOOL_NAME}" /bin/knative-tool
+
+ENTRYPOINT ["/bin/knative-tool"]
