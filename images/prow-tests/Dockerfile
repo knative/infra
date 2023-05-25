@@ -160,11 +160,11 @@ RUN curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/v$
 
 ############################################################
 FROM golang:1.19.9 AS external-go-previous
-# Capture the version that depndabot bumps so that we can install it into the base image
+# Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
 FROM golang:1.20.4 AS external-go-latest
-# Capture the version that depndabot bumps so that we can install it into the base image
+# Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
 FROM external-go-latest AS external-go-gets
@@ -213,7 +213,7 @@ RUN go install github.com/GoogleCloudPlatform/docker-credential-gcr@${DOCKER_CRE
 COPY . /go/src/knative.dev/infra
 
 # Build custom tools in the container
-RUN cd /go/src/knative.dev/infra && go install ./tools/configgen
+RUN cd /go/src/knative.dev/infra/tools/configgen && go install .
 
 # Install kubetest2-kops deployer
 RUN git clone https://github.com/kubernetes/kops /tmp/kops && cd /tmp/kops/tests/e2e/kubetest2-kops && git checkout ${KUBETEST2_KOPS_VERSION} && \
