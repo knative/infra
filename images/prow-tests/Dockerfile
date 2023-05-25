@@ -16,7 +16,7 @@ FROM debian:bullseye-20230522-slim AS base
 
 # Pinned versions of stuff we pull in
 ARG CLOUD_SDK_VERSION=432.0.0
-ARG KUBECTL_VERSION=v1.24.14
+ARG KUBECTL_VERSION=v1.25.10
 ARG DOCKER_VERSION=5:24.0.1-1~debian.11~bullseye
 ARG MAVEN_VERSION=3.8.4
 ARG JAVA_VERSION=16
@@ -225,7 +225,7 @@ FROM rust:1.69 AS external-rust-gets
 ARG CODESIGN_VERSION=0.22.0
 # change this when a new version with https://github.com/indygreg/apple-platform-rs/pull/20 is cut
 
-RUN cargo install --git https://github.com/indygreg/apple-platform-rs --rev ${CODESIGN_VERSION} --bin rcodesign apple-codesign
+RUN cargo install --git https://github.com/indygreg/apple-platform-rs --tag=apple-codesign/${CODESIGN_VERSION} --bin=rcodesign apple-codesign
 
 ############################################################
 FROM base
@@ -258,8 +258,8 @@ COPY images/prow-tests/runner.sh /usr/local/bin
 COPY images/prow-tests/in-gvm-env.sh /usr/local/bin
 # If you needed to compile and install different tools for different version of Go,
 #  you could do it like:
-#  RUN GO_VERSION=goX.XX in-gvm-env.sh go install knative.dev/test-infra/tools/cleanup
-#  RUN GO_VERSION=goX.XX+1 in-gvm-env.sh go install knative.dev/test-infra/tools/cleanup
+#  RUN GO_VERSION=goX.XX in-gvm-env.sh go install knative.dev/toolbox/cleanup
+#  RUN GO_VERSION=goX.XX+1 in-gvm-env.sh go install knative.dev/toolbox/cleanup
 # But it must be done in base or the last FROM, because it does not install to /go/bin
 
 # Not needed outside of this Dockerfile
