@@ -199,8 +199,8 @@ RUN go install sigs.k8s.io/kind@${KIND_VERSION}
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@${JSONNET_VERSION}
 RUN go install github.com/sigstore/cosign/cmd/cosign@${COSIGN_VERSION}
 RUN go install knative.dev/toolbox/provenance-generator@${TOOLBOX_VERSION}
-RUN go install knative.dev/pkg/clustermanager/perf-tests@${TOOLBOX_VERSION}
-RUN go install knative.dev/kntest/cmd/kntest@${TOOLBOX_VERSION}
+RUN go install knative.dev/toolbox/pkg/clustermanager/perf-tests@${TOOLBOX_VERSION}
+RUN go install knative.dev/toolbox/kntest/cmd/kntest@${TOOLBOX_VERSION}
 
 # According to https://github.com/knative/test-infra/pull/2762 protoc-gen-gogofaster is unsupported (and shouldn't be used?)
 # Not sure when it can be removed, maybe knative-0.26?
