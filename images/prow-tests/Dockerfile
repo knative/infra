@@ -69,6 +69,7 @@ RUN curl -fsSLO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/googl
 RUN tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz -C /
 RUN rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
 RUN gcloud config set core/disable_usage_reporting true && \
+    gcloud config set core/disable_color true && \
     gcloud config set component_manager/disable_update_check true && \
     gcloud config set metrics/environment github_docker_image && \
     gcloud components install alpha beta gke-gcloud-auth-plugin && \
@@ -198,6 +199,9 @@ RUN go install github.com/google/go-licenses@${GO_LICENSES_VERSION}
 RUN go install sigs.k8s.io/kind@${KIND_VERSION}
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@${JSONNET_VERSION}
 RUN go install github.com/sigstore/cosign/cmd/cosign@${COSIGN_VERSION}
+RUN go install knative.dev/toolbox/provenance-generator@${TOOLBOX_VERSION}
+RUN go install knative.dev/toolbox/pkg/clustermanager/perf-tests@${TOOLBOX_VERSION}
+RUN go install knative.dev/toolbox/kntest/cmd/kntest@${TOOLBOX_VERSION}
 
 # According to https://github.com/knative/test-infra/pull/2762 protoc-gen-gogofaster is unsupported (and shouldn't be used?)
 # Not sure when it can be removed, maybe knative-0.26?
@@ -209,12 +213,8 @@ RUN go install github.com/GoogleCloudPlatform/docker-credential-gcr@${DOCKER_CRE
 # Install tricky tools from knative/toolbox repo by cloning the repo.
 RUN git clone https://github.com/knative/toolbox.git /go/src/knative.dev/toolbox && \
     cd /go/src/knative.dev/toolbox && \
-    git checkout ${TOOLBOX_VERSION}
-
-RUN go install /go/src/knative.dev/toolbox/release-jobs-syncer
-RUN go install /go/src/knative.dev/toolbox/provenance-generator
-RUN go install /go/src/knative.dev/toolbox/pkg/clustermanager/perf-tests
-RUN go install /go/src/knative.dev/toolbox/kntest/cmd/kntest
+    git checkout ${TOOLBOX_VERSION} && \
+    go install ./release-jobs-syncer
 
 # We do this instead of `go get` so the tools are locked to the Dockerfile's commit
 COPY . /go/src/knative.dev/infra
