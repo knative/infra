@@ -198,10 +198,6 @@ RUN go install github.com/google/go-licenses@${GO_LICENSES_VERSION}
 RUN go install sigs.k8s.io/kind@${KIND_VERSION}
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@${JSONNET_VERSION}
 RUN go install github.com/sigstore/cosign/cmd/cosign@${COSIGN_VERSION}
-RUN go install knative.dev/toolbox/provenance-generator@${TOOLBOX_VERSION}
-RUN go install knative.dev/toolbox/pkg/clustermanager/perf-tests@${TOOLBOX_VERSION}
-RUN go install knative.dev/toolbox/kntest/cmd/kntest@${TOOLBOX_VERSION}
-RUN go get knative.dev/toolbox/release-jobs-syncer@${TOOLBOX_VERSION}
 
 # According to https://github.com/knative/test-infra/pull/2762 protoc-gen-gogofaster is unsupported (and shouldn't be used?)
 # Not sure when it can be removed, maybe knative-0.26?
@@ -209,6 +205,16 @@ RUN go install github.com/gogo/protobuf/protoc-gen-gogofaster@${PROTOC_GEN_GOGOF
 
 # Docker
 RUN go install github.com/GoogleCloudPlatform/docker-credential-gcr@${DOCKER_CREDENTIAL_GCR_VERSION}
+
+# Install tricky tools from knative/toolbox repo by cloning the repo.
+RUN git clone https://github.com/knative/toolbox.git /go/src/knative.dev/toolbox && \
+    cd /go/src/knative.dev/toolbox && \
+    git checkout ${TOOLBOX_VERSION}
+
+RUN go install /go/src/knative.dev/toolbox/release-jobs-syncer
+RUN go install /go/src/knative.dev/toolbox/provenance-generator
+RUN go install /go/src/knative.dev/toolbox/pkg/clustermanager/perf-tests
+RUN go install /go/src/knative.dev/toolbox/kntest/cmd/kntest
 
 # We do this instead of `go get` so the tools are locked to the Dockerfile's commit
 COPY . /go/src/knative.dev/infra
