@@ -26,7 +26,7 @@
 #  DOCKERBUILDARGS: arguments for `docker build`
 #  DOCKERFILE: use a different Dockerfile, relative to starting subdirectory
 
-REGISTRY   ?= europe-docker.pkg.dev
+REGISTRY   ?= us-docker.pkg.dev
 PROJECT    ?= knative-tests
 DOCKERFILE ?= Dockerfile
 
