@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"hash/fnv"
 
-	"istio.io/test-infra/tools/prowgen/pkg/spec"
+	"istio.io/infra/tools/prowgen/pkg/spec"
 )
 
 const (

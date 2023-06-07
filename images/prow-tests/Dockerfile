@@ -203,7 +203,7 @@ RUN go install knative.dev/toolbox/provenance-generator@${TOOLBOX_VERSION}
 RUN go install knative.dev/toolbox/pkg/clustermanager/perf-tests@${TOOLBOX_VERSION}
 RUN go install knative.dev/toolbox/kntest/cmd/kntest@${TOOLBOX_VERSION}
 
-# According to https://github.com/knative/test-infra/pull/2762 protoc-gen-gogofaster is unsupported (and shouldn't be used?)
+# According to https://github.com/knative/infra/pull/2762 protoc-gen-gogofaster is unsupported (and shouldn't be used?)
 # Not sure when it can be removed, maybe knative-0.26?
 RUN go install github.com/gogo/protobuf/protoc-gen-gogofaster@${PROTOC_GEN_GOGOFASTER_VERSION}
 

@@ -11,9 +11,9 @@ replace (
 )
 
 require (
-	istio.io/test-infra/tools/prowgen v0.0.0-20220912223856-cd655368c7d2
+	istio.io/infra/tools/prowgen v0.0.0-20220912223856-cd655368c7d2
 	k8s.io/apimachinery v0.24.4
-	k8s.io/test-infra v0.0.0-20220801075428-527a7b720677
+	k8s.io/infra v0.0.0-20220801075428-527a7b720677
 	knative.dev/infra v0.0.0-20230524184324-1ad56d594b74 // indirect
 	sigs.k8s.io/yaml v1.3.0
 )

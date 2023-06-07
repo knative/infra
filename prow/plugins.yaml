@@ -17,7 +17,7 @@ approve:
 - repos:
   - "knative"
   - "knative-sandbox"
-  - "knative-prow-robot/test-infra"
+  - "knative-prow-robot/infra"
   ignore_review_state: false
 
 # Settings for the "lgtm" plugin.
@@ -171,7 +171,7 @@ plugins:
     - welcome
     - wip
     - yuks
-  knative-prow-robot/test-infra:
+  knative-prow-robot/infra:
     plugins:
     - approve
     - assign
@@ -220,7 +220,7 @@ external_plugins:
     events:
       - issue_comment
       - pull_request
-  knative-prow-robot/test-infra:
+  knative-prow-robot/infra:
   - name: needs-rebase
     events:
       - issue_comment

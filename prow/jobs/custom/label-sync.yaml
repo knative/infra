@@ -37,7 +37,7 @@ presubmits:
         - --confirm=false
         - --orgs=knative-sandbox,knative
         # We have to still use the GitHub oauth token for authentication, since
-        # https://github.com/knative/test-infra/pull/3198 change and having
+        # https://github.com/knative/infra/pull/3198 change and having
         # --confirm=false. This happens with peribolos as well.
         - --token=/etc/github/oauth
         - --debug

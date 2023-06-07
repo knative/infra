@@ -16,7 +16,7 @@ limitations under the License.
 
 package pkg
 
-import "istio.io/test-infra/tools/prowgen/pkg/spec"
+import "istio.io/infra/tools/prowgen/pkg/spec"
 
 const (
 	testgridDashboardAnnotation   = "testgrid-dashboards"

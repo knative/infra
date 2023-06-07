@@ -15,7 +15,7 @@
 periodics:
 # Run config-bootstrapper Prow job every day to make sure the configmaps on the
 # Prow cluster are always consistent with configs files in the GitHub repo.
-# For more contexts, check https://github.com/knative/test-infra/issues/3220.
+# For more contexts, check https://github.com/knative/infra/issues/3220.
 # Scheduled to run at 12AM PST.
 - cron: "0 7 * * *"
   name: ci-knative-infra-config-bootstrapper

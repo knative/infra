@@ -14,7 +14,7 @@
 
 export KUBECONFIG
 
-# https://github.com/istio/test-infra/issues/1636
+# https://github.com/istio/infra/issues/1636
 # This prevents the Kube current-context in the execution environment from being
 # overwritten unless the intention is made explicit w/ the `save` parameter.
 # e.g.

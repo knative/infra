@@ -3,14 +3,14 @@
 Prow is a collection of microservices that are deployed on a Kubernetes cluster.
 All the Kubernetes object `.yaml` files (except secrets) for Knative prow are
 under
-[oss-test-infra repo](https://github.com/GoogleCloudPlatform/oss-test-infra/tree/master/prow/knative),
+[oss-infra repo](https://github.com/GoogleCloudPlatform/oss-infra/tree/master/prow/knative),
 and managed by [oss oncall](go.k8s.io/oncall).
 
 ## Expanding Boskos pool
 
 We use [GKE](https://cloud.google.com/kubernetes-engine) to run integration
 tests for Knative projects. To create a GKE cluster, a GCP project is needed.
-[boskos](https://github.com/kubernetes/test-infra/tree/master/boskos) is the
+[boskos](https://github.com/kubernetes/infra/tree/master/boskos) is the
 resource manager service we use to manage a pool of GCP projects and handle the
 transition between different states for these projects.
 

@@ -28,7 +28,7 @@ import (
 	"knative.dev/infra/pkg/testgrid"
 
 	"k8s.io/apimachinery/pkg/util/sets"
-	"k8s.io/test-infra/prow/config"
+	"k8s.io/infra/prow/config"
 	"sigs.k8s.io/yaml"
 )
 

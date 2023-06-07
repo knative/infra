@@ -15,7 +15,7 @@
 # Add a fake hook image here so that autobump.sh can bump only job configs
 # image: gcr.io/k8s-prow/hook:v20230601-43eb1068e4
 # See
-# https://github.com/kubernetes/test-infra/blob/5815354584709c3f436e3d682110c673d224d7b1/prow/cmd/autobump/autobump.sh#L164
+# https://github.com/kubernetes/infra/blob/5815354584709c3f436e3d682110c673d224d7b1/prow/cmd/autobump/autobump.sh#L164
 
 presubmits:
   knative/infra:
@@ -34,7 +34,7 @@ presubmits:
         - --plugin-config=./prow/plugins.yaml
         - --strict
         # This warning can forbid valid (and convenient) config. Exclude it.
-        # Details: https://github.com/GoogleCloudPlatform/oss-test-infra/pull/131#discussion_r334208082
+        # Details: https://github.com/GoogleCloudPlatform/oss-infra/pull/131#discussion_r334208082
         - --exclude-warning=mismatched-tide
         - --exclude-warning=non-decorated-jobs
         - --exclude-warning=long-job-names

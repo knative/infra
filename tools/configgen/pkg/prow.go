@@ -23,7 +23,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	prowgenpkg "istio.io/test-infra/tools/prowgen/pkg"
+	prowgenpkg "istio.io/infra/tools/prowgen/pkg"
 )
 
 // GenerateProwJobsConfig will generate Prow jobs from prowJobsConfigInput, and write

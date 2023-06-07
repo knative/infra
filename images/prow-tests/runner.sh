@@ -15,7 +15,7 @@
 # limitations under the License.
 
 bootstrap () {
-  # From https://github.com/kubernetes/test-infra/blob/master/images/bootstrap/runner.sh
+  # From https://github.com/kubernetes/infra/blob/master/images/bootstrap/runner.sh
   cleanup_dind() {
       if [[ "${DOCKER_IN_DOCKER_ENABLED:-false}" == "true" ]]; then
           echo "Cleaning up after docker"
@@ -74,7 +74,7 @@ EOF
       printf '=%.0s' {1..80}; echo
       echo "Done setting up docker in docker."
 
-      # Workaround for https://github.com/kubernetes/test-infra/issues/23741
+      # Workaround for https://github.com/kubernetes/infra/issues/23741
       # Instead of removing, disabled by default in case we need to address again
       if [[ "${BOOTSTRAP_MTU_WORKAROUND:-"false"}" == "true" ]]; then
           echo "configure iptables to set MTU"

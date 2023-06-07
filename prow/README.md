@@ -2,7 +2,7 @@
 
 ## Knative prow
 
-This directory contains prow configs hosted for Knative. This prow is bumped by knative-autobump-config.yaml which uses [Kubernetes generic-autobumper](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/generic-autobumper).
+This directory contains prow configs hosted for Knative. This prow is bumped by knative-autobump-config.yaml which uses [Kubernetes generic-autobumper](https://github.com/kubernetes/infra/tree/master/prow/cmd/generic-autobumper).
 
 - `Makefile` Commands to interact with the Prow instance regarding configs and
   updates.
@@ -50,4 +50,4 @@ granting service account
 permission for accessing secret manager in the project(GCP allows setting
 permission on individual secret level) see more detailed instruction on how to
 do so at [Prow
-Secret](https://github.com/kubernetes/test-infra/blob/master/prow/prow_secrets.md).
+Secret](https://github.com/kubernetes/infra/blob/master/prow/prow_secrets.md).

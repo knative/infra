@@ -7,7 +7,7 @@ gitHubOrg: "knative"
 gitHubRepo: "infra"
 remoteName: "infra"
 headBranchName: "autobump-knative"
-upstreamURLBase: "https://raw.githubusercontent.com/kubernetes/test-infra/master"
+upstreamURLBase: "https://raw.githubusercontent.com/kubernetes/infra/master"
 targetVersion: "upstream"
 includedConfigPaths:
   - "prow/cluster/control-plane"
@@ -21,7 +21,7 @@ prefixes:
   - name: "Prow"
     prefix: "gcr.io/k8s-prow/"
     refConfigFile: "config/prow/cluster/deck_deployment.yaml"
-    repo: "https://github.com/kubernetes/test-infra"
+    repo: "https://github.com/kubernetes/infra"
     summarise: false
     consistentImages: true
   - name: "Boskos"

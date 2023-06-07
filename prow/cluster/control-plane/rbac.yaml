@@ -14,7 +14,7 @@
 
 # RBAC resources needed on the Prow cluster.
 # All the settings come from the Kubernetes Prow cluster configs
-# at https://github.com/kubernetes/test-infra/tree/master/prow/cluster
+# at https://github.com/kubernetes/infra/tree/master/prow/cluster
 
 # Service accounts, roles and bindings
 

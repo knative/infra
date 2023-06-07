@@ -35,7 +35,7 @@
             if 'monitoringURL' in config.instance then
               '<%s%s|%s>' % [config.instance.monitoringURL, path, text]
             else
-              '%s (Requires <https://github.com/kubernetes/test-infra/tree/master/config/prow/cluster/monitoring#access-components-web-page|port-forwarding the grafana service> and accessing path "%s")' % [text, path]
+              '%s (Requires <https://github.com/kubernetes/infra/tree/master/config/prow/cluster/monitoring#access-components-web-page|port-forwarding the grafana service> and accessing path "%s")' % [text, path]
           ),
         },
       prowImageStaleByDays+: default(config.prowImageStaleByDays, 'daysStale', 7)
