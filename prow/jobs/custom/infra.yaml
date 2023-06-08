@@ -168,7 +168,7 @@ periodics:
   spec:
     serviceAccountName: flaky-test-reporter
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230607-36d2a7eb
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230608-1c1448d6
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -216,7 +216,7 @@ periodics:
   spec:
     serviceAccountName: flaky-test-reporter
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230607-36d2a7eb
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230608-1c1448d6
       imagePullPolicy: Always
       command:
       - "runner.sh"
