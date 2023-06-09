@@ -225,8 +225,8 @@ periodics:
       - -c
       - |
         flaky-test-reporter \
-          --github-account=/etc/flaky-test-reporter-github-token/token \
-          --slack-account=/etc/flaky-test-reporter-slack-token/token
+          --skip-report \
+          --build-count=10
       volumeMounts:
       - name: github-credentials
         mountPath: /etc/flaky-test-reporter-github-token
