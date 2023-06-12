@@ -175,3 +175,106 @@ periodics:
         path: /sys/fs/cgroup
         type: Directory
       name: cgroup
+presubmits:
+  knative/func:
+  - always_run: true
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
+    name: unit-tests_func_main
+    path_alias: knative.dev/func
+    rerun_command: /test unit-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --unit-tests
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230605-5de90de6
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_func_main,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
+    name: integration-tests_func_main
+    path_alias: knative.dev/func
+    rerun_command: /test integration-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --integration-tests
+        env:
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230605-5de90de6
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_func_main,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
+    name: integration-tests-latest-release_func_main
+    path_alias: knative.dev/func
+    rerun_command: /test integration-tests-latest-release
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-integration-tests-latest-release.sh
+        env:
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230605-5de90de6
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+    trigger: ((?m)^/test( | .* )integration-tests-latest-release,?($|\s.*))|((?m)^/test(
+      | .* )integration-tests-latest-release_func_main,?($|\s.*))
