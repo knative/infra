@@ -15,11 +15,12 @@
 FROM debian:bullseye-20230612-slim AS base
 
 # Pinned versions of stuff we pull in
+ARG TARGETARCH
 ARG CLOUD_SDK_VERSION=432.0.0
 ARG KUBECTL_VERSION=v1.25.10
 ARG DOCKER_VERSION=5:24.0.1-1~debian.11~bullseye
 ARG MAVEN_VERSION=3.8.4
-ARG JAVA_VERSION=16
+ARG JAVA_VERSION=17
 ARG PROTOC_VERSION=3.17.0
 ARG TFENV_VERSION=v2.2.3
 ARG KOPS_VERSION=v1.25.0
@@ -125,17 +126,17 @@ RUN mkdir /docker-graph
 #
 
 #
-# BEGIN: JAVA SETUP (This is for kafka broker)
+# BEGIN: JAVA SETUP (This is for eventing-kafka-broker and kn-func)
 #
 
-RUN curl -fsSL https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | gpg --dearmor -o /usr/share/keyrings/adoptopenjdk-archive-keyring.gpg && \
+RUN curl -fsSL https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /usr/share/keyrings/adoptium.gpg && \
     echo \
-    "deb [signed-by=/usr/share/keyrings/adoptopenjdk-archive-keyring.gpg] https://adoptopenjdk.jfrog.io/adoptopenjdk/deb \
-    $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/adoptopenjdk.list
+    "deb [signed-by=/usr/share/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb $(lsb_release -cs) main" \
+    | tee /etc/apt/sources.list.d/adoptium.list
 RUN apt-get update -qqy && \
-    apt-get install -qqy adoptopenjdk-${JAVA_VERSION}-hotspot && \
+    apt-get install -qqy temurin-${JAVA_VERSION}-jdk && \
     rm -rf /var/lib/apt/lists/*
-ENV JAVA_HOME=/usr/lib/jvm/adoptopenjdk-${JAVA_VERSION}-hotspot-amd64
+ENV JAVA_HOME=/usr/lib/jvm/temurin-${JAVA_VERSION}-${TARGETARCH}
 
 ENV MAVEN_HOME=/usr/local/maven
 ENV M2_HOME=$MAVEN_HOME
