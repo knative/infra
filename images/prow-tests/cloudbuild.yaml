@@ -22,6 +22,7 @@ steps:
   - 'COMMIT_HASH=${_COMMIT_HASH}'
   - '--no-cache'
   - '--pull'
+  - '--output=type=docker' # this won't work for when multi-arch image is introduced
   - '-t'
   - '${_IMG}:${_TAG}'
   - '-f'
