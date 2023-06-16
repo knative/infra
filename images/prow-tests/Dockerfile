@@ -136,7 +136,7 @@ RUN curl -fsSL https://packages.adoptium.net/artifactory/api/gpg/key/public | gp
 RUN apt-get update -qqy && \
     apt-get install -qqy temurin-${JAVA_VERSION}-jdk && \
     rm -rf /var/lib/apt/lists/*
-ENV JAVA_HOME=/usr/lib/jvm/temurin-${JAVA_VERSION}-${TARGETARCH}
+ENV JAVA_HOME=/usr/lib/jvm/temurin-${JAVA_VERSION}-jdk-${TARGETARCH}
 
 ENV MAVEN_HOME=/usr/local/maven
 ENV M2_HOME=$MAVEN_HOME
