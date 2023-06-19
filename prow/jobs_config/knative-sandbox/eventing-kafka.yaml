@@ -1,7 +1,7 @@
 org: knative-sandbox
 repo: eventing-kafka
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230613-a99636e02
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230616-086ddd644
 
 jobs:
   - name: build-tests
