@@ -4,6 +4,11 @@ branches: [main]
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230616-086ddd644
 
 jobs:
+  - name: unit-tests
+    types: [presubmit]
+    command: [runner.sh, ./test/presubmit-tests.sh, --unit-tests]
+    excluded_requirements: [gcp]
+
   - name: nightly
     types: [periodic]
     command: [runner.sh, ./hack/release.sh, --publish, --tag-release,
