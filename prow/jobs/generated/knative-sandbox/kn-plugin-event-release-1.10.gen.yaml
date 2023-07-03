@@ -182,6 +182,61 @@ periodics:
       secret:
         defaultMode: 384
         secretName: s390x-cluster1
+- annotations:
+    testgrid-dashboards: knative-sandbox-release-1.10
+    testgrid-tab-name: kn-plugin-event-ppc64le-e2e-tests
+  cluster: prow-build
+  cron: 15 12 * * *
+  decorate: true
+  extra_refs:
+  - base_ref: release-1.10
+    org: knative-sandbox
+    path_alias: knative.dev/kn-plugin-event
+    repo: kn-plugin-event
+  name: ppc64le-e2e-tests_kn-plugin-event_release-1.10_periodic
+  spec:
+    containers:
+    - args:
+      - bash
+      - -c
+      - |
+        mkdir -p /root/.kube
+        cat /opt/cluster/ci-script > connect.sh
+        chmod +x connect.sh
+        ./connect.sh ${CI_JOB}
+        ./test/e2e-tests.sh --run-tests
+      command:
+      - runner.sh
+      env:
+      - name: CI_JOB
+        value: plugin_event-110
+      - name: SSL_CERT_FILE
+        value: /opt/cluster/ssl.crt
+      - name: KO_FLAGS
+        value: --platform=linux/ppc64le
+      - name: PLATFORM
+        value: linux/ppc64le
+      - name: KO_DOCKER_REPO
+        value: registry.ppc64le
+      - name: KUBECONFIG
+        value: /root/.kube/config
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230616-086ddd644
+      name: ""
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /opt/cluster
+        name: ppc64le-cluster
+        readOnly: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    volumes:
+    - name: ppc64le-cluster
+      secret:
+        defaultMode: 384
+        secretName: ppc64le-cluster
 presubmits:
   knative-sandbox/kn-plugin-event:
   - always_run: true
