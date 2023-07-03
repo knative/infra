@@ -88,5 +88,29 @@ jobs:
   - periodic
   excluded_requirements:
   - gcp
+- args:
+  - bash
+  - -c
+  - |
+    mkdir -p /root/.kube
+    cat /opt/cluster/ci-script > connect.sh
+    chmod +x connect.sh
+    ./connect.sh ${CI_JOB}
+    ./test/e2e-tests.sh --run-tests
+  env:
+  - name: CI_JOB
+    value: plugin_event-110
+  - name: SSL_CERT_FILE
+    value: /opt/cluster/ssl.crt
+  command:
+  - runner.sh
+  cron: 15 12 * * *
+  name: ppc64le-e2e-tests
+  requirements:
+  - ppc64le
+  types:
+  - periodic
+  excluded_requirements:
+  - gcp
 org: knative-sandbox
 repo: kn-plugin-event
