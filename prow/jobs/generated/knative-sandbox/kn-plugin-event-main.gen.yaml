@@ -136,7 +136,7 @@ periodics:
       - name: CI_JOB
         value: plugin_event-main
       - name: SSL_CERT_FILE
-        value: /opt/cluster/ssl.crt
+        value: /tmp/ssl.crt
       - name: KO_FLAGS
         value: --platform=linux/ppc64le
       - name: PLATFORM

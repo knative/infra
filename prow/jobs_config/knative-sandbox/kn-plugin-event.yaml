@@ -58,7 +58,7 @@ jobs:
     - name: CI_JOB
       value: plugin_event-main
     - name: SSL_CERT_FILE
-      VALUE: /opt/cluster/ssl.crt
+      VALUE: /tmp/ssl.crt
     excluded_requirements:
     - gcp
   - name: nightly

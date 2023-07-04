@@ -101,7 +101,7 @@ jobs:
   - name: CI_JOB
     value: plugin_event-110
   - name: SSL_CERT_FILE
-    value: /opt/cluster/ssl.crt
+    value: /tmp/ssl.crt
   command:
   - runner.sh
   cron: 15 12 * * *
