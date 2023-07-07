@@ -160,6 +160,8 @@ deck:
           slug: 'serving-wg-leads'
         - org: 'knative'
           slug: 'ux-wg-leads'
+        - org: 'knative'
+          slug: 'functions-wg-leads'
 
 prowjob_namespace: default
 pod_namespace: test-pods
