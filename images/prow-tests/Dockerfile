@@ -161,11 +161,11 @@ RUN curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/v$
 # protoc-gen-gogofaster is installed below
 
 ############################################################
-FROM golang:1.19.9 AS external-go-previous
+FROM golang:1.19.11 AS external-go-previous
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
-FROM golang:1.20.4 AS external-go-latest
+FROM golang:1.20.6 AS external-go-latest
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
@@ -184,6 +184,9 @@ ARG DOCKER_CREDENTIAL_GCR_VERSION=v2.0.5
 ARG JSONNET_VERSION=v0.18.0
 ARG COSIGN_VERSION=v1.13.0
 ARG TOOLBOX_VERSION=2051540f04c2a8fb5ad50c717345c2dd69a0b71e
+
+# Disable CGO libs to avoid error with too old version in base image
+ENV CGO_ENABLED=0
 
 # Extra tools through go install
 # These run using the golang image version of Go, not any defined by `gvm`
