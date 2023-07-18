@@ -177,7 +177,7 @@ tide:
   queries:
   - orgs:
     - "knative"
-    - "knative-sandbox"
+    - "knative-extensions"
     excludedRepos: &knative_excluded_repos
     - knative/build
     - knative/build-templates
@@ -194,7 +194,7 @@ tide:
     - needs-rebase
   - orgs:
     - "knative"
-    - "knative-sandbox"
+    - "knative-extensions"
     excludedRepos: *knative_excluded_repos
     labels:
     - "skip-review"
@@ -211,7 +211,7 @@ tide:
     reviewApprovedRequired: false
   merge_method:
     knative: squash
-    knative-sandbox: squash
+    knative-extensions: squash
   target_url: https://prow.knative.dev/tide
   pr_status_base_urls:
     '*': https://prow.knative.dev/pr
@@ -232,7 +232,7 @@ tide:
             skip-unknown-contexts: true
           docs:
             skip-unknown-contexts: true
-      knative-sandbox:
+      knative-extensions:
         repos:
           async-component:
             skip-unknown-contexts: true
@@ -263,8 +263,8 @@ branch-protection:
   # Allows a child to disable all protection even if the branch has inherited protection options from a parent.
   allow_disabled_policies: true
   orgs:
-    knative-sandbox:
-      # Protect all branches in knative-sandbox
+    knative-extensions:
+      # Protect all branches in knative-extensions
       protect: true
       required_status_checks:
         contexts:

@@ -1,4 +1,4 @@
-org: knative-sandbox
+org: knative-extensions
 repo: net-http01
 branches: [main]
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230704-dbbb0d523

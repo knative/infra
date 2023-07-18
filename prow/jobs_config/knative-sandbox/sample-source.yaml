@@ -1,4 +1,4 @@
-org: knative-sandbox
+org: knative-extensions
 repo: sample-source
 branches: [main]
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230704-dbbb0d523
