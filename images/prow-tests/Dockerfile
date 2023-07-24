@@ -25,7 +25,7 @@ ARG PROTOC_VERSION=3.17.0
 ARG TFENV_VERSION=v2.2.3
 ARG KOPS_VERSION=v1.25.0
 ARG CHART_RELEASER_VERSION=1.6.0
-ARG HELM=v3.12.2
+ARG HELM_VERSION=v3.12.2
 ARG COMMIT_HASH
 
 RUN echo "${COMMIT_HASH}" > /commit_hash
@@ -96,7 +96,7 @@ RUN curl -fsSL https://get.helm.sh/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.
     mv /tmp/linux-${TARGETARCH}/helm /usr/local/bin/helm
 
 # chart releaser
-RUN curl -fsSL https://github.com/helm/chart-releaser/releases/download/v${CHART_RELEASER_VERSION}/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz -o /tmp/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz && \
+RUN curl -fsSL https://github.com/helm/chart-releaser/releases/download/v${CHART_RELEASER_VERSION}/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz -o /tmp/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz && \
     tar xf /tmp/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz -C /tmp && \
     mv /tmp/cr /usr/local/bin/cr
 
