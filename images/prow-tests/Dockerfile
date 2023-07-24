@@ -17,13 +17,15 @@ FROM debian:bullseye-20230703-slim AS base
 # Pinned versions of stuff we pull in
 ARG TARGETARCH
 ARG CLOUD_SDK_VERSION=432.0.0
-ARG KUBECTL_VERSION=v1.25.10
+ARG KUBECTL_VERSION=v1.25.12
 ARG DOCKER_VERSION=5:24.0.1-1~debian.11~bullseye
 ARG MAVEN_VERSION=3.8.4
 ARG JAVA_VERSION=20
 ARG PROTOC_VERSION=3.17.0
 ARG TFENV_VERSION=v2.2.3
 ARG KOPS_VERSION=v1.25.0
+ARG CHART_RELEASER_VERSION=1.6.0
+ARG HELM=v3.12.2
 ARG COMMIT_HASH
 
 RUN echo "${COMMIT_HASH}" > /commit_hash
@@ -81,12 +83,22 @@ RUN gcloud config set core/disable_usage_reporting true && \
 #
 
 # kubectl
-RUN curl -fsSL "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" -o /usr/local/bin/kubectl && \
+RUN curl -fsSL "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" -o /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/kubectl
 
 # kops
-RUN curl -fsSL https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64 -o /usr/local/bin/kops && \
+RUN curl -fsSL https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-${TARGETARCH} -o /usr/local/bin/kops && \
     chmod +x /usr/local/bin/kops
+
+# helm
+RUN curl -fsSL https://get.helm.sh/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz -o /tmp/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz && \
+    tar xf /tmp/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz -C /tmp && \
+    mv /tmp/linux-${TARGETARCH}/helm /usr/local/bin/helm
+
+# chart releaser
+RUN curl -fsSL https://github.com/helm/chart-releaser/releases/download/v${CHART_RELEASER_VERSION}/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz -o /tmp/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz && \
+    tar xf /tmp/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz -C /tmp && \
+    mv /tmp/cr /usr/local/bin/cr
 
 # tfenv
 RUN git clone -b ${TFENV_VERSION} https://github.com/tfutils/tfenv.git ~/.tfenv && \
