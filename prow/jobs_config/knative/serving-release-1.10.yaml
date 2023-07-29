@@ -249,7 +249,7 @@ jobs:
     ./test/e2e-tests.sh --run-tests --kourier-version latest
   command:
   - runner.sh
-  cron: 30 5 * * *
+  cron: 30 4 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-serving
@@ -273,7 +273,7 @@ jobs:
     ./test/e2e-tests.sh --run-tests --contour-version latest
   command:
   - runner.sh
-  cron: 30 2 * * *
+  cron: 50 5 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-serving

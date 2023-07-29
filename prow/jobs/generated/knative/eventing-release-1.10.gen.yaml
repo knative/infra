@@ -218,7 +218,7 @@ periodics:
     testgrid-dashboards: knative-release-1.10
     testgrid-tab-name: eventing-ppc64le-e2e-tests
   cluster: prow-build
-  cron: 10 11 * * *
+  cron: 0 9 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.10
@@ -291,7 +291,7 @@ periodics:
     testgrid-dashboards: knative-release-1.10
     testgrid-tab-name: eventing-ppc64le-e2e-reconciler-tests
   cluster: prow-build
-  cron: 30 1 * * *
+  cron: 20 7 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.10
