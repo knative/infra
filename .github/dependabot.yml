@@ -9,3 +9,5 @@ updates:
       update-types:
       - "version-update:semver-major"
       - "version-update:semver-minor"
+    labels:
+    - "skip-review"
