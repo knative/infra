@@ -1,7 +1,7 @@
 org: knative
 repo: client-pkg
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230731-c57285e24
 cluster: prow-build
 
 jobs:
