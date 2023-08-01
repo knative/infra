@@ -1,4 +1,4 @@
-org: knative-sandbox
+org: knative-extensions
 repo: kn-plugin-service-log
 branches: [main]
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230731-c57285e24
