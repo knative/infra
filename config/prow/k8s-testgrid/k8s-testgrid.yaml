@@ -81,9 +81,6 @@ dashboards:
 - name: kn-plugin-service-log
 - name: kn-plugin-source-kafka
 - name: kn-plugin-source-kamelet
-- name: knative-release-1.10
-- name: knative-release-1.11
-- name: knative-release-1.9
 - name: knative-extensions-release-0.4
 - name: knative-extensions-release-0.5
 - name: knative-extensions-release-1.0
@@ -94,6 +91,9 @@ dashboards:
 - name: knative-extensions-release-1.3
 - name: knative-extensions-release-1.4
 - name: knative-extensions-release-1.9
+- name: knative-release-1.10
+- name: knative-release-1.11
+- name: knative-release-1.9
 - name: net-certmanager
 - name: net-contour
 - name: net-gateway-api
