@@ -112,5 +112,5 @@ jobs:
   - periodic
   excluded_requirements:
   - gcp
-org: knative-sandbox
+org: knative-extensions
 repo: kn-plugin-event
