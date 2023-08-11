@@ -849,7 +849,7 @@ periodics:
         cat /opt/cluster/ci-script > /tmp/connect.sh
         chmod +x /tmp/connect.sh
         . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'cluster.ppc64le
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'a9367076.nip.io
         ./test/e2e-tests.sh --run-tests --kourier-version latest
       command:
       - runner.sh
@@ -869,7 +869,7 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: registry.ppc64le
+        value: registry.apps.a9367076.nip.io
       - name: KUBECONFIG
         value: /root/.kube/config
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230731-c57285e24
@@ -931,7 +931,7 @@ periodics:
         cat /opt/cluster/ci-script > /tmp/connect.sh
         chmod +x /tmp/connect.sh
         . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'cluster.ppc64le
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'a9367076.nip.io
         ./test/e2e-tests.sh --run-tests --contour-version latest
       command:
       - runner.sh
@@ -951,7 +951,7 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: registry.ppc64le
+        value: registry.apps.a9367076.nip.io
       - name: KUBECONFIG
         value: /root/.kube/config
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230731-c57285e24

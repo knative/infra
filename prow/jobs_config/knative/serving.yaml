@@ -267,7 +267,7 @@ jobs:
         cat /opt/cluster/ci-script > /tmp/connect.sh
         chmod +x /tmp/connect.sh
         . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'cluster.ppc64le
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'a9367076.nip.io
         ./test/e2e-tests.sh --run-tests --kourier-version latest
     env:
       - name: SYSTEM_NAMESPACE
@@ -289,7 +289,7 @@ jobs:
         cat /opt/cluster/ci-script > /tmp/connect.sh
         chmod +x /tmp/connect.sh
         . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'cluster.ppc64le
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'a9367076.nip.io
         ./test/e2e-tests.sh --run-tests --contour-version latest
     env:
       - name: SYSTEM_NAMESPACE
