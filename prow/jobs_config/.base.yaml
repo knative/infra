@@ -221,7 +221,7 @@ requirement_presets:
       - name: PLATFORM
         value: "linux/ppc64le"
       - name: KO_DOCKER_REPO
-        value: "registry.ppc64le"
+        value: "registry.apps.a9367076.nip.io"
       - name: KUBECONFIG
         value: /root/.kube/config
     volumeMounts:
