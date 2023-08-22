@@ -1024,6 +1024,8 @@ periodics:
       env:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
+      - name: E2E_CLUSTER_REGION
+        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230731-c57285e24

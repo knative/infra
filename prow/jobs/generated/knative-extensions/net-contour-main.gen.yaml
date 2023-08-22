@@ -80,6 +80,8 @@ periodics:
         value: "true"
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
+      - name: E2E_CLUSTER_REGION
+        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230731-c57285e24
