@@ -37,6 +37,17 @@ jobs:
     env:
       - name: BROKER_CLASS
         value: Kafka
+  
+  - name: reconciler-tests-loom
+    types: [presubmit]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/reconciler-tests.sh"]
+    requirements: [docker]
+    modifiers: [presubmit_optional]
+    env:
+      - name: BROKER_CLASS
+        value: Kafka
+      - name: USE_LOOM
+        value: "true"
 
   - name: reconciler-tests-namespaced-broker
     types: [ presubmit ]
@@ -46,21 +57,16 @@ jobs:
       - name: BROKER_CLASS
         value: KafkaNamespaced
 
-  - name: reconciler-tests-loom
-    types: [presubmit]
-    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/reconciler-tests-loom.sh"]
-    requirements: [docker]
-    env:
-      - name: BROKER_CLASS
-        value: Kafka
-
   - name: reconciler-tests-namespaced-broker-loom
     types: [ presubmit ]
-    command: [ runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/reconciler-tests-loom.sh" ]
+    command: [ runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/reconciler-tests.sh" ]
     requirements: [ docker ]
+    modifiers: [presubmit_optional]
     env:
       - name: BROKER_CLASS
         value: KafkaNamespaced
+      - name: USE_LOOM
+        value: "true"
 
   - name: channel-integration-tests-ssl
     types: [presubmit]
