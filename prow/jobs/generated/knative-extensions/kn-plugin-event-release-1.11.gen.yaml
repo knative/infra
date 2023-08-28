@@ -217,7 +217,7 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: registry.apps.a9367076.nip.io
+        value: na.artifactory.swg-devops.com/artifactory/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative/
       - name: KUBECONFIG
         value: /root/.kube/config
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230731-c57285e24
