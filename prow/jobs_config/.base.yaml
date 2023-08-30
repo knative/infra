@@ -227,7 +227,7 @@ requirement_presets:
       - name: PLATFORM
         value: "linux/ppc64le"
       - name: KO_DOCKER_REPO
-        value: "na.artifactory.swg-devops.com/artifactory/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative/"
+        value: "na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative"
       - name: KUBECONFIG
         value: /root/.kube/config
     volumeMounts:
