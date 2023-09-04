@@ -1407,6 +1407,73 @@ presubmits:
     - ^main$
     cluster: prow-build
     decorate: true
+    name: performance-tests_serving_main
+    optional: true
+    path_alias: knative.dev/serving
+    rerun_command: /test performance-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --run-test
+        - ./test/performance/performance-tests.sh
+        env:
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230731-c57285e24
+        name: ""
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            memory: 12Gi
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
+        - mountPath: /etc/influx-token-secret-volume
+          name: influx-token-secret-volume
+          readOnly: true
+        - mountPath: /etc/influx-url-secret-volume
+          name: influx-url-secret-volume
+          readOnly: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      serviceAccountName: test-runner
+      volumes:
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
+      - name: influx-token-secret-volume
+        secret:
+          defaultMode: 384
+          secretName: influx-token-secret
+      - name: influx-url-secret-volume
+        secret:
+          defaultMode: 384
+          secretName: influx-url-secret
+    trigger: ((?m)^/test( | .* )performance-tests,?($|\s.*))|((?m)^/test( | .* )performance-tests_serving_main,?($|\s.*))
+  - always_run: false
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
     name: performance-tests-kperf_serving_main
     optional: true
     path_alias: knative.dev/serving
