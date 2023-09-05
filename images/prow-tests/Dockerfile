@@ -65,7 +65,8 @@ RUN apt-get update -qqy && apt-get install -qqy \
         jq \
         procps \
         net-tools \
-        gnuplot
+        gnuplot \
+        bsdextrautils
 
 RUN pip3 install -U crcmod==1.7
 RUN curl -fsSLO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
@@ -173,11 +174,11 @@ RUN curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/v$
 # protoc-gen-gogofaster is installed below
 
 ############################################################
-FROM golang:1.19.11 AS external-go-previous
+FROM golang:1.20.7 AS external-go-previous
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
-FROM golang:1.20.6 AS external-go-latest
+FROM golang:1.21.0 AS external-go-latest
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
