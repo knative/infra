@@ -1407,6 +1407,8 @@ presubmits:
     - ^main$
     cluster: prow-build
     decorate: true
+    decoration_config:
+      timeout: 3h0m0s
     name: performance-tests_serving_main
     optional: true
     path_alias: knative.dev/serving

@@ -29,6 +29,7 @@ jobs:
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-auto-tls-tests.sh --istio-version latest --no-mesh"]
 
   - name: performance-tests
+    timeout: 3h
     types: [presubmit]
     requirements: [perf]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/performance/performance-tests.sh]
