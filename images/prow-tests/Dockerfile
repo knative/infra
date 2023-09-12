@@ -66,7 +66,8 @@ RUN apt-get update -qqy && apt-get install -qqy \
         procps \
         net-tools \
         gnuplot \
-        bsdextrautils
+        bsdextrautils \
+        gettext-base
 
 RUN pip3 install -U crcmod==1.7
 RUN curl -fsSLO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
