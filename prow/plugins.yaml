@@ -114,6 +114,8 @@ triggers:
   - knative
   - knative-extensions
   trigger_github_workflows: true
+  trusted_apps: 
+    - dependabot
 
 # Plugins enabled for each repo.
 plugins:
