@@ -67,6 +67,14 @@ jobs:
         value: KafkaNamespaced
       - name: USE_LOOM
         value: "true"
+  - name: reconciler-tests-keda
+    types: [ presubmit ]
+    command: [ runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/keda-reconciler-tests.sh"]
+    requirements: [ docker ]
+    modifiers: [ presubmit_optional ]
+    env:
+      - name: BROKER_CLASS
+        value: Kafka
 
   - name: channel-integration-tests-ssl
     types: [presubmit]
