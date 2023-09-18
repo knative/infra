@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-kafka-broker
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230915-dc41fb374
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
 
 jobs:
   - name: build-tests
