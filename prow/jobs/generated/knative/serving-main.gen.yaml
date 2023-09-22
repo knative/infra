@@ -526,80 +526,25 @@ periodics:
       name: cgroup
 - annotations:
     testgrid-dashboards: serving
-    testgrid-tab-name: performance-tests-kperf
+    testgrid-tab-name: performance-tests
   cluster: prow-build
-  cron: 39 */9 * * *
+  cron: 8 */12 * * *
   decorate: true
+  decoration_config:
+    timeout: 3h0m0s
   extra_refs:
   - base_ref: main
     org: knative
     path_alias: knative.dev/serving
     repo: serving
-  name: performance-tests-kperf_serving_main_periodic
+  name: performance-tests_serving_main_periodic
   spec:
     containers:
-    - args:
+    - command:
+      - runner.sh
       - ./test/presubmit-tests.sh
       - --run-test
       - ./test/performance/performance-tests.sh
-      command:
-      - runner.sh
-      env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: DOCKER_IN_DOCKER_ENABLED
-        value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
-      name: ""
-      resources:
-        limits:
-          memory: 16Gi
-        requests:
-          memory: 12Gi
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /docker-graph
-        name: docker-graph
-      - mountPath: /lib/modules
-        name: modules
-      - mountPath: /sys/fs/cgroup
-        name: cgroup
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    serviceAccountName: test-runner
-    volumes:
-    - emptyDir: {}
-      name: docker-graph
-    - hostPath:
-        path: /lib/modules
-        type: Directory
-      name: modules
-    - hostPath:
-        path: /sys/fs/cgroup
-        type: Directory
-      name: cgroup
-- annotations:
-    testgrid-dashboards: serving
-    testgrid-tab-name: performance-tests-mako
-  cluster: prow-build
-  cron: 43 */9 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: main
-    org: knative
-    path_alias: knative.dev/serving
-    repo: serving
-  name: performance-tests-mako_serving_main_periodic
-  spec:
-    containers:
-    - args:
-      - ./test/presubmit-tests.sh
-      - --run-test
-      - ./test/performance/performance-tests-mako.sh
-      command:
-      - runner.sh
       env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
@@ -1471,128 +1416,6 @@ presubmits:
           defaultMode: 384
           secretName: influx-url-secret
     trigger: ((?m)^/test( | .* )performance-tests,?($|\s.*))|((?m)^/test( | .* )performance-tests_serving_main,?($|\s.*))
-  - always_run: false
-    branches:
-    - ^main$
-    cluster: prow-build
-    decorate: true
-    name: performance-tests-kperf_serving_main
-    optional: true
-    path_alias: knative.dev/serving
-    rerun_command: /test performance-tests-kperf
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/performance/performance-tests.sh
-        env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
-        - name: DOCKER_IN_DOCKER_ENABLED
-          value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
-        name: ""
-        resources:
-          limits:
-            memory: 16Gi
-          requests:
-            memory: 12Gi
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /docker-graph
-          name: docker-graph
-        - mountPath: /lib/modules
-          name: modules
-        - mountPath: /sys/fs/cgroup
-          name: cgroup
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      serviceAccountName: test-runner
-      volumes:
-      - emptyDir: {}
-        name: docker-graph
-      - hostPath:
-          path: /lib/modules
-          type: Directory
-        name: modules
-      - hostPath:
-          path: /sys/fs/cgroup
-          type: Directory
-        name: cgroup
-    trigger: ((?m)^/test( | .* )performance-tests-kperf,?($|\s.*))|((?m)^/test( |
-      .* )performance-tests-kperf_serving_main,?($|\s.*))
-  - always_run: false
-    branches:
-    - ^main$
-    cluster: prow-build
-    decorate: true
-    name: performance-tests-mako_serving_main
-    optional: true
-    path_alias: knative.dev/serving
-    rerun_command: /test performance-tests-mako
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/performance/performance-tests-mako.sh
-        env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
-        - name: DOCKER_IN_DOCKER_ENABLED
-          value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
-        name: ""
-        resources:
-          limits:
-            memory: 16Gi
-          requests:
-            memory: 12Gi
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /docker-graph
-          name: docker-graph
-        - mountPath: /lib/modules
-          name: modules
-        - mountPath: /sys/fs/cgroup
-          name: cgroup
-        - mountPath: /etc/influx-token-secret-volume
-          name: influx-token-secret-volume
-          readOnly: true
-        - mountPath: /etc/influx-url-secret-volume
-          name: influx-url-secret-volume
-          readOnly: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      serviceAccountName: test-runner
-      volumes:
-      - emptyDir: {}
-        name: docker-graph
-      - hostPath:
-          path: /lib/modules
-          type: Directory
-        name: modules
-      - hostPath:
-          path: /sys/fs/cgroup
-          type: Directory
-        name: cgroup
-      - name: influx-token-secret-volume
-        secret:
-          defaultMode: 384
-          secretName: influx-token-secret
-      - name: influx-url-secret-volume
-        secret:
-          defaultMode: 384
-          secretName: influx-url-secret
-    trigger: ((?m)^/test( | .* )performance-tests-mako,?($|\s.*))|((?m)^/test( | .*
-      )performance-tests-mako_serving_main,?($|\s.*))
   - always_run: false
     branches:
     - ^main$
