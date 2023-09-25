@@ -29,7 +29,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
       name: ""
       resources: {}
       securityContext:
@@ -96,7 +96,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
       name: ""
       resources: {}
       securityContext:
@@ -163,7 +163,7 @@ periodics:
         value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
       name: ""
       resources: {}
       securityContext:
@@ -225,7 +225,7 @@ periodics:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
       name: ""
       resources: {}
       securityContext:
@@ -278,7 +278,7 @@ periodics:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
       name: ""
       resources: {}
       securityContext:
@@ -322,7 +322,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
         name: ""
         resources: {}
         securityContext:
@@ -345,7 +345,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
         name: ""
         resources: {}
         securityContext:
@@ -373,7 +373,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
         name: ""
         resources: {}
         securityContext:
@@ -413,7 +413,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
         name: ""
         resources: {}
         securityContext:
@@ -453,7 +453,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
         name: ""
         resources: {}
         securityContext:
@@ -494,7 +494,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230918-e098e6159
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
         name: ""
         resources: {}
         securityContext:
