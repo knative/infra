@@ -200,10 +200,12 @@ periodics:
       - bash
       - -c
       - |
-        mkdir -p /root/.kube
-        cat /opt/cluster/ci-script > connect.sh
-        chmod +x connect.sh
-        ./connect.sh ${CI_JOB}
+        cat /opt/cluster/vm-script > /tmp/vm.sh
+        cat /opt/cluster/ci-script > /tmp/connect.sh
+        chmod +x /tmp/vm.sh
+        chmod +x /tmp/connect.sh
+        server_vm=$(. /tmp/vm.sh)
+        . /tmp/connect.sh ${CI_JOB} ${server_vm}
         ./test/e2e-tests.sh --run-tests
       command:
       - runner.sh

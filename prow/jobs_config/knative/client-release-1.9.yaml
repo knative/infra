@@ -74,9 +74,12 @@ jobs:
   - bash
   - -c
   - |
+    cat /opt/cluster/vm-script > /tmp/vm.sh
     cat /opt/cluster/ci-script > /tmp/connect.sh
+    chmod +x /tmp/vm.sh
     chmod +x /tmp/connect.sh
-    . /tmp/connect.sh ${CI_JOB}
+    server_vm=$(. /tmp/vm.sh)
+    . /tmp/connect.sh ${CI_JOB} ${server_vm}
     ./test/e2e-tests.sh --run-tests
   command:
   - runner.sh
