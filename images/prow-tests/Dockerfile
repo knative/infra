@@ -45,29 +45,29 @@ ENV PATH=/google-cloud-sdk/bin:/workspace:${PATH} \
 
 # net-tools is used by serving tests
 RUN apt-get update -qqy && apt-get install -qqy \
-        curl \
-        gcc \
-        python3-dev \
-        python3-pip \
-        apt-transport-https \
-        lsb-release \
-        openssh-client \
-        ca-certificates \
-        git \
-        software-properties-common \
-        bison \
-        uuid-runtime \
-        shellcheck \
-        unzip \
-        zip \
-        wget \
-        gnupg \
-        jq \
-        procps \
-        net-tools \
-        gnuplot \
-        bsdextrautils \
-        gettext-base
+    curl \
+    gcc \
+    python3-dev \
+    python3-pip \
+    apt-transport-https \
+    lsb-release \
+    openssh-client \
+    ca-certificates \
+    git \
+    software-properties-common \
+    bison \
+    uuid-runtime \
+    shellcheck \
+    unzip \
+    zip \
+    wget \
+    gnupg \
+    jq \
+    procps \
+    net-tools \
+    gnuplot \
+    bsdextrautils \
+    gettext-base
 
 RUN pip3 install -U crcmod==1.7
 RUN curl -fsSLO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
@@ -246,7 +246,7 @@ RUN git clone https://github.com/kubernetes/kops /tmp/kops && cd /tmp/kops/tests
     go install .
 
 ############################################################
-FROM rust:1.72 AS external-rust-gets
+FROM rust:1.72-bullseye AS external-rust-gets
 
 ARG CODESIGN_VERSION=0.22.0
 # change this when a new version with https://github.com/indygreg/apple-platform-rs/pull/20 is cut
@@ -296,6 +296,7 @@ ENV USE_GKE_GCLOUD_AUTH_PLUGIN True
 
 # Extract versions
 RUN ko version > /ko_version
+RUN rcodesign --version 
 
 # Ensure docker config is in the final image
 RUN docker-credential-gcr configure-docker --registries=gcr.io,us-docker.pkg.dev
