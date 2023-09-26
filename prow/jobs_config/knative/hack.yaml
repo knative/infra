@@ -1,7 +1,7 @@
 org: knative
 repo: hack
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230925-25e28c7d0
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230926-747f2d836
 
 jobs:
   - name: build-tests
