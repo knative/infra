@@ -698,7 +698,7 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )reconciler-tests,?($|\s.*))|((?m)^/test( | .* )reconciler-tests_eventing-kafka-broker_main,?($|\s.*))
-  - always_run: true
+  - always_run: false
     branches:
     - ^main$
     cluster: prow-build
@@ -823,7 +823,7 @@ presubmits:
         name: cgroup
     trigger: ((?m)^/test( | .* )reconciler-tests-namespaced-broker,?($|\s.*))|((?m)^/test(
       | .* )reconciler-tests-namespaced-broker_eventing-kafka-broker_main,?($|\s.*))
-  - always_run: true
+  - always_run: false
     branches:
     - ^main$
     cluster: prow-build
@@ -887,7 +887,7 @@ presubmits:
         name: cgroup
     trigger: ((?m)^/test( | .* )reconciler-tests-namespaced-broker-loom,?($|\s.*))|((?m)^/test(
       | .* )reconciler-tests-namespaced-broker-loom_eventing-kafka-broker_main,?($|\s.*))
-  - always_run: true
+  - always_run: false
     branches:
     - ^main$
     cluster: prow-build
