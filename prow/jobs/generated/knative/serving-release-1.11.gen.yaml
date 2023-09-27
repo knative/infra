@@ -258,10 +258,9 @@ periodics:
       - bash
       - -c
       - |
-        cat /opt/cluster/ci-script > /tmp/connect.sh
-        chmod +x /tmp/connect.sh
-        . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'a9367076.nip.io
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_vm}
         ./test/e2e-tests.sh --run-tests --kourier-version latest
       command:
       - runner.sh
@@ -340,10 +339,9 @@ periodics:
       - bash
       - -c
       - |
-        cat /opt/cluster/ci-script > /tmp/connect.sh
-        chmod +x /tmp/connect.sh
-        . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'a9367076.nip.io
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_vm}
         ./test/e2e-tests.sh --run-tests --contour-version latest
       command:
       - runner.sh
