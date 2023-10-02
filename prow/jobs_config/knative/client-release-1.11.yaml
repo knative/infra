@@ -79,7 +79,7 @@ jobs:
     ./test/e2e-tests.sh --run-tests
   command:
   - runner.sh
-  cron: 10 14 * * *
+  cron: 30 14 * * *
   env:
   - name: INGRESS_CLASS
     value: contour.ingress.networking.knative.dev
