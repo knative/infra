@@ -201,6 +201,32 @@ jobs:
       - name: BROKER_CLASS
         value: Kafka
 
+  - name: ppc64le-e2e-tests-ssl
+    cron: 0 10 * * *
+    types: [periodic]
+    requirements: [ppc64le]
+    command: [runner.sh]
+    args:
+      - bash
+      - -c
+      - |
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        ./test/e2e-tests.sh --run-tests
+    env:
+      - name: CI_JOB
+        value: eventing_kafka-broker-ssl-main
+      - name: SYSTEM_NAMESPACE
+        value: knative-eventing
+      - name: EVENTING_NAMESPACE
+        value: knative-eventing
+      - name: SCALE_CHAOSDUCK_TO_ZERO
+        value: "1"
+      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
+        value: SSL
+      - name: BROKER_CLASS
+        value: Kafka
+
   - name: s390x-e2e-tests-sasl-ssl
     cron: 20 8 * * *
     types: [periodic]
@@ -230,6 +256,32 @@ jobs:
       - name: BROKER_CLASS
         value: Kafka
 
+  - name: ppc64le-e2e-tests-sasl-ssl
+    cron: 20 5 * * *
+    types: [periodic]
+    requirements: [ppc64le]
+    command: [runner.sh]
+    args:
+      - bash
+      - -c
+      - |
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        ./test/e2e-tests.sh --run-tests
+    env:
+      - name: CI_JOB
+        value: eventing_kafka-broker-sasl-ssl-main
+      - name: SYSTEM_NAMESPACE
+        value: knative-eventing
+      - name: EVENTING_NAMESPACE
+        value: knative-eventing
+      - name: SCALE_CHAOSDUCK_TO_ZERO
+        value: "1"
+      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
+        value: SASL_SSL
+      - name: BROKER_CLASS
+        value: Kafka
+
   - name: s390x-e2e-tests-sasl-plain
     cron: 20 9 * * *
     types: [periodic]
@@ -248,6 +300,32 @@ jobs:
         ./adjust.sh
         ./test/e2e-tests.sh --run-tests
     env:
+      - name: SYSTEM_NAMESPACE
+        value: knative-eventing
+      - name: EVENTING_NAMESPACE
+        value: knative-eventing
+      - name: SCALE_CHAOSDUCK_TO_ZERO
+        value: "1"
+      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
+        value: SASL_PLAIN
+      - name: BROKER_CLASS
+        value: Kafka
+
+  - name: ppc64le-e2e-tests-sasl-plain
+    cron: 0 1 * * *
+    types: [periodic]
+    requirements: [ppc64le]
+    command: [runner.sh]
+    args:
+      - bash
+      - -c
+      - |
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        ./test/e2e-tests.sh --run-tests
+    env:
+      - name: CI_JOB
+        value: eventing_kafka-broker-sasl-plain-main
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
       - name: EVENTING_NAMESPACE
