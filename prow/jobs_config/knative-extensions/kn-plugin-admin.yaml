@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: kn-plugin-admin
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230926-747f2d836
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231011-5b2a2711d
 
 jobs:
   - name: build-tests
