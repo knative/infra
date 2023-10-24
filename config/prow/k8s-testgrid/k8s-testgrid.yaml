@@ -89,12 +89,14 @@ dashboards:
 - name: knative-extensions-release-1.1
 - name: knative-extensions-release-1.10
 - name: knative-extensions-release-1.11
+- name: knative-extensions-release-1.12
 - name: knative-extensions-release-1.2
 - name: knative-extensions-release-1.3
 - name: knative-extensions-release-1.4
 - name: knative-extensions-release-1.9
 - name: knative-release-1.10
 - name: knative-release-1.11
+- name: knative-release-1.12
 - name: knative-release-1.9
 - name: net-certmanager
 - name: net-contour

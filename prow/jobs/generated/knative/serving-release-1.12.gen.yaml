@@ -7,19 +7,19 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-release-1.9
+    testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: serving-continuous
   cluster: prow-build
-  cron: 16 23 * * *
+  cron: 20 15 * * *
   decorate: true
   decoration_config:
     timeout: 3h0m0s
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative
     path_alias: knative.dev/serving
     repo: serving
-  name: continuous_serving_release-1.9_periodic
+  name: continuous_serving_release-1.12_periodic
   spec:
     containers:
     - command:
@@ -63,17 +63,17 @@ periodics:
         type: Directory
       name: cgroup
 - annotations:
-    testgrid-dashboards: knative-release-1.9
+    testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: serving-s390x-kourier-tests
   cluster: prow-build
-  cron: 20 14 * * *
+  cron: 20 2 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative
     path_alias: knative.dev/serving
     repo: serving
-  name: s390x-kourier-tests_serving_release-1.9_periodic
+  name: s390x-kourier-tests_serving_release-1.12_periodic
   spec:
     containers:
     - args:
@@ -83,7 +83,7 @@ periodics:
         mkdir -p /root/.kube
         cat /opt/cluster/ci-script > connect.sh
         chmod +x connect.sh
-        server_addr=$(./connect.sh kourier-19)
+        server_addr=$(./connect.sh kourier-main)
         kubectl get cm s390x-config-serving -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
         chmod +x adjust.sh
         ./adjust.sh
@@ -152,17 +152,17 @@ periodics:
         defaultMode: 384
         secretName: s390x-cluster1
 - annotations:
-    testgrid-dashboards: knative-release-1.9
+    testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: serving-s390x-contour-tests
   cluster: prow-build
-  cron: 20 15 * * *
+  cron: 20 3 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative
     path_alias: knative.dev/serving
     repo: serving
-  name: s390x-contour-tests_serving_release-1.9_periodic
+  name: s390x-contour-tests_serving_release-1.12_periodic
   spec:
     containers:
     - args:
@@ -172,7 +172,7 @@ periodics:
         mkdir -p /root/.kube
         cat /opt/cluster/ci-script > connect.sh
         chmod +x connect.sh
-        server_addr=$(./connect.sh contour-19)
+        server_addr=$(./connect.sh contour-main)
         kubectl get cm s390x-config-serving -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
         chmod +x adjust.sh
         ./adjust.sh
@@ -241,17 +241,17 @@ periodics:
         defaultMode: 384
         secretName: s390x-cluster1
 - annotations:
-    testgrid-dashboards: knative-release-1.9
+    testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: serving-ppc64le-kourier-tests
   cluster: prow-build
-  cron: 40 22 * * *
+  cron: 40 4 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative
     path_alias: knative.dev/serving
     repo: serving
-  name: ppc64le-kourier-tests_serving_release-1.9_periodic
+  name: ppc64le-kourier-tests_serving_release-1.12_periodic
   spec:
     containers:
     - args:
@@ -266,7 +266,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: kourier-release-1.9
+        value: kourier-main
       - name: SYSTEM_NAMESPACE
         value: knative-serving
       - name: TEST_OPTIONS
@@ -322,17 +322,17 @@ periodics:
         defaultMode: 384
         secretName: ppc64le-cluster
 - annotations:
-    testgrid-dashboards: knative-release-1.9
+    testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: serving-ppc64le-contour-tests
   cluster: prow-build
-  cron: 0 18 * * *
+  cron: 0 0 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative
     path_alias: knative.dev/serving
     repo: serving
-  name: ppc64le-contour-tests_serving_release-1.9_periodic
+  name: ppc64le-contour-tests_serving_release-1.12_periodic
   spec:
     containers:
     - args:
@@ -347,7 +347,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: contour-release-1.9
+        value: contour-main
       - name: SYSTEM_NAMESPACE
         value: knative-serving
       - name: TEST_OPTIONS
@@ -403,20 +403,20 @@ periodics:
         defaultMode: 384
         secretName: ppc64le-cluster
 - annotations:
-    testgrid-dashboards: knative-release-1.9
+    testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: serving-release
   cluster: prow-build
-  cron: 20 9 * * 2
+  cron: 8 9 * * 2
   decorate: true
   decoration_config:
     timeout: 3h0m0s
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative
     path_alias: knative.dev/serving
     repo: serving
   max_concurrency: 1
-  name: release_serving_release-1.9_periodic
+  name: release_serving_release-1.12_periodic
   spec:
     containers:
     - command:
@@ -430,7 +430,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.9
+      - release-1.12
       env:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
@@ -486,10 +486,10 @@ presubmits:
   knative/serving:
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: build-tests_serving_release-1.9
+    name: build-tests_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test build-tests
     spec:
@@ -531,13 +531,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_serving_release-1.12,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: unit-tests_serving_release-1.9
+    name: unit-tests_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test unit-tests
     spec:
@@ -579,13 +579,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_serving_release-1.12,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: upgrade-tests_serving_release-1.9
+    name: upgrade-tests_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test upgrade-tests
     spec:
@@ -631,13 +631,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_serving_release-1.12,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: istio-latest-no-mesh_serving_release-1.9
+    name: istio-latest-no-mesh_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-no-mesh
     spec:
@@ -684,13 +684,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )istio-latest-no-mesh,?($|\s.*))|((?m)^/test( | .*
-      )istio-latest-no-mesh_serving_release-1.9,?($|\s.*))
+      )istio-latest-no-mesh_serving_release-1.12,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: istio-latest-no-mesh-tls_serving_release-1.9
+    name: istio-latest-no-mesh-tls_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-no-mesh-tls
     spec:
@@ -737,16 +737,18 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )istio-latest-no-mesh-tls,?($|\s.*))|((?m)^/test( |
-      .* )istio-latest-no-mesh-tls_serving_release-1.9,?($|\s.*))
+      .* )istio-latest-no-mesh-tls_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: performance-tests-kperf_serving_release-1.9
+    decoration_config:
+      timeout: 3h0m0s
+    name: performance-tests_serving_release-1.12
     optional: true
     path_alias: knative.dev/serving
-    rerun_command: /test performance-tests-kperf
+    rerun_command: /test performance-tests
     spec:
       containers:
       - command:
@@ -754,60 +756,6 @@ presubmits:
         - ./test/presubmit-tests.sh
         - --run-test
         - ./test/performance/performance-tests.sh
-        env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
-        - name: DOCKER_IN_DOCKER_ENABLED
-          value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231011-5b2a2711d
-        name: ""
-        resources:
-          limits:
-            memory: 16Gi
-          requests:
-            memory: 12Gi
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /docker-graph
-          name: docker-graph
-        - mountPath: /lib/modules
-          name: modules
-        - mountPath: /sys/fs/cgroup
-          name: cgroup
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      serviceAccountName: test-runner
-      volumes:
-      - emptyDir: {}
-        name: docker-graph
-      - hostPath:
-          path: /lib/modules
-          type: Directory
-        name: modules
-      - hostPath:
-          path: /sys/fs/cgroup
-          type: Directory
-        name: cgroup
-    trigger: ((?m)^/test( | .* )performance-tests-kperf,?($|\s.*))|((?m)^/test( |
-      .* )performance-tests-kperf_serving_release-1.9,?($|\s.*))
-  - always_run: false
-    branches:
-    - ^release-1.9$
-    cluster: prow-build
-    decorate: true
-    name: performance-tests-mako_serving_release-1.9
-    optional: true
-    path_alias: knative.dev/serving
-    rerun_command: /test performance-tests-mako
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/performance/performance-tests-mako.sh
         env:
         - name: E2E_CLUSTER_REGION
           value: us-central1
@@ -858,14 +806,13 @@ presubmits:
         secret:
           defaultMode: 384
           secretName: influx-url-secret
-    trigger: ((?m)^/test( | .* )performance-tests-mako,?($|\s.*))|((?m)^/test( | .*
-      )performance-tests-mako_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )performance-tests,?($|\s.*))|((?m)^/test( | .* )performance-tests_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: istio-latest-mesh_serving_release-1.9
+    name: istio-latest-mesh_serving_release-1.12
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-mesh
@@ -912,13 +859,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )istio-latest-mesh,?($|\s.*))|((?m)^/test( | .* )istio-latest-mesh_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )istio-latest-mesh,?($|\s.*))|((?m)^/test( | .* )istio-latest-mesh_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: istio-latest-mesh-short_serving_release-1.9
+    name: istio-latest-mesh-short_serving_release-1.12
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-mesh-short
@@ -966,13 +913,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )istio-latest-mesh-short,?($|\s.*))|((?m)^/test( |
-      .* )istio-latest-mesh-short_serving_release-1.9,?($|\s.*))
+      .* )istio-latest-mesh-short_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: istio-latest-mesh-tls_serving_release-1.9
+    name: istio-latest-mesh-tls_serving_release-1.12
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-mesh-tls
@@ -1020,13 +967,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )istio-latest-mesh-tls,?($|\s.*))|((?m)^/test( | .*
-      )istio-latest-mesh-tls_serving_release-1.9,?($|\s.*))
+      )istio-latest-mesh-tls_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: kourier-stable_serving_release-1.9
+    name: kourier-stable_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test kourier-stable
     run_if_changed: ^third_party/kourier-latest/*
@@ -1073,13 +1020,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )kourier-stable,?($|\s.*))|((?m)^/test( | .* )kourier-stable_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )kourier-stable,?($|\s.*))|((?m)^/test( | .* )kourier-stable_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: kourier-stable-tls_serving_release-1.9
+    name: kourier-stable-tls_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test kourier-stable-tls
     run_if_changed: ^third_party/kourier-latest/*
@@ -1126,13 +1073,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )kourier-stable-tls,?($|\s.*))|((?m)^/test( | .* )kourier-stable-tls_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )kourier-stable-tls,?($|\s.*))|((?m)^/test( | .* )kourier-stable-tls_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: contour-latest_serving_release-1.9
+    name: contour-latest_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test contour-latest
     run_if_changed: ^third_party/contour-latest/*
@@ -1179,13 +1126,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )contour-latest,?($|\s.*))|((?m)^/test( | .* )contour-latest_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )contour-latest,?($|\s.*))|((?m)^/test( | .* )contour-latest_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: contour-tls_serving_release-1.9
+    name: contour-tls_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test contour-tls
     run_if_changed: ^third_party/contour-latest/*
@@ -1232,67 +1179,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )contour-tls,?($|\s.*))|((?m)^/test( | .* )contour-tls_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )contour-tls,?($|\s.*))|((?m)^/test( | .* )contour-tls_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: contour-internal-encryption_serving_release-1.9
-    path_alias: knative.dev/serving
-    rerun_command: /test contour-internal-encryption
-    run_if_changed: ^third_party/contour-latest/*
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/e2e-internal-encryption-tests.sh --contour-version latest
-        env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
-        - name: DOCKER_IN_DOCKER_ENABLED
-          value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231011-5b2a2711d
-        name: ""
-        resources:
-          limits:
-            memory: 16Gi
-          requests:
-            memory: 12Gi
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /docker-graph
-          name: docker-graph
-        - mountPath: /lib/modules
-          name: modules
-        - mountPath: /sys/fs/cgroup
-          name: cgroup
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      serviceAccountName: test-runner
-      volumes:
-      - emptyDir: {}
-        name: docker-graph
-      - hostPath:
-          path: /lib/modules
-          type: Directory
-        name: modules
-      - hostPath:
-          path: /sys/fs/cgroup
-          type: Directory
-        name: cgroup
-    trigger: ((?m)^/test( | .* )contour-internal-encryption,?($|\s.*))|((?m)^/test(
-      | .* )contour-internal-encryption_serving_release-1.9,?($|\s.*))
-  - always_run: false
-    branches:
-    - ^release-1.9$
-    cluster: prow-build
-    decorate: true
-    name: gateway-api-latest_serving_release-1.9
+    name: gateway-api-latest_serving_release-1.12
     path_alias: knative.dev/serving
     rerun_command: /test gateway-api-latest
     run_if_changed: ^third_party/gateway-api-latest/*
@@ -1339,13 +1232,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )gateway-api-latest,?($|\s.*))|((?m)^/test( | .* )gateway-api-latest_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )gateway-api-latest,?($|\s.*))|((?m)^/test( | .* )gateway-api-latest_serving_release-1.12,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: https_serving_release-1.9
+    name: https_serving_release-1.12
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test https
@@ -1396,4 +1289,4 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )https,?($|\s.*))|((?m)^/test( | .* )https_serving_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )https,?($|\s.*))|((?m)^/test( | .* )https_serving_release-1.12,?($|\s.*))
