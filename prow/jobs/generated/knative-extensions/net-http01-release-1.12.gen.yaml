@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.9
-    testgrid-tab-name: net-kourier-continuous
+    testgrid-dashboards: knative-extensions-release-1.12
+    testgrid-tab-name: net-http01-continuous
   cluster: prow-build
-  cron: 12 19 * * *
+  cron: 32 3 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative-extensions
-    path_alias: knative.dev/net-kourier
-    repo: net-kourier
-  name: continuous_net-kourier_release-1.9_periodic
+    path_alias: knative.dev/net-http01
+    repo: net-http01
+  name: continuous_net-http01_release-1.12_periodic
   spec:
     containers:
     - command:
@@ -49,18 +49,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.9
-    testgrid-tab-name: net-kourier-release
+    testgrid-dashboards: knative-extensions-release-1.12
+    testgrid-tab-name: net-http01-release
   cluster: prow-build
-  cron: 48 9 * * 2
+  cron: 56 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative-extensions
-    path_alias: knative.dev/net-kourier
-    repo: net-kourier
+    path_alias: knative.dev/net-http01
+    repo: net-http01
   max_concurrency: 1
-  name: release_net-kourier_release-1.9_periodic
+  name: release_net-http01_release-1.12_periodic
   spec:
     containers:
     - command:
@@ -68,13 +68,13 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/net-kourier
+      - knative-releases/net-http01
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.9
+      - release-1.12
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -113,14 +113,14 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 presubmits:
-  knative-extensions/net-kourier:
+  knative-extensions/net-http01:
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: build-tests_net-kourier_release-1.9
-    path_alias: knative.dev/net-kourier
+    name: build-tests_net-http01_release-1.12
+    path_alias: knative.dev/net-http01
     rerun_command: /test build-tests
     spec:
       containers:
@@ -136,14 +136,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-kourier_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-http01_release-1.12,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: unit-tests_net-kourier_release-1.9
-    path_alias: knative.dev/net-kourier
+    name: unit-tests_net-http01_release-1.12
+    path_alias: knative.dev/net-http01
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -159,14 +159,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-kourier_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-http01_release-1.12,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: integration-tests_net-kourier_release-1.9
-    path_alias: knative.dev/net-kourier
+    name: integration-tests_net-http01_release-1.12
+    path_alias: knative.dev/net-http01
     rerun_command: /test integration-tests
     spec:
       containers:
@@ -198,4 +198,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-kourier_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-http01_release-1.12,?($|\s.*))
