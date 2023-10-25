@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.9
+- release-1.12
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
 jobs:
 - command:
@@ -28,38 +28,6 @@ jobs:
   name: unit-tests
   requirements:
   - docker
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --consolidated
-  name: integration-test-channel-consolidated
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --consolidated-tls
-  name: integration-test-channel-consolidated-tls
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --consolidated-sasl
-  name: integration-test-channel-consolidated-sasl
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --distributed
-  name: integration-test-channel-distributed
   types:
   - presubmit
 - command:
@@ -102,7 +70,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.9
+  - release-1.12
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -112,29 +80,5 @@ jobs:
   - docker
   types:
   - periodic
-- name: s390x-e2e-tests
-  cron: 20 18 * * *
-  types: [periodic]
-  requirements: [s390x]
-  command: [runner.sh]
-  args:
-    - bash
-    - -c
-    - |
-      mkdir -p /root/.kube
-      cat /opt/cluster/ci-script > connect.sh
-      chmod +x connect.sh
-      ./connect.sh eventing_kafka-19
-      kubectl get cm s390x-config-eventing-kafka -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-      chmod +x adjust.sh
-      ./adjust.sh
-      ./test/e2e-tests.sh --run-tests
-  env:
-    - name: SYSTEM_NAMESPACE
-      value: knative-eventing
-    - name: EVENTING_NAMESPACE
-      value: knative-eventing
-    - name: SCALE_CHAOSDUCK_TO_ZERO
-      value: "1"
 org: knative-extensions
 repo: eventing-kafka
