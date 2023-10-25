@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.9
+- release-1.12
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
 jobs:
 - command:
@@ -45,7 +45,7 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/kn-plugin-source-kamelet
+  - knative-releases/kn-plugin-source-kafka
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
@@ -57,13 +57,15 @@ jobs:
   - --apple-codesign-password-file
   - /etc/notary/password
   - --branch
-  - release-1.9
+  - release-1.12
   excluded_requirements:
   - gcp
+  max_concurrency: 1
   name: release
   requirements:
   - release-notary
+  - docker
   types:
   - periodic
 org: knative-extensions
-repo: kn-plugin-source-kamelet
+repo: kn-plugin-source-kafka
