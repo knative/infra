@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.9
+    testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: kn-plugin-quickstart-continuous
   cluster: prow-build
   cron: 2 9 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative-extensions
     path_alias: knative.dev/kn-plugin-quickstart
     repo: kn-plugin-quickstart
-  name: continuous_kn-plugin-quickstart_release-1.9_periodic
+  name: continuous_kn-plugin-quickstart_release-1.12_periodic
   spec:
     containers:
     - command:
@@ -49,18 +49,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.9
+    testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: kn-plugin-quickstart-release
   cluster: prow-build
-  cron: 14 9 * * 2
+  cron: 18 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative-extensions
     path_alias: knative.dev/kn-plugin-quickstart
     repo: kn-plugin-quickstart
   max_concurrency: 1
-  name: release_kn-plugin-quickstart_release-1.9_periodic
+  name: release_kn-plugin-quickstart_release-1.12_periodic
   spec:
     containers:
     - command:
@@ -80,7 +80,7 @@ periodics:
       - --apple-codesign-password-file
       - /etc/notary/password
       - --branch
-      - release-1.9
+      - release-1.12
       env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
@@ -127,10 +127,10 @@ presubmits:
   knative-extensions/kn-plugin-quickstart:
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: build-tests_kn-plugin-quickstart_release-1.9
+    name: build-tests_kn-plugin-quickstart_release-1.12
     path_alias: knative.dev/kn-plugin-quickstart
     rerun_command: /test build-tests
     spec:
@@ -147,13 +147,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-quickstart_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-quickstart_release-1.12,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: unit-tests_kn-plugin-quickstart_release-1.9
+    name: unit-tests_kn-plugin-quickstart_release-1.12
     path_alias: knative.dev/kn-plugin-quickstart
     rerun_command: /test unit-tests
     spec:
@@ -170,13 +170,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-quickstart_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-quickstart_release-1.12,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.9$
+    - ^release-1.12$
     cluster: prow-build
     decorate: true
-    name: integration-tests_kn-plugin-quickstart_release-1.9
+    name: integration-tests_kn-plugin-quickstart_release-1.12
     path_alias: knative.dev/kn-plugin-quickstart
     rerun_command: /test integration-tests
     spec:
@@ -209,4 +209,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-quickstart_release-1.9,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-quickstart_release-1.12,?($|\s.*))
