@@ -7,18 +7,18 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-release-1.9
+    testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: func-release
   cluster: prow-build
-  cron: 20 9 * * 2
+  cron: 28 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.9
+  - base_ref: release-1.12
     org: knative
     path_alias: knative.dev/func
     repo: func
   max_concurrency: 1
-  name: release_func_release-1.9_periodic
+  name: release_func_release-1.12_periodic
   spec:
     containers:
     - command:
@@ -38,7 +38,7 @@ periodics:
       - --apple-codesign-password-file
       - /etc/notary/password
       - --branch
-      - release-1.9
+      - release-1.12
       env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
@@ -97,3 +97,28 @@ periodics:
         path: /sys/fs/cgroup
         type: Directory
       name: cgroup
+presubmits:
+  knative/func:
+  - always_run: true
+    branches:
+    - ^release-1.12$
+    cluster: prow-build
+    decorate: true
+    name: unit-tests_func_release-1.12
+    path_alias: knative.dev/func
+    rerun_command: /test unit-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --unit-tests
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_func_release-1.12,?($|\s.*))
