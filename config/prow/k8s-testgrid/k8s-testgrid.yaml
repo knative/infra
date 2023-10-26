@@ -97,7 +97,6 @@ dashboards:
 - name: knative-release-1.10
 - name: knative-release-1.11
 - name: knative-release-1.12
-- name: knative-release-1.9
 - name: net-certmanager
 - name: net-contour
 - name: net-gateway-api
