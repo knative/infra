@@ -149,14 +149,6 @@ module "knative_dev" {
       records = [
         "83ded2db-0c5e-4f1f-ab89-93105195240d.12.authorize.certificatemanager.goog.",
       ]
-    },
-    {
-      name = "perf"
-      type = "A"
-      ttl  = 300
-      records = [
-        "34.170.87.98",
-      ]
     }
   ]
 }

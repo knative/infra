@@ -1,7 +1,7 @@
 org: knative
 repo: serving
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
 requirements: [docker]
 
 jobs:
@@ -28,15 +28,11 @@ jobs:
     types: [presubmit]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-auto-tls-tests.sh --istio-version latest --no-mesh"]
 
-  - name: performance-tests-kperf
-    types: [presubmit]
-    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/performance/performance-tests.sh]
-    modifiers: [presubmit_optional, presubmit_skipped]
-
-  - name: performance-tests-mako
+  - name: performance-tests
+    timeout: 3h
     types: [presubmit]
     requirements: [perf]
-    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/performance/performance-tests-mako.sh]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/performance/performance-tests.sh]
     modifiers: [presubmit_optional, presubmit_skipped]
 
   - name: istio-latest-mesh
@@ -124,28 +120,6 @@ jobs:
     - --run-test
     - ./test/e2e-auto-tls-tests.sh --istio-version latest --mesh
 
-  - name: istio-head-mesh
-    types: [periodic]
-    command:
-    - runner.sh
-    args:
-    - ./test/presubmit-tests.sh
-    - --run-test
-    - ./test/e2e-tests.sh --istio-version head --mesh
-    - --run-test
-    - ./test/e2e-auto-tls-tests.sh --istio-version head --mesh
-
-  - name: istio-head-no-mesh
-    types: [periodic]
-    command:
-    - runner.sh
-    args:
-    - ./test/presubmit-tests.sh
-    - --run-test
-    - ./test/e2e-tests.sh --istio-version head --no-mesh
-    - --run-test
-    - ./test/e2e-auto-tls-tests.sh --istio-version head --no-mesh
-
   - name: kourier-stable
     types: [periodic]
     command:
@@ -188,24 +162,11 @@ jobs:
     - --run-test
     - ./test/e2e-auto-tls-tests.sh --https
 
-  - name: performance-tests-kperf
-    types: [periodic]
-    command:
-    - runner.sh
-    args:
-    - ./test/presubmit-tests.sh
-    - --run-test
-    - ./test/performance/performance-tests.sh
-
-  - name: performance-tests-mako
+  - name: performance-tests
+    timeout: 3h
     types: [periodic]
     requirements: [perf]
-    command:
-    - runner.sh
-    args:
-    - ./test/presubmit-tests.sh
-    - --run-test
-    - ./test/performance/performance-tests-mako.sh
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/performance/performance-tests.sh]
 
   - name: s390x-kourier-tests
     cron: 20 2 * * *
@@ -256,7 +217,7 @@ jobs:
         value: "--enable-alpha --enable-beta --resolvabledomain=false"
 
   - name: ppc64le-kourier-tests
-    cron: 30 21 * * *
+    cron: 40 4 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
@@ -264,10 +225,9 @@ jobs:
       - bash
       - -c
       - |
-        cat /opt/cluster/ci-script > /tmp/connect.sh
-        chmod +x /tmp/connect.sh
-        . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'cluster.ppc64le
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_vm}
         ./test/e2e-tests.sh --run-tests --kourier-version latest
     env:
       - name: SYSTEM_NAMESPACE
@@ -278,7 +238,7 @@ jobs:
         value: "kourier-main"
 
   - name: ppc64le-contour-tests
-    cron: 30 23 * * *
+    cron: 0 0 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
@@ -286,10 +246,9 @@ jobs:
       - bash
       - -c
       - |
-        cat /opt/cluster/ci-script > /tmp/connect.sh
-        chmod +x /tmp/connect.sh
-        . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'cluster.ppc64le
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_vm}
         ./test/e2e-tests.sh --run-tests --contour-version latest
     env:
       - name: SYSTEM_NAMESPACE
@@ -341,6 +300,8 @@ requirement_presets:
     podSpec:
       serviceAccountName: nightly
     env:
+      - name: E2E_CLUSTER_REGION
+        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
     volumeMounts:

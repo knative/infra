@@ -12,18 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:bullseye-20230703-slim AS base
+FROM debian:bullseye-20231009-slim AS base
 
 # Pinned versions of stuff we pull in
 ARG TARGETARCH
 ARG CLOUD_SDK_VERSION=432.0.0
-ARG KUBECTL_VERSION=v1.25.10
+ARG KUBECTL_VERSION=v1.25.12
 ARG DOCKER_VERSION=5:24.0.1-1~debian.11~bullseye
 ARG MAVEN_VERSION=3.8.4
 ARG JAVA_VERSION=20
 ARG PROTOC_VERSION=3.17.0
 ARG TFENV_VERSION=v2.2.3
 ARG KOPS_VERSION=v1.25.0
+ARG CHART_RELEASER_VERSION=1.6.0
+ARG HELM_VERSION=v3.12.2
 ARG COMMIT_HASH
 
 RUN echo "${COMMIT_HASH}" > /commit_hash
@@ -43,27 +45,29 @@ ENV PATH=/google-cloud-sdk/bin:/workspace:${PATH} \
 
 # net-tools is used by serving tests
 RUN apt-get update -qqy && apt-get install -qqy \
-        curl \
-        gcc \
-        python3-dev \
-        python3-pip \
-        apt-transport-https \
-        lsb-release \
-        openssh-client \
-        ca-certificates \
-        git \
-        software-properties-common \
-        bison \
-        uuid-runtime \
-        shellcheck \
-        unzip \
-        zip \
-        wget \
-        gnupg \
-        jq \
-        procps \
-        net-tools \
-        gnuplot
+    curl \
+    gcc \
+    python3-dev \
+    python3-pip \
+    apt-transport-https \
+    lsb-release \
+    openssh-client \
+    ca-certificates \
+    git \
+    software-properties-common \
+    bison \
+    uuid-runtime \
+    shellcheck \
+    unzip \
+    zip \
+    wget \
+    gnupg \
+    jq \
+    procps \
+    net-tools \
+    gnuplot \
+    bsdextrautils \
+    gettext-base
 
 RUN pip3 install -U crcmod==1.7
 RUN curl -fsSLO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
@@ -81,12 +85,22 @@ RUN gcloud config set core/disable_usage_reporting true && \
 #
 
 # kubectl
-RUN curl -fsSL "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" -o /usr/local/bin/kubectl && \
+RUN curl -fsSL "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" -o /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/kubectl
 
 # kops
-RUN curl -fsSL https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64 -o /usr/local/bin/kops && \
+RUN curl -fsSL https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-${TARGETARCH} -o /usr/local/bin/kops && \
     chmod +x /usr/local/bin/kops
+
+# helm
+RUN curl -fsSL https://get.helm.sh/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz -o /tmp/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz && \
+    tar xf /tmp/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz -C /tmp && \
+    mv /tmp/linux-${TARGETARCH}/helm /usr/local/bin/helm
+
+# chart releaser
+RUN curl -fsSL https://github.com/helm/chart-releaser/releases/download/v${CHART_RELEASER_VERSION}/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz -o /tmp/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz && \
+    tar xf /tmp/chart-releaser_${CHART_RELEASER_VERSION}_linux_${TARGETARCH}.tar.gz -C /tmp && \
+    mv /tmp/cr /usr/local/bin/cr
 
 # tfenv
 RUN git clone -b ${TFENV_VERSION} https://github.com/tfutils/tfenv.git ~/.tfenv && \
@@ -161,11 +175,11 @@ RUN curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/v$
 # protoc-gen-gogofaster is installed below
 
 ############################################################
-FROM golang:1.19.11 AS external-go-previous
+FROM golang:1.20.10 AS external-go-previous
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
-FROM golang:1.20.6 AS external-go-latest
+FROM golang:1.21.3 AS external-go-latest
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
@@ -232,7 +246,7 @@ RUN git clone https://github.com/kubernetes/kops /tmp/kops && cd /tmp/kops/tests
     go install .
 
 ############################################################
-FROM rust:1.71 AS external-rust-gets
+FROM rust:1.73-bullseye AS external-rust-gets
 
 ARG CODESIGN_VERSION=0.22.0
 # change this when a new version with https://github.com/indygreg/apple-platform-rs/pull/20 is cut
@@ -282,6 +296,7 @@ ENV USE_GKE_GCLOUD_AUTH_PLUGIN True
 
 # Extract versions
 RUN ko version > /ko_version
+RUN rcodesign --version 
 
 # Ensure docker config is in the final image
 RUN docker-credential-gcr configure-docker --registries=gcr.io,us-docker.pkg.dev

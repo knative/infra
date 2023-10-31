@@ -29,7 +29,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources: {}
       securityContext:
@@ -96,7 +96,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources: {}
       securityContext:
@@ -126,7 +126,7 @@ periodics:
     testgrid-dashboards: knative-release-1.11
     testgrid-tab-name: client-ppc64le-e2e-tests
   cluster: prow-build
-  cron: 45 9 * * *
+  cron: 30 14 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.11
@@ -140,9 +140,8 @@ periodics:
       - bash
       - -c
       - |
-        cat /opt/cluster/ci-script > /tmp/connect.sh
-        chmod +x /tmp/connect.sh
-        . /tmp/connect.sh ${CI_JOB}
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
         ./test/e2e-tests.sh --run-tests
       command:
       - runner.sh
@@ -160,10 +159,10 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: registry.ppc64le
+        value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources: {}
       securityContext:
@@ -229,7 +228,7 @@ periodics:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources: {}
       securityContext:
@@ -278,7 +277,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources: {}
         securityContext:
@@ -301,7 +300,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources: {}
         securityContext:
@@ -329,7 +328,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources: {}
         securityContext:
@@ -367,7 +366,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources: {}
         securityContext:

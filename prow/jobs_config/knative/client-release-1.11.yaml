@@ -7,7 +7,7 @@
 branches:
 - release-1.11
 cluster: prow-build
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
 jobs:
 - command:
   - runner.sh
@@ -74,13 +74,12 @@ jobs:
   - bash
   - -c
   - |
-    cat /opt/cluster/ci-script > /tmp/connect.sh
-    chmod +x /tmp/connect.sh
-    . /tmp/connect.sh ${CI_JOB}
+    server_vm="$(sh /opt/cluster/vm-script)"
+    source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
     ./test/e2e-tests.sh --run-tests
   command:
   - runner.sh
-  cron: 45 9 * * *
+  cron: 30 14 * * *
   env:
   - name: INGRESS_CLASS
     value: contour.ingress.networking.knative.dev

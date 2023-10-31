@@ -1,7 +1,7 @@
 org: knative
 repo: client
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
 cluster: prow-build
 
 jobs:
@@ -53,7 +53,7 @@ jobs:
         value: contour.ingress.networking.knative.dev
 
   - name: ppc64le-e2e-tests
-    cron: 45 9 * * *
+    cron: 30 2 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
@@ -61,9 +61,8 @@ jobs:
       - bash
       - -c
       - |
-        cat /opt/cluster/ci-script > /tmp/connect.sh
-        chmod +x /tmp/connect.sh
-        . /tmp/connect.sh ${CI_JOB}
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
         ./test/e2e-tests.sh --run-tests
     env:
       - name: INGRESS_CLASS

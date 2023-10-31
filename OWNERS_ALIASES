@@ -30,12 +30,13 @@ aliases:
   docs-writers:
   - csantanapr
   - nak3
-  - psschwei
   - retocode
   - skonto
   - snneji
   eventing-reviewers:
+  - Leo6Leo
   - aslom
+  - cali0707
   - creydr
   eventing-triage:
   - lberk
@@ -43,6 +44,7 @@ aliases:
   - pierDipi
   eventing-writers:
   - aliok
+  - creydr
   - lberk
   - lionelvillard
   - matzew
@@ -58,14 +60,15 @@ aliases:
   - lkingland
   - matejvasek
   - salaboy
-  - zroubalik
   functions-wg-leads:
-  - lance
+  - lkingland
   - salaboy
   knative-admin:
-  - Vishal-Chdhry
+  - Cali0707
+  - ReToCode
   - creydr
   - csantanapr
+  - davidhadas
   - dprotaso
   - dsimansk
   - knative-automation
@@ -85,9 +88,9 @@ aliases:
   - smoser-ibm
   - upodroid
   - xtreme-sameer-vohra
-  - zroubalik
   knative-release-leads:
-  - Vishal-Chdhry
+  - Cali0707
+  - ReToCode
   - creydr
   - dsimansk
   - pierDipi
@@ -122,7 +125,6 @@ aliases:
   productivity-writers:
   - cardil
   - kvmware
-  - psschwei
   - upodroid
   security-wg-leads:
   - davidhadas
@@ -160,16 +162,22 @@ aliases:
   - puerco
   - salaboy
   technical-oversight-committee:
+  - davidhadas
   - dprotaso
   - dsimansk
   - kvmware
   - psschwei
-  - zroubalik
   trademark-committee:
   - mchmarny
   - smoser-ibm
   - xtreme-sameer-vohra
   ux-wg-leads:
-  - snneji
+  - cali0707
+  - leo6leo
+  - mmejia02
+  - zainabhusain227
   ux-writers:
-  - snneji
+  - cali0707
+  - leo6leo
+  - mmejia02
+  - zainabhusain227

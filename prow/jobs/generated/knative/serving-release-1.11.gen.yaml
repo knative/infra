@@ -31,7 +31,7 @@ periodics:
         value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources:
         limits:
@@ -113,7 +113,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources:
         limits:
@@ -202,7 +202,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources:
         limits:
@@ -244,7 +244,7 @@ periodics:
     testgrid-dashboards: knative-release-1.11
     testgrid-tab-name: serving-ppc64le-kourier-tests
   cluster: prow-build
-  cron: 30 21 * * *
+  cron: 40 16 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.11
@@ -258,10 +258,9 @@ periodics:
       - bash
       - -c
       - |
-        cat /opt/cluster/ci-script > /tmp/connect.sh
-        chmod +x /tmp/connect.sh
-        . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'cluster.ppc64le
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_vm}
         ./test/e2e-tests.sh --run-tests --kourier-version latest
       command:
       - runner.sh
@@ -281,10 +280,10 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: registry.ppc64le
+        value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources:
         limits:
@@ -326,7 +325,7 @@ periodics:
     testgrid-dashboards: knative-release-1.11
     testgrid-tab-name: serving-ppc64le-contour-tests
   cluster: prow-build
-  cron: 30 23 * * *
+  cron: 0 12 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.11
@@ -340,10 +339,9 @@ periodics:
       - bash
       - -c
       - |
-        cat /opt/cluster/ci-script > /tmp/connect.sh
-        chmod +x /tmp/connect.sh
-        . /tmp/connect.sh ${CI_JOB}
-        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint 'cluster.ppc64le
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_vm}
         ./test/e2e-tests.sh --run-tests --contour-version latest
       command:
       - runner.sh
@@ -363,10 +361,10 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: registry.ppc64le
+        value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources:
         limits:
@@ -438,7 +436,7 @@ periodics:
         value: "true"
       - name: E2E_CLUSTER_REGION
         value: us-central1
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
       name: ""
       resources:
         limits:
@@ -503,7 +501,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -551,7 +549,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -602,7 +600,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -654,7 +652,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -707,7 +705,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -761,7 +759,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -815,7 +813,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -883,7 +881,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -936,7 +934,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -990,7 +988,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -1044,7 +1042,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -1097,7 +1095,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -1150,7 +1148,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -1203,7 +1201,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -1256,7 +1254,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
@@ -1313,7 +1311,7 @@ presubmits:
           value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20230718-833225a30
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
         name: ""
         resources:
           limits:
