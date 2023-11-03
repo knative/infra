@@ -183,7 +183,7 @@ jobs:
     mkdir -p /root/.kube
     cat /opt/cluster/ci-script > connect.sh
     chmod +x connect.sh
-    server_addr=$(./connect.sh kourier-main)
+    server_addr=$(./connect.sh kourier-112)
     kubectl get cm s390x-config-serving -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
     chmod +x adjust.sh
     ./adjust.sh
@@ -191,7 +191,7 @@ jobs:
     ./test/e2e-tests.sh --run-tests --kourier-version latest
   command:
   - runner.sh
-  cron: 20 2 * * *
+  cron: 20 14 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-serving
@@ -209,7 +209,7 @@ jobs:
     mkdir -p /root/.kube
     cat /opt/cluster/ci-script > connect.sh
     chmod +x connect.sh
-    server_addr=$(./connect.sh contour-main)
+    server_addr=$(./connect.sh contour-112)
     kubectl get cm s390x-config-serving -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
     chmod +x adjust.sh
     ./adjust.sh
@@ -217,7 +217,7 @@ jobs:
     ./test/e2e-tests.sh --run-tests --contour-version latest
   command:
   - runner.sh
-  cron: 20 3 * * *
+  cron: 20 15 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-serving
