@@ -99,7 +99,7 @@ jobs:
   cron: 20 22 * * *
   env:
   - name: CI_JOB
-    value: operator-release-1.10
+    value: operator-release-1.12
   - name: INGRESS_CLASS
     value: contour.ingress.networking.knative.dev
   name: ppc64le-e2e-tests
