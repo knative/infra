@@ -239,7 +239,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: eventing-main
+        value: eventing-release-1.11
       - name: SCALE_CHAOSDUCK_TO_ZERO
         value: "1"
       - name: SYSTEM_NAMESPACE
@@ -311,7 +311,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: eventing_rekt-main
+        value: eventing_rekt-release-1.11
       - name: SCALE_CHAOSDUCK_TO_ZERO
         value: "1"
       - name: SYSTEM_NAMESPACE

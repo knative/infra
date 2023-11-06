@@ -255,7 +255,7 @@ jobs:
   - name: TEST_OPTIONS
     value: --enable-alpha --enable-beta --resolvabledomain=false
   - name: CI_JOB
-    value: kourier-main
+    value: kourier-release-1.11
   name: ppc64le-kourier-tests
   requirements:
   - ppc64le
@@ -278,7 +278,7 @@ jobs:
   - name: TEST_OPTIONS
     value: --enable-alpha --enable-beta --resolvabledomain=false
   - name: CI_JOB
-    value: contour-main
+    value: contour-release-1.11
   name: ppc64le-contour-tests
   requirements:
   - ppc64le
