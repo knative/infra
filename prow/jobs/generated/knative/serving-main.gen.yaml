@@ -81,7 +81,7 @@ periodics:
       - --run-test
       - ./test/e2e-tests.sh --istio-version latest --mesh
       - --run-test
-      - ./test/e2e-auto-tls-tests.sh --istio-version latest --mesh
+      - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
       command:
       - runner.sh
       env:
@@ -139,7 +139,7 @@ periodics:
       - --run-test
       - ./test/e2e-tests.sh --istio-version latest --mesh
       - --run-test
-      - ./test/e2e-auto-tls-tests.sh --istio-version latest --mesh
+      - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
       command:
       - runner.sh
       env:
@@ -197,7 +197,7 @@ periodics:
       - --run-test
       - ./test/e2e-tests.sh --kourier-version stable
       - --run-test
-      - ./test/e2e-auto-tls-tests.sh --kourier-version stable --run-http01-auto-tls-tests
+      - ./test/e2e-external-domain-tls-tests.sh --kourier-version stable --run-http01-external-domain-tls-tests
       command:
       - runner.sh
       env:
@@ -255,7 +255,7 @@ periodics:
       - --run-test
       - ./test/e2e-tests.sh --contour-version latest
       - --run-test
-      - ./test/e2e-auto-tls-tests.sh --contour-version latest --run-http01-auto-tls-tests
+      - ./test/e2e-external-domain-tls-tests.sh --contour-version latest --run-http01-external-domain-tls-tests
       command:
       - runner.sh
       env:
@@ -369,7 +369,7 @@ periodics:
       - --run-test
       - ./test/e2e-tests.sh --https
       - --run-test
-      - ./test/e2e-auto-tls-tests.sh --https
+      - ./test/e2e-external-domain-tls-tests.sh --https
       command:
       - runner.sh
       env:
@@ -1190,7 +1190,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --run-test
-        - ./test/e2e-auto-tls-tests.sh --istio-version latest --no-mesh
+        - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --no-mesh
         env:
         - name: E2E_CLUSTER_REGION
           value: us-central1
@@ -1420,7 +1420,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --run-test
-        - ./test/e2e-auto-tls-tests.sh --istio-version latest --mesh
+        - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
         env:
         - name: E2E_CLUSTER_REGION
           value: us-central1
@@ -1527,7 +1527,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --run-test
-        - ./test/e2e-auto-tls-tests.sh --kourier-version stable
+        - ./test/e2e-external-domain-tls-tests.sh --kourier-version stable
         env:
         - name: E2E_CLUSTER_REGION
           value: us-central1
@@ -1633,7 +1633,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --run-test
-        - ./test/e2e-auto-tls-tests.sh --contour-version latest
+        - ./test/e2e-external-domain-tls-tests.sh --contour-version latest
         env:
         - name: E2E_CLUSTER_REGION
           value: us-central1
@@ -1741,7 +1741,7 @@ presubmits:
         - --run-test
         - ./test/e2e-tests.sh --https
         - --run-test
-        - ./test/e2e-auto-tls-tests.sh --https
+        - ./test/e2e-external-domain-tls-tests.sh --https
         command:
         - runner.sh
         env:

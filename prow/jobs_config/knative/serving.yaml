@@ -26,7 +26,7 @@ jobs:
 
   - name: istio-latest-no-mesh-tls
     types: [presubmit]
-    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-auto-tls-tests.sh --istio-version latest --no-mesh"]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-external-domain-tls-tests.sh --istio-version latest --no-mesh"]
 
   - name: performance-tests
     timeout: 3h
@@ -47,7 +47,7 @@ jobs:
 
   - name: istio-latest-mesh-tls
     types: [presubmit]
-    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-auto-tls-tests.sh --istio-version latest --mesh"]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh"]
     modifiers: [presubmit_optional, presubmit_skipped]
 
   - name: kourier-stable
@@ -59,7 +59,7 @@ jobs:
   - name: kourier-stable-tls
     types: [presubmit]
     regex: ^third_party/kourier-latest/*
-    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-auto-tls-tests.sh --kourier-version stable"]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-external-domain-tls-tests.sh --kourier-version stable"]
     modifiers: [presubmit_skipped]
 
   - name: contour-latest
@@ -71,7 +71,7 @@ jobs:
   - name: contour-tls
     types: [presubmit]
     regex: ^third_party/contour-latest/*
-    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-auto-tls-tests.sh --contour-version latest"]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-external-domain-tls-tests.sh --contour-version latest"]
     modifiers: [presubmit_skipped]
 
   - name: gateway-api-latest
@@ -90,7 +90,7 @@ jobs:
     - --run-test
     - "./test/e2e-tests.sh --https"
     - --run-test
-    - "./test/e2e-auto-tls-tests.sh --https"
+    - "./test/e2e-external-domain-tls-tests.sh --https"
     modifiers: [presubmit_optional, presubmit_skipped]
 
   - name: continuous
@@ -107,7 +107,7 @@ jobs:
     - --run-test
     - ./test/e2e-tests.sh --istio-version latest --mesh
     - --run-test
-    - ./test/e2e-auto-tls-tests.sh --istio-version latest --mesh
+    - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
 
   - name: istio-latest-no-mesh
     types: [periodic]
@@ -118,7 +118,7 @@ jobs:
     - --run-test
     - ./test/e2e-tests.sh --istio-version latest --mesh
     - --run-test
-    - ./test/e2e-auto-tls-tests.sh --istio-version latest --mesh
+    - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
 
   - name: kourier-stable
     types: [periodic]
@@ -129,7 +129,7 @@ jobs:
     - --run-test
     - ./test/e2e-tests.sh --kourier-version stable
     - --run-test
-    - ./test/e2e-auto-tls-tests.sh --kourier-version stable --run-http01-auto-tls-tests
+    - ./test/e2e-external-domain-tls-tests.sh --kourier-version stable --run-http01-external-domain-tls-tests
 
   - name: contour-latest
     types: [periodic]
@@ -140,7 +140,7 @@ jobs:
     - --run-test
     - ./test/e2e-tests.sh --contour-version latest
     - --run-test
-    - ./test/e2e-auto-tls-tests.sh --contour-version latest --run-http01-auto-tls-tests
+    - ./test/e2e-external-domain-tls-tests.sh --contour-version latest --run-http01-external-domain-tls-tests
 
   - name: gateway-api-latest
     types: [periodic]
@@ -160,7 +160,7 @@ jobs:
     - --run-test
     - ./test/e2e-tests.sh --https
     - --run-test
-    - ./test/e2e-auto-tls-tests.sh --https
+    - ./test/e2e-external-domain-tls-tests.sh --https
 
   - name: performance-tests
     timeout: 3h
