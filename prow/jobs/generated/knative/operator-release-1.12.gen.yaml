@@ -147,7 +147,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: operator-release-1.10
+        value: operator-release-1.12
       - name: INGRESS_CLASS
         value: contour.ingress.networking.knative.dev
       - name: E2E_CLUSTER_REGION
