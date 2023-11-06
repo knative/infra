@@ -244,7 +244,7 @@ periodics:
     testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: serving-ppc64le-kourier-tests
   cluster: prow-build
-  cron: 40 4 * * *
+  cron: 40 22 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12
@@ -266,7 +266,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: kourier-main
+        value: kourier-release-1.12
       - name: SYSTEM_NAMESPACE
         value: knative-serving
       - name: TEST_OPTIONS
@@ -325,7 +325,7 @@ periodics:
     testgrid-dashboards: knative-release-1.12
     testgrid-tab-name: serving-ppc64le-contour-tests
   cluster: prow-build
-  cron: 0 0 * * *
+  cron: 0 18 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12
@@ -347,7 +347,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: contour-main
+        value: contour-release-1.12
       - name: SYSTEM_NAMESPACE
         value: knative-serving
       - name: TEST_OPTIONS
