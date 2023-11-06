@@ -339,5 +339,80 @@ jobs:
       value: SASL_PLAIN
     - name: BROKER_CLASS
       value: Kafka
+- name: ppc64le-e2e-tests-ssl
+  cron: 0 14 * * *
+  types: [periodic]
+  requirements: [ppc64le]
+  command: [runner.sh]
+  args:
+    - bash
+    - -c
+    - |
+      server_vm="$(sh /opt/cluster/vm-script)"
+      source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+      ./test/e2e-tests.sh --run-tests
+  env:
+    - name: CI_JOB
+      value: eventing_kafka-broker-ssl-112
+    - name: SYSTEM_NAMESPACE
+      value: knative-eventing
+    - name: EVENTING_NAMESPACE
+      value: knative-eventing
+    - name: SCALE_CHAOSDUCK_TO_ZERO
+      value: "1"
+    - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
+      value: SSL
+    - name: BROKER_CLASS
+      value: Kafka
+- name: ppc64le-e2e-tests-sasl-ssl
+  cron: 0 9 * * *
+  types: [periodic]
+  requirements: [ppc64le]
+  command: [runner.sh]
+  args:
+    - bash
+    - -c
+    - |
+      server_vm="$(sh /opt/cluster/vm-script)"
+      source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+      ./test/e2e-tests.sh --run-tests
+  env:
+    - name: CI_JOB
+      value: eventing_kafka-broker-sasl-ssl-112
+    - name: SYSTEM_NAMESPACE
+      value: knative-eventing
+    - name: EVENTING_NAMESPACE
+      value: knative-eventing
+    - name: SCALE_CHAOSDUCK_TO_ZERO
+      value: "1"
+    - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
+      value: SASL_SSL
+    - name: BROKER_CLASS
+      value: Kafka
+- name: ppc64le-e2e-tests-sasl-plain
+  cron: 30 4 * * *
+  types: [periodic]
+  requirements: [ppc64le]
+  command: [runner.sh]
+  args:
+    - bash
+    - -c
+    - |
+      server_vm="$(sh /opt/cluster/vm-script)"
+      source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+      ./test/e2e-tests.sh --run-tests
+  env:
+    - name: CI_JOB
+      value: eventing_kafka-broker-sasl-plain-112
+    - name: SYSTEM_NAMESPACE
+      value: knative-eventing
+    - name: EVENTING_NAMESPACE
+      value: knative-eventing
+    - name: SCALE_CHAOSDUCK_TO_ZERO
+      value: "1"
+    - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
+      value: SASL_PLAIN
+    - name: BROKER_CLASS
+      value: Kafka
 org: knative-extensions
 repo: eventing-kafka-broker
