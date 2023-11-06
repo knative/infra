@@ -266,7 +266,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: kourier-main
+        value: kourier-release-1.11
       - name: SYSTEM_NAMESPACE
         value: knative-serving
       - name: TEST_OPTIONS
@@ -347,7 +347,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: contour-main
+        value: contour-release-1.11
       - name: SYSTEM_NAMESPACE
         value: knative-serving
       - name: TEST_OPTIONS

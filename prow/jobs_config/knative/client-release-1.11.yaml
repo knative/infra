@@ -84,7 +84,7 @@ jobs:
   - name: INGRESS_CLASS
     value: contour.ingress.networking.knative.dev
   - name: CI_JOB
-    value: client-main
+    value: client-release-1.11
   name: ppc64le-e2e-tests
   requirements:
   - ppc64le
