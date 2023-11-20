@@ -550,7 +550,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-sasl-plain
   cluster: prow-build
-  cron: 30 14 * * *
+  cron: 30 4 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12
