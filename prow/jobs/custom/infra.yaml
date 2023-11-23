@@ -71,7 +71,7 @@ presubmits:
     spec:
       serviceAccountName: test-runner
       containers:
-      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-623f85f8b
+      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
         imagePullPolicy: Always
         command:
         - runner.sh
@@ -100,7 +100,7 @@ periodics:
     cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
   spec:
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-623f85f8b
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -139,7 +139,7 @@ periodics:
   spec:
     serviceAccountName: test-runner
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-623f85f8b
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -168,7 +168,7 @@ periodics:
   spec:
     serviceAccountName: flaky-test-reporter
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-623f85f8b
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -216,7 +216,7 @@ periodics:
   spec:
     serviceAccountName: flaky-test-reporter
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-623f85f8b
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -269,7 +269,7 @@ periodics:
       report_template: '"The prow-jobs-syncer periodic job has failed, please check the logs: <{{.Status.URL}}|View logs>"'
   spec:
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-623f85f8b
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -332,7 +332,7 @@ postsubmits:
     spec:
       serviceAccountName: test-runner # switch a different service account
       containers:
-      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-623f85f8b
+      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
         imagePullPolicy: Always
         command:
         - runner.sh
