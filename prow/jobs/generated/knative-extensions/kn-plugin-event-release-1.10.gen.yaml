@@ -186,7 +186,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.10
     testgrid-tab-name: kn-plugin-event-ppc64le-e2e-tests
   cluster: prow-build
-  cron: 50 9 * * *
+  cron: 30 11 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.10
