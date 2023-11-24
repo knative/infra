@@ -102,7 +102,7 @@ jobs:
     value: /tmp/ssl.crt
   command:
   - runner.sh
-  cron: 50 15 * * *
+  cron: 35 17 * * *
   name: ppc64le-e2e-tests
   requirements:
   - ppc64le
