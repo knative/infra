@@ -1,6 +1,4 @@
 grafana:
-  image:
-    tag: 9.1.1
   resources:
    limits:
      cpu: 4000m
@@ -24,6 +22,8 @@ grafana:
   persistence:
     enabled: true
     size: 50Gi
+  rbac:
+    pspEnabled: false
   datasources:
     datasources.yaml:
       apiVersion: 1
