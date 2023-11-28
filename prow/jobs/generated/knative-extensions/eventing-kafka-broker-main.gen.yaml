@@ -1109,13 +1109,12 @@ presubmits:
         name: cgroup
     trigger: ((?m)^/test( | .* )reconciler-tests-namespaced-broker-loom,?($|\s.*))|((?m)^/test(
       | .* )reconciler-tests-namespaced-broker-loom_eventing-kafka-broker_main,?($|\s.*))
-  - always_run: false
+  - always_run: true
     branches:
     - ^main$
     cluster: prow-build
     decorate: true
     name: reconciler-tests-keda_eventing-kafka-broker_main
-    optional: true
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test reconciler-tests-keda
     spec:

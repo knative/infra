@@ -72,7 +72,6 @@ jobs:
     types: [ presubmit ]
     command: [ runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/keda-reconciler-tests.sh"]
     requirements: [ docker ]
-    modifiers: [presubmit_optional, presubmit_skipped]
     env:
       - name: BROKER_CLASS
         value: Kafka
