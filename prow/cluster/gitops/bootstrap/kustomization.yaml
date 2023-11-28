@@ -2,10 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- github.com/argoproj/argo-cd/manifests/ha/base?ref=v2.7.2
+- github.com/argoproj/argo-cd/manifests/ha/base?ref=v2.9.2
 - extras.yaml
 
-patchesStrategicMerge:
-- argocd-server-service.yaml
-- argocd-cm.yaml
-- argocd-cm-rbac.yaml
+patches:
+- path: argocd-server-service.yaml
+- path: argocd-cm.yaml
+- path: argocd-cm-rbac.yaml
