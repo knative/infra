@@ -31,7 +31,7 @@ periodics:
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
       name: ""
       resources: {}
       securityContext:
@@ -101,7 +101,7 @@ periodics:
         value: knative-extensions
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231122-b38b92934
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
       name: ""
       resources: {}
       securityContext:
