@@ -33,7 +33,7 @@ periodics:
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
       name: ""
       resources: {}
       securityContext:
@@ -108,7 +108,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
       name: ""
       resources: {}
       securityContext:
@@ -208,7 +208,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
       name: ""
       resources: {}
       securityContext:
@@ -282,7 +282,7 @@ periodics:
         value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
       name: ""
       resources: {}
       securityContext:
@@ -364,7 +364,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
       name: ""
       resources: {}
       securityContext:
@@ -438,7 +438,7 @@ periodics:
         value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
       name: ""
       resources: {}
       securityContext:
@@ -520,7 +520,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
       name: ""
       resources: {}
       securityContext:
@@ -594,7 +594,7 @@ periodics:
         value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
       name: ""
       resources: {}
       securityContext:
@@ -636,7 +636,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -659,7 +659,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -691,7 +691,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -751,7 +751,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -811,7 +811,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -871,7 +871,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -934,7 +934,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -997,7 +997,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -1060,7 +1060,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -1123,7 +1123,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -1186,7 +1186,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
@@ -1249,7 +1249,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-768dedb9e
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
         name: ""
         resources: {}
         securityContext:
