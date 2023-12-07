@@ -1,0 +1,4 @@
+org: knative-extensions
+repo: backstage-plugins
+branches: [main]
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231205-514393b7b
