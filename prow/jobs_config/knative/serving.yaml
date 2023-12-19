@@ -283,6 +283,10 @@ requirement_presets:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
+      - name: SIGN_IMAGES
+        value: "true"
+      - name: ATTEST_IMAGES
+        value: "true"
     volumeMounts:
       - name: nightly-account
         mountPath: /etc/nightly-account
@@ -301,6 +305,10 @@ requirement_presets:
     env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
+      - name: SIGN_IMAGES
+        value: "true"
+      - name: ATTEST_IMAGES
+        value: "true"
     volumeMounts:
       - name: hub-token
         mountPath: /etc/hub-token
