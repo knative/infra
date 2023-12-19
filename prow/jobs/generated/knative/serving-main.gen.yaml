@@ -774,6 +774,10 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
+      - name: SIGN_IMAGES
+        value: "true"
+      - name: ATTEST_IMAGES
+        value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
       name: ""
       resources:
@@ -846,6 +850,10 @@ periodics:
         value: "true"
       - name: E2E_CLUSTER_REGION
         value: us-central1
+      - name: SIGN_IMAGES
+        value: "true"
+      - name: ATTEST_IMAGES
+        value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
       name: ""
       resources:
