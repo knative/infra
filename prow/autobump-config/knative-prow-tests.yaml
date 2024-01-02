@@ -11,6 +11,9 @@ targetVersion: "latest"
 includedConfigPaths:
   - "prow/jobs"
   - "prow/jobs_config"
+excludedConfigPaths: # add all the yaml files you want to avoid bumping
+  - "prow/jobs/knative-extensions/*release*"
+  - "prow/jobs/knative/*release*"
 prefixes:
   - name: "Knative prow-tests image"
     prefix: "us-docker.pkg.dev/knative-tests/images/prow-tests"
