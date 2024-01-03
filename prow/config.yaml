@@ -141,6 +141,8 @@ deck:
     '*':
       github_team_slugs:
         - org: 'knative'
+          slug: 'knative-admin'
+        - org: 'knative'
           slug: 'productivity-writers'
         - org: 'knative'
           slug: 'technical-oversight-committee'
