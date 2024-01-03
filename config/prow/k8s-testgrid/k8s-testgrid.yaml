@@ -84,6 +84,7 @@ dashboards:
 - name: kn-plugin-service-log
 - name: kn-plugin-source-kafka
 - name: kn-plugin-source-kamelet
+- name: knative-extensions-release-0.1
 - name: knative-extensions-release-0.4
 - name: knative-extensions-release-0.5
 - name: knative-extensions-release-0.6
