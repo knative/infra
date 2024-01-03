@@ -28,6 +28,7 @@ var (
 	prowJobsConfigOutput string
 	allProwJobsConfig    string
 	testgridConfigOutput string
+	autobumpConfigOutput string
 )
 
 func main() {
@@ -35,6 +36,7 @@ func main() {
 	flag.StringVar(&prowJobsConfigOutput, "prow-jobs-config-output", "", "The output path for the prow jobs config")
 	flag.StringVar(&allProwJobsConfig, "all-prow-jobs-config", "", "The path for all prow jobs config")
 	flag.StringVar(&testgridConfigOutput, "testgrid-config-output", "", "The output path for the testgrid config")
+	flag.StringVar(&autobumpConfigOutput, "autobump-config-output", "", "The output path for the autobump config")
 
 	flag.Parse()
 	if prowJobsConfigInput == "" {
@@ -49,6 +51,9 @@ func main() {
 	if testgridConfigOutput == "" {
 		log.Fatal("--testgrid-config-output must be specified")
 	}
+	if autobumpConfigOutput == "" {
+		log.Fatal("--autobump-config-output must be specified")
+	}
 
 	if err := pkg.GenerateProwJobsConfig(prowJobsConfigInput, prowJobsConfigOutput); err != nil {
 		log.Fatalf("Error generating Prow jobs: %v", err)
@@ -56,5 +61,9 @@ func main() {
 
 	if err := pkg.GenerateTestGridConfig(allProwJobsConfig, testgridConfigOutput); err != nil {
 		log.Fatalf("Error generating TestGrid config: %v", err)
+	}
+
+	if err := pkg.GenerateAutobumpExclude(prowJobsConfigInput, autobumpConfigOutput); err != nil {
+		log.Fatalf("Error generating Autobump config: %v", err)
 	}
 }

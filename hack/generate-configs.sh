@@ -29,4 +29,5 @@ cd "${CONFIG_GENERATOR_DIR}" && go run . \
     --prow-jobs-config-input="${REPO_ROOT_DIR}/prow/jobs_config" \
     --prow-jobs-config-output="${REPO_ROOT_DIR}/prow/jobs/generated" \
     --all-prow-jobs-config="${REPO_ROOT_DIR}/prow/jobs" \
-    --testgrid-config-output="${REPO_ROOT_DIR}/config/prow/k8s-testgrid/k8s-testgrid.yaml"
+    --testgrid-config-output="${REPO_ROOT_DIR}/config/prow/k8s-testgrid/k8s-testgrid.yaml" \
+    --autobump-config-output="${REPO_ROOT_DIR}/prow/autobump-config/knative-prow-tests.yaml"
