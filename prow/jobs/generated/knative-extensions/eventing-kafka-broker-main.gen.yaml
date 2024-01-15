@@ -984,6 +984,67 @@ presubmits:
         name: cgroup
     trigger: ((?m)^/test( | .* )reconciler-tests-loom,?($|\s.*))|((?m)^/test( | .*
       )reconciler-tests-loom_eventing-kafka-broker_main,?($|\s.*))
+  - always_run: false
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
+    name: experimental-tests_eventing-kafka-broker_main
+    optional: true
+    path_alias: knative.dev/eventing-kafka-broker
+    rerun_command: /test experimental-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --run-test
+        - ./test/experimental-tests.sh
+        env:
+        - name: BROKER_CLASS
+          value: Kafka
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240102-735abd601
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
+    trigger: ((?m)^/test( | .* )experimental-tests,?($|\s.*))|((?m)^/test( | .* )experimental-tests_eventing-kafka-broker_main,?($|\s.*))
   - always_run: true
     branches:
     - ^main$
