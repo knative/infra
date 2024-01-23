@@ -5,8 +5,8 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.10
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+- release-1.13
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
 jobs:
 - command:
   - runner.sh
@@ -66,14 +66,14 @@ jobs:
     mkdir -p /root/.kube
     cat /opt/cluster/ci-script > connect.sh
     chmod +x connect.sh
-    ./connect.sh eventing-110
+    ./connect.sh eventing-main
     kubectl get cm s390x-config-eventing -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
     chmod +x adjust.sh
     ./adjust.sh
     ./test/e2e-tests.sh --run-tests
   command:
   - runner.sh
-  cron: 20 8 * * *
+  cron: 20 4 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-eventing
@@ -98,7 +98,7 @@ jobs:
     ./test/e2e-rekt-tests.sh --run-tests
   command:
   - runner.sh
-  cron: 20 9 * * *
+  cron: 20 5 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-eventing
@@ -118,14 +118,14 @@ jobs:
     ./test/e2e-tests.sh --run-tests
   command:
   - runner.sh
-  cron: 15 11 * * *
+  cron: 15 4 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-eventing
   - name: SCALE_CHAOSDUCK_TO_ZERO
     value: "1"
   - name: CI_JOB
-    value: eventing-release-1.10
+    value: eventing-main
   name: ppc64le-e2e-tests
   requirements:
   - ppc64le
@@ -140,14 +140,14 @@ jobs:
     ./test/e2e-rekt-tests.sh --run-tests
   command:
   - runner.sh
-  cron: 0 9 * * *
+  cron: 40 1 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-eventing
   - name: SCALE_CHAOSDUCK_TO_ZERO
     value: "1"
   - name: CI_JOB
-    value: eventing_rekt-1.10
+    value: eventing_rekt-main
   name: ppc64le-e2e-reconciler-tests
   requirements:
   - ppc64le
@@ -164,7 +164,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.10
+  - release-1.13
   excluded_requirements:
   - gcp
   max_concurrency: 1

@@ -7,19 +7,19 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: eventing-continuous
   cluster: prow-build
-  cron: 32 3 * * *
+  cron: 41 12 * * *
   decorate: true
   decoration_config:
     timeout: 3h0m0s
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/eventing
     repo: eventing
-  name: continuous_eventing_release-1.10_periodic
+  name: continuous_eventing_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -31,7 +31,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources:
         limits:
@@ -55,17 +55,17 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: eventing-s390x-e2e-tests
   cluster: prow-build
-  cron: 20 8 * * *
+  cron: 20 4 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/eventing
     repo: eventing
-  name: s390x-e2e-tests_eventing_release-1.10_periodic
+  name: s390x-e2e-tests_eventing_release-1.13_periodic
   spec:
     containers:
     - args:
@@ -75,7 +75,7 @@ periodics:
         mkdir -p /root/.kube
         cat /opt/cluster/ci-script > connect.sh
         chmod +x connect.sh
-        ./connect.sh eventing-110
+        ./connect.sh eventing-main
         kubectl get cm s390x-config-eventing -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
         chmod +x adjust.sh
         ./adjust.sh
@@ -104,7 +104,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources:
         limits:
@@ -135,17 +135,17 @@ periodics:
         defaultMode: 384
         secretName: s390x-cluster1
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: eventing-s390x-e2e-reconciler-tests
   cluster: prow-build
-  cron: 20 9 * * *
+  cron: 20 5 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/eventing
     repo: eventing
-  name: s390x-e2e-reconciler-tests_eventing_release-1.10_periodic
+  name: s390x-e2e-reconciler-tests_eventing_release-1.13_periodic
   spec:
     containers:
     - args:
@@ -184,7 +184,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources:
         limits:
@@ -215,17 +215,17 @@ periodics:
         defaultMode: 384
         secretName: s390x-cluster1
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: eventing-ppc64le-e2e-tests
   cluster: prow-build
-  cron: 15 11 * * *
+  cron: 15 4 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/eventing
     repo: eventing
-  name: ppc64le-e2e-tests_eventing_release-1.10_periodic
+  name: ppc64le-e2e-tests_eventing_release-1.13_periodic
   spec:
     containers:
     - args:
@@ -239,7 +239,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: eventing-release-1.10
+        value: eventing-main
       - name: SCALE_CHAOSDUCK_TO_ZERO
         value: "1"
       - name: SYSTEM_NAMESPACE
@@ -256,7 +256,7 @@ periodics:
         value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources:
         limits:
@@ -287,17 +287,17 @@ periodics:
         defaultMode: 384
         secretName: ppc64le-cluster
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: eventing-ppc64le-e2e-reconciler-tests
   cluster: prow-build
-  cron: 0 9 * * *
+  cron: 40 1 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/eventing
     repo: eventing
-  name: ppc64le-e2e-reconciler-tests_eventing_release-1.10_periodic
+  name: ppc64le-e2e-reconciler-tests_eventing_release-1.13_periodic
   spec:
     containers:
     - args:
@@ -311,7 +311,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: eventing_rekt-1.10
+        value: eventing_rekt-main
       - name: SCALE_CHAOSDUCK_TO_ZERO
         value: "1"
       - name: SYSTEM_NAMESPACE
@@ -328,7 +328,7 @@ periodics:
         value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources:
         limits:
@@ -359,20 +359,20 @@ periodics:
         defaultMode: 384
         secretName: ppc64le-cluster
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: eventing-release
   cluster: prow-build
-  cron: 16 9 * * 2
+  cron: 43 9 * * 2
   decorate: true
   decoration_config:
     timeout: 4h0m0s
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/eventing
     repo: eventing
   max_concurrency: 1
-  name: release_eventing_release-1.10_periodic
+  name: release_eventing_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -386,7 +386,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.10
+      - release-1.13
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -396,7 +396,7 @@ periodics:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources:
         limits:
@@ -432,10 +432,10 @@ presubmits:
   knative/eventing:
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: build-tests_eventing_release-1.10
+    name: build-tests_eventing_release-1.13
     path_alias: knative.dev/eventing
     rerun_command: /test build-tests
     spec:
@@ -444,7 +444,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources:
           limits:
@@ -456,13 +456,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: unit-tests_eventing_release-1.10
+    name: unit-tests_eventing_release-1.13
     path_alias: knative.dev/eventing
     rerun_command: /test unit-tests
     spec:
@@ -471,7 +471,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources:
           limits:
@@ -483,13 +483,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_eventing_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_eventing_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: conformance-tests_eventing_release-1.10
+    name: conformance-tests_eventing_release-1.13
     path_alias: knative.dev/eventing
     rerun_command: /test conformance-tests
     spec:
@@ -504,7 +504,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources:
           limits:
@@ -527,13 +527,13 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )conformance-tests,?($|\s.*))|((?m)^/test( | .* )conformance-tests_eventing_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )conformance-tests,?($|\s.*))|((?m)^/test( | .* )conformance-tests_eventing_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: reconciler-tests_eventing_release-1.10
+    name: reconciler-tests_eventing_release-1.13
     path_alias: knative.dev/eventing
     rerun_command: /test reconciler-tests
     spec:
@@ -548,7 +548,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources:
           limits:
@@ -571,13 +571,13 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )reconciler-tests,?($|\s.*))|((?m)^/test( | .* )reconciler-tests_eventing_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )reconciler-tests,?($|\s.*))|((?m)^/test( | .* )reconciler-tests_eventing_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: upgrade-tests_eventing_release-1.10
+    name: upgrade-tests_eventing_release-1.13
     path_alias: knative.dev/eventing
     rerun_command: /test upgrade-tests
     spec:
@@ -592,7 +592,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources:
           limits:
@@ -615,4 +615,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_eventing_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_eventing_release-1.13,?($|\s.*))
