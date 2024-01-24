@@ -5,8 +5,8 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.10
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+- release-1.13
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
 jobs:
 - command:
   - runner.sh
@@ -70,7 +70,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.10
+  - release-1.13
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -80,29 +80,5 @@ jobs:
   - docker
   types:
   - periodic
-- name: s390x-e2e-tests
-  cron: 20 10 * * *
-  types: [periodic]
-  requirements: [s390x]
-  command: [runner.sh]
-  args:
-    - bash
-    - -c
-    - |
-      mkdir -p /root/.kube
-      cat /opt/cluster/ci-script > connect.sh
-      chmod +x connect.sh
-      ./connect.sh eventing_kafka-110
-      kubectl get cm s390x-config-eventing-kafka -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-      chmod +x adjust.sh
-      ./adjust.sh
-      ./test/e2e-tests.sh --run-tests
-  env:
-    - name: SYSTEM_NAMESPACE
-      value: knative-eventing
-    - name: EVENTING_NAMESPACE
-      value: knative-eventing
-    - name: SCALE_CHAOSDUCK_TO_ZERO
-      value: "1"
 org: knative-extensions
 repo: eventing-kafka
