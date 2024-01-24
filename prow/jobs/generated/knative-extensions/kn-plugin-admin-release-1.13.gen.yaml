@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: kn-plugin-source-kamelet-continuous
+    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-tab-name: kn-plugin-admin-continuous
   cluster: prow-build
-  cron: 2 9 * * *
+  cron: 31 14 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative-extensions
-    path_alias: knative.dev/kn-plugin-source-kamelet
-    repo: kn-plugin-source-kamelet
-  name: continuous_kn-plugin-source-kamelet_release-1.10_periodic
+    path_alias: knative.dev/kn-plugin-admin
+    repo: kn-plugin-admin
+  name: continuous_kn-plugin-admin_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -29,7 +29,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -49,17 +49,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: kn-plugin-source-kamelet-release
+    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-tab-name: kn-plugin-admin-release
   cluster: prow-build
-  cron: 2 9 * * 2
+  cron: 25 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative-extensions
-    path_alias: knative.dev/kn-plugin-source-kamelet
-    repo: kn-plugin-source-kamelet
-  name: release_kn-plugin-source-kamelet_release-1.10_periodic
+    path_alias: knative.dev/kn-plugin-admin
+    repo: kn-plugin-admin
+  max_concurrency: 1
+  name: release_kn-plugin-admin_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -67,7 +68,7 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/kn-plugin-source-kamelet
+      - knative-releases/kn-plugin-admin
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
@@ -79,7 +80,7 @@ periodics:
       - --apple-codesign-password-file
       - /etc/notary/password
       - --branch
-      - release-1.10
+      - release-1.13
       env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
@@ -89,7 +90,7 @@ periodics:
         value: knative-extensions
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -123,14 +124,14 @@ periodics:
           path: password
         secretName: apple-notary-creds
 presubmits:
-  knative-extensions/kn-plugin-source-kamelet:
+  knative-extensions/kn-plugin-admin:
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: build-tests_kn-plugin-source-kamelet_release-1.10
-    path_alias: knative.dev/kn-plugin-source-kamelet
+    name: build-tests_kn-plugin-admin_release-1.13
+    path_alias: knative.dev/kn-plugin-admin
     rerun_command: /test build-tests
     spec:
       containers:
@@ -138,7 +139,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -146,14 +147,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-source-kamelet_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-admin_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: unit-tests_kn-plugin-source-kamelet_release-1.10
-    path_alias: knative.dev/kn-plugin-source-kamelet
+    name: unit-tests_kn-plugin-admin_release-1.13
+    path_alias: knative.dev/kn-plugin-admin
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -161,7 +162,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -169,14 +170,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-source-kamelet_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-admin_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: integration-tests_kn-plugin-source-kamelet_release-1.10
-    path_alias: knative.dev/kn-plugin-source-kamelet
+    name: integration-tests_kn-plugin-admin_release-1.13
+    path_alias: knative.dev/kn-plugin-admin
     rerun_command: /test integration-tests
     spec:
       containers:
@@ -189,7 +190,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -208,4 +209,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-source-kamelet_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-admin_release-1.13,?($|\s.*))

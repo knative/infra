@@ -5,8 +5,8 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.10
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+- release-1.13
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
 jobs:
 - command:
   - runner.sh
@@ -45,7 +45,7 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/kn-plugin-event
+  - knative-releases/kn-plugin-source-kamelet
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
@@ -57,58 +57,13 @@ jobs:
   - --apple-codesign-password-file
   - /etc/notary/password
   - --branch
-  - release-1.10
+  - release-1.13
   excluded_requirements:
   - gcp
-  max_concurrency: 1
   name: release
   requirements:
   - release-notary
   types:
   - periodic
-- args:
-  - bash
-  - -c
-  - |
-    mkdir -p /root/.kube
-    cat /opt/cluster/ci-script > connect.sh
-    chmod +x connect.sh
-    ./connect.sh plugin_event-110
-    kubectl get cm s390x-config-plugin-event -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-    chmod +x adjust.sh
-    ./adjust.sh
-    ./test/e2e-tests.sh --run-tests
-  command:
-  - runner.sh
-  cron: 20 14 * * *
-  name: s390x-e2e-tests
-  requirements:
-  - s390x
-  types:
-  - periodic
-  excluded_requirements:
-  - gcp
-- args:
-  - bash
-  - -c
-  - |
-    server_vm="$(sh /opt/cluster/vm-script)"
-    source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-    ./test/e2e-tests.sh --run-tests
-  env:
-  - name: CI_JOB
-    value: plugin_event-110
-  - name: SSL_CERT_FILE
-    value: /tmp/ssl.crt
-  command:
-  - runner.sh
-  cron: 30 11 * * *
-  name: ppc64le-e2e-tests
-  requirements:
-  - ppc64le
-  types:
-  - periodic
-  excluded_requirements:
-  - gcp
 org: knative-extensions
-repo: kn-plugin-event
+repo: kn-plugin-source-kamelet
