@@ -5,9 +5,9 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.10
+- release-1.13
 cluster: prow-build
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
 jobs:
 - command:
   - runner.sh
@@ -54,14 +54,14 @@ jobs:
     mkdir -p /root/.kube
     cat /opt/cluster/ci-script > connect.sh
     chmod +x connect.sh
-    ./connect.sh client-110
+    ./connect.sh client-main
     kubectl get cm s390x-config-client -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
     chmod +x adjust.sh
     ./adjust.sh
     ./test/e2e-tests.sh --run-tests
   command:
   - runner.sh
-  cron: 20 5 * * *
+  cron: 20 1 * * *
   env:
   - name: INGRESS_CLASS
     value: contour.ingress.networking.knative.dev
@@ -79,12 +79,12 @@ jobs:
     ./test/e2e-tests.sh --run-tests
   command:
   - runner.sh
-  cron: 15 10 * * *
+  cron: 0 3 * * *
   env:
   - name: INGRESS_CLASS
     value: contour.ingress.networking.knative.dev
   - name: CI_JOB
-    value: client-release-1.10
+    value: client-main
   name: ppc64le-e2e-tests
   requirements:
   - ppc64le
@@ -107,7 +107,7 @@ jobs:
   - --apple-codesign-password-file
   - /etc/notary/password
   - --branch
-  - release-1.10
+  - release-1.13
   excluded_requirements:
   - gcp
   max_concurrency: 1

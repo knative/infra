@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: client-continuous
   cluster: prow-build
-  cron: 55 2 * * *
+  cron: 6 13 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/client
     repo: client
-  name: continuous_client_release-1.10_periodic
+  name: continuous_client_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -29,7 +29,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -49,17 +49,17 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: client-s390x-e2e-tests
   cluster: prow-build
-  cron: 20 5 * * *
+  cron: 20 1 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/client
     repo: client
-  name: s390x-e2e-tests_client_release-1.10_periodic
+  name: s390x-e2e-tests_client_release-1.13_periodic
   spec:
     containers:
     - args:
@@ -69,7 +69,7 @@ periodics:
         mkdir -p /root/.kube
         cat /opt/cluster/ci-script > connect.sh
         chmod +x connect.sh
-        ./connect.sh client-110
+        ./connect.sh client-main
         kubectl get cm s390x-config-client -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
         chmod +x adjust.sh
         ./adjust.sh
@@ -96,7 +96,7 @@ periodics:
         value: /root/.kube/config
       - name: DOCKER_CONFIG
         value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -123,17 +123,17 @@ periodics:
         defaultMode: 384
         secretName: s390x-cluster1
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: client-ppc64le-e2e-tests
   cluster: prow-build
-  cron: 15 10 * * *
+  cron: 0 3 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/client
     repo: client
-  name: ppc64le-e2e-tests_client_release-1.10_periodic
+  name: ppc64le-e2e-tests_client_release-1.13_periodic
   spec:
     containers:
     - args:
@@ -147,7 +147,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: client-release-1.10
+        value: client-main
       - name: INGRESS_CLASS
         value: contour.ingress.networking.knative.dev
       - name: E2E_CLUSTER_REGION
@@ -162,7 +162,7 @@ periodics:
         value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
       - name: KUBECONFIG
         value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -189,18 +189,18 @@ periodics:
         defaultMode: 384
         secretName: ppc64le-cluster
 - annotations:
-    testgrid-dashboards: knative-release-1.10
+    testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: client-release
   cluster: prow-build
-  cron: 45 9 * * 2
+  cron: 30 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative
     path_alias: knative.dev/client
     repo: client
   max_concurrency: 1
-  name: release_client_release-1.10_periodic
+  name: release_client_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -220,7 +220,7 @@ periodics:
       - --apple-codesign-password-file
       - /etc/notary/password
       - --branch
-      - release-1.10
+      - release-1.13
       env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
@@ -228,7 +228,7 @@ periodics:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -265,10 +265,10 @@ presubmits:
   knative/client:
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: build-tests_client_release-1.10
+    name: build-tests_client_release-1.13
     path_alias: knative.dev/client
     rerun_command: /test build-tests
     spec:
@@ -277,7 +277,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -285,13 +285,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_client_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_client_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: unit-tests_client_release-1.10
+    name: unit-tests_client_release-1.13
     path_alias: knative.dev/client
     rerun_command: /test unit-tests
     spec:
@@ -300,7 +300,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -308,13 +308,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_client_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_client_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: integration-tests_client_release-1.10
+    name: integration-tests_client_release-1.13
     path_alias: knative.dev/client
     rerun_command: /test integration-tests
     spec:
@@ -328,7 +328,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -347,13 +347,13 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_client_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_client_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: integration-tests-latest-release_client_release-1.10
+    name: integration-tests-latest-release_client_release-1.13
     path_alias: knative.dev/client
     rerun_command: /test integration-tests-latest-release
     spec:
@@ -366,7 +366,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -386,4 +386,4 @@ presubmits:
             path: service-account.json
           secretName: prow-google-credentials
     trigger: ((?m)^/test( | .* )integration-tests-latest-release,?($|\s.*))|((?m)^/test(
-      | .* )integration-tests-latest-release_client_release-1.10,?($|\s.*))
+      | .* )integration-tests-latest-release_client_release-1.13,?($|\s.*))
