@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
+    testgrid-dashboards: knative-extensions-release-1.13
     testgrid-tab-name: eventing-kafka-broker-continuous
   cluster: prow-build
-  cron: 28 23 * * *
+  cron: 57 16 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative-extensions
     path_alias: knative.dev/eventing-kafka-broker
     repo: eventing-kafka-broker
-  name: continuous_eventing-kafka-broker_release-1.10_periodic
+  name: continuous_eventing-kafka-broker_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -33,7 +33,7 @@ periodics:
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -69,18 +69,18 @@ periodics:
         type: Directory
       name: cgroup
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
+    testgrid-dashboards: knative-extensions-release-1.13
     testgrid-tab-name: eventing-kafka-broker-release
   cluster: prow-build
-  cron: 36 9 * * 2
+  cron: 39 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative-extensions
     path_alias: knative.dev/eventing-kafka-broker
     repo: eventing-kafka-broker
   max_concurrency: 1
-  name: release_eventing-kafka-broker_release-1.10_periodic
+  name: release_eventing-kafka-broker_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -94,7 +94,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.10
+      - release-1.13
       env:
       - name: BROKER_CLASS
         value: Kafka
@@ -108,7 +108,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -152,482 +152,14 @@ periodics:
         path: /sys/fs/cgroup
         type: Directory
       name: cgroup
-- annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: eventing-kafka-broker-s390x-e2e-tests-ssl
-  cluster: prow-build
-  cron: 20 11 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.10
-    org: knative-extensions
-    path_alias: knative.dev/eventing-kafka-broker
-    repo: eventing-kafka-broker
-  name: s390x-e2e-tests-ssl_eventing-kafka-broker_release-1.10_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        mkdir -p /root/.kube
-        cat /opt/cluster/ci-script > connect.sh
-        chmod +x connect.sh
-        ./connect.sh eventing_kafka-broker-ssl-110
-        kubectl get cm s390x-config-eventing-kafka-broker -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-        chmod +x adjust.sh
-        ./adjust.sh
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: BROKER_CLASS
-        value: Kafka
-      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
-        value: SSL
-      - name: EVENTING_NAMESPACE
-        value: knative-eventing
-      - name: SCALE_CHAOSDUCK_TO_ZERO
-        value: "1"
-      - name: SYSTEM_NAMESPACE
-        value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/test-account/service-account.json
-      - name: KO_FLAGS
-        value: --platform=linux/s390x --insecure-registry
-      - name: PLATFORM
-        value: linux/s390x
-      - name: KO_DOCKER_REPO
-        valueFrom:
-          secretKeyRef:
-            key: ko-docker-repo
-            name: s390x-cluster1
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      - name: DOCKER_CONFIG
-        value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/test-account
-        name: test-account
-        readOnly: true
-      - mountPath: /opt/cluster
-        name: s390x-cluster1
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: test-account
-      secret:
-        items:
-        - key: service-account-key.json
-          path: service-account.json
-        secretName: prow-google-credentials
-    - name: s390x-cluster1
-      secret:
-        defaultMode: 384
-        secretName: s390x-cluster1
-- annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-ssl
-  cluster: prow-build
-  cron: 30 14 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.10
-    org: knative-extensions
-    path_alias: knative.dev/eventing-kafka-broker
-    repo: eventing-kafka-broker
-  name: ppc64le-e2e-tests-ssl_eventing-kafka-broker_release-1.10_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        server_vm="$(sh /opt/cluster/vm-script)"
-        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: BROKER_CLASS
-        value: Kafka
-      - name: CI_JOB
-        value: eventing_kafka-broker-ssl-110
-      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
-        value: SSL
-      - name: EVENTING_NAMESPACE
-        value: knative-eventing
-      - name: SCALE_CHAOSDUCK_TO_ZERO
-        value: "1"
-      - name: SYSTEM_NAMESPACE
-        value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/test-account/service-account.json
-      - name: KO_FLAGS
-        value: --platform=linux/ppc64le
-      - name: PLATFORM
-        value: linux/ppc64le
-      - name: KO_DOCKER_REPO
-        value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/test-account
-        name: test-account
-        readOnly: true
-      - mountPath: /opt/cluster
-        name: ppc64le-cluster
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: test-account
-      secret:
-        items:
-        - key: service-account-key.json
-          path: service-account.json
-        secretName: prow-google-credentials
-    - name: ppc64le-cluster
-      secret:
-        defaultMode: 384
-        secretName: ppc64le-cluster
-- annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: eventing-kafka-broker-s390x-e2e-tests-sasl-ssl
-  cluster: prow-build
-  cron: 20 12 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.10
-    org: knative-extensions
-    path_alias: knative.dev/eventing-kafka-broker
-    repo: eventing-kafka-broker
-  name: s390x-e2e-tests-sasl-ssl_eventing-kafka-broker_release-1.10_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        mkdir -p /root/.kube
-        cat /opt/cluster/ci-script > connect.sh
-        chmod +x connect.sh
-        ./connect.sh eventing_kafka-broker-sasl-ssl-110
-        kubectl get cm s390x-config-eventing-kafka-broker -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-        chmod +x adjust.sh
-        ./adjust.sh
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: BROKER_CLASS
-        value: Kafka
-      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
-        value: SASL_SSL
-      - name: EVENTING_NAMESPACE
-        value: knative-eventing
-      - name: SCALE_CHAOSDUCK_TO_ZERO
-        value: "1"
-      - name: SYSTEM_NAMESPACE
-        value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/test-account/service-account.json
-      - name: KO_FLAGS
-        value: --platform=linux/s390x --insecure-registry
-      - name: PLATFORM
-        value: linux/s390x
-      - name: KO_DOCKER_REPO
-        valueFrom:
-          secretKeyRef:
-            key: ko-docker-repo
-            name: s390x-cluster1
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      - name: DOCKER_CONFIG
-        value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/test-account
-        name: test-account
-        readOnly: true
-      - mountPath: /opt/cluster
-        name: s390x-cluster1
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: test-account
-      secret:
-        items:
-        - key: service-account-key.json
-          path: service-account.json
-        secretName: prow-google-credentials
-    - name: s390x-cluster1
-      secret:
-        defaultMode: 384
-        secretName: s390x-cluster1
-- annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-sasl-ssl
-  cluster: prow-build
-  cron: 10 9 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.10
-    org: knative-extensions
-    path_alias: knative.dev/eventing-kafka-broker
-    repo: eventing-kafka-broker
-  name: ppc64le-e2e-tests-sasl-ssl_eventing-kafka-broker_release-1.10_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        server_vm="$(sh /opt/cluster/vm-script)"
-        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: BROKER_CLASS
-        value: Kafka
-      - name: CI_JOB
-        value: eventing_kafka-broker-sasl-ssl-110
-      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
-        value: SASL_SSL
-      - name: EVENTING_NAMESPACE
-        value: knative-eventing
-      - name: SCALE_CHAOSDUCK_TO_ZERO
-        value: "1"
-      - name: SYSTEM_NAMESPACE
-        value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/test-account/service-account.json
-      - name: KO_FLAGS
-        value: --platform=linux/ppc64le
-      - name: PLATFORM
-        value: linux/ppc64le
-      - name: KO_DOCKER_REPO
-        value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/test-account
-        name: test-account
-        readOnly: true
-      - mountPath: /opt/cluster
-        name: ppc64le-cluster
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: test-account
-      secret:
-        items:
-        - key: service-account-key.json
-          path: service-account.json
-        secretName: prow-google-credentials
-    - name: ppc64le-cluster
-      secret:
-        defaultMode: 384
-        secretName: ppc64le-cluster
-- annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: eventing-kafka-broker-s390x-e2e-tests-sasl-plain
-  cluster: prow-build
-  cron: 20 13 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.10
-    org: knative-extensions
-    path_alias: knative.dev/eventing-kafka-broker
-    repo: eventing-kafka-broker
-  name: s390x-e2e-tests-sasl-plain_eventing-kafka-broker_release-1.10_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        mkdir -p /root/.kube
-        cat /opt/cluster/ci-script > connect.sh
-        chmod +x connect.sh
-        ./connect.sh eventing_kafka-broker-sasl-plain-110
-        kubectl get cm s390x-config-eventing-kafka-broker -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-        chmod +x adjust.sh
-        ./adjust.sh
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: BROKER_CLASS
-        value: Kafka
-      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
-        value: SASL_PLAIN
-      - name: EVENTING_NAMESPACE
-        value: knative-eventing
-      - name: SCALE_CHAOSDUCK_TO_ZERO
-        value: "1"
-      - name: SYSTEM_NAMESPACE
-        value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/test-account/service-account.json
-      - name: KO_FLAGS
-        value: --platform=linux/s390x --insecure-registry
-      - name: PLATFORM
-        value: linux/s390x
-      - name: KO_DOCKER_REPO
-        valueFrom:
-          secretKeyRef:
-            key: ko-docker-repo
-            name: s390x-cluster1
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      - name: DOCKER_CONFIG
-        value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/test-account
-        name: test-account
-        readOnly: true
-      - mountPath: /opt/cluster
-        name: s390x-cluster1
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: test-account
-      secret:
-        items:
-        - key: service-account-key.json
-          path: service-account.json
-        secretName: prow-google-credentials
-    - name: s390x-cluster1
-      secret:
-        defaultMode: 384
-        secretName: s390x-cluster1
-- annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-sasl-plain
-  cluster: prow-build
-  cron: 10 3 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.10
-    org: knative-extensions
-    path_alias: knative.dev/eventing-kafka-broker
-    repo: eventing-kafka-broker
-  name: ppc64le-e2e-tests-sasl-plain_eventing-kafka-broker_release-1.10_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        server_vm="$(sh /opt/cluster/vm-script)"
-        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: BROKER_CLASS
-        value: Kafka
-      - name: CI_JOB
-        value: eventing_kafka-broker-sasl-plain-110
-      - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
-        value: SASL_PLAIN
-      - name: EVENTING_NAMESPACE
-        value: knative-eventing
-      - name: SCALE_CHAOSDUCK_TO_ZERO
-        value: "1"
-      - name: SYSTEM_NAMESPACE
-        value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/test-account/service-account.json
-      - name: KO_FLAGS
-        value: --platform=linux/ppc64le
-      - name: PLATFORM
-        value: linux/ppc64le
-      - name: KO_DOCKER_REPO
-        value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/test-account
-        name: test-account
-        readOnly: true
-      - mountPath: /opt/cluster
-        name: ppc64le-cluster
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: test-account
-      secret:
-        items:
-        - key: service-account-key.json
-          path: service-account.json
-        secretName: prow-google-credentials
-    - name: ppc64le-cluster
-      secret:
-        defaultMode: 384
-        secretName: ppc64le-cluster
 presubmits:
   knative-extensions/eventing-kafka-broker:
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: build-tests_eventing-kafka-broker_release-1.10
+    name: build-tests_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test build-tests
     spec:
@@ -636,7 +168,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -644,13 +176,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing-kafka-broker_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: unit-tests_eventing-kafka-broker_release-1.10
+    name: unit-tests_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test unit-tests
     spec:
@@ -659,7 +191,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -667,13 +199,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_eventing-kafka-broker_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: integration-tests_eventing-kafka-broker_release-1.10
+    name: integration-tests_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test integration-tests
     spec:
@@ -691,7 +223,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -726,13 +258,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_eventing-kafka-broker_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: upgrade-tests_eventing-kafka-broker_release-1.10
+    name: upgrade-tests_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test upgrade-tests
     spec:
@@ -751,7 +283,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -786,13 +318,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_eventing-kafka-broker_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: reconciler-tests_eventing-kafka-broker_release-1.10
+    name: reconciler-tests_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test reconciler-tests
     spec:
@@ -811,7 +343,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -846,13 +378,77 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )reconciler-tests,?($|\s.*))|((?m)^/test( | .* )reconciler-tests_eventing-kafka-broker_release-1.10,?($|\s.*))
-  - always_run: true
+    trigger: ((?m)^/test( | .* )reconciler-tests,?($|\s.*))|((?m)^/test( | .* )reconciler-tests_eventing-kafka-broker_release-1.13,?($|\s.*))
+  - always_run: false
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: reconciler-tests-namespaced-broker_eventing-kafka-broker_release-1.10
+    name: reconciler-tests-loom_eventing-kafka-broker_release-1.13
+    optional: true
+    path_alias: knative.dev/eventing-kafka-broker
+    rerun_command: /test reconciler-tests-loom
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --run-test
+        - ./test/reconciler-tests.sh
+        env:
+        - name: BROKER_CLASS
+          value: Kafka
+        - name: USE_LOOM
+          value: "true"
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
+    trigger: ((?m)^/test( | .* )reconciler-tests-loom,?($|\s.*))|((?m)^/test( | .*
+      )reconciler-tests-loom_eventing-kafka-broker_release-1.13,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^release-1.13$
+    cluster: prow-build
+    decorate: true
+    name: reconciler-tests-namespaced-broker_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test reconciler-tests-namespaced-broker
     spec:
@@ -871,7 +467,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -907,13 +503,138 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )reconciler-tests-namespaced-broker,?($|\s.*))|((?m)^/test(
-      | .* )reconciler-tests-namespaced-broker_eventing-kafka-broker_release-1.10,?($|\s.*))
-  - always_run: true
+      | .* )reconciler-tests-namespaced-broker_eventing-kafka-broker_release-1.13,?($|\s.*))
+  - always_run: false
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: channel-integration-tests-ssl_eventing-kafka-broker_release-1.10
+    name: reconciler-tests-namespaced-broker-loom_eventing-kafka-broker_release-1.13
+    optional: true
+    path_alias: knative.dev/eventing-kafka-broker
+    rerun_command: /test reconciler-tests-namespaced-broker-loom
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --run-test
+        - ./test/reconciler-tests.sh
+        env:
+        - name: BROKER_CLASS
+          value: KafkaNamespaced
+        - name: USE_LOOM
+          value: "true"
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
+    trigger: ((?m)^/test( | .* )reconciler-tests-namespaced-broker-loom,?($|\s.*))|((?m)^/test(
+      | .* )reconciler-tests-namespaced-broker-loom_eventing-kafka-broker_release-1.13,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^release-1.13$
+    cluster: prow-build
+    decorate: true
+    name: reconciler-tests-keda_eventing-kafka-broker_release-1.13
+    path_alias: knative.dev/eventing-kafka-broker
+    rerun_command: /test reconciler-tests-keda
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --run-test
+        - ./test/keda-reconciler-tests.sh
+        env:
+        - name: BROKER_CLASS
+          value: Kafka
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
+    trigger: ((?m)^/test( | .* )reconciler-tests-keda,?($|\s.*))|((?m)^/test( | .*
+      )reconciler-tests-keda_eventing-kafka-broker_release-1.13,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^release-1.13$
+    cluster: prow-build
+    decorate: true
+    name: channel-integration-tests-ssl_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-integration-tests-ssl
     spec:
@@ -934,7 +655,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -970,13 +691,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )channel-integration-tests-ssl,?($|\s.*))|((?m)^/test(
-      | .* )channel-integration-tests-ssl_eventing-kafka-broker_release-1.10,?($|\s.*))
+      | .* )channel-integration-tests-ssl_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: channel-integration-tests-sasl-ssl_eventing-kafka-broker_release-1.10
+    name: channel-integration-tests-sasl-ssl_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-integration-tests-sasl-ssl
     spec:
@@ -997,7 +718,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -1033,13 +754,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )channel-integration-tests-sasl-ssl,?($|\s.*))|((?m)^/test(
-      | .* )channel-integration-tests-sasl-ssl_eventing-kafka-broker_release-1.10,?($|\s.*))
+      | .* )channel-integration-tests-sasl-ssl_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: channel-integration-tests-sasl-plain_eventing-kafka-broker_release-1.10
+    name: channel-integration-tests-sasl-plain_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-integration-tests-sasl-plain
     spec:
@@ -1060,7 +781,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -1096,13 +817,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )channel-integration-tests-sasl-plain,?($|\s.*))|((?m)^/test(
-      | .* )channel-integration-tests-sasl-plain_eventing-kafka-broker_release-1.10,?($|\s.*))
+      | .* )channel-integration-tests-sasl-plain_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: channel-reconciler-tests-ssl_eventing-kafka-broker_release-1.10
+    name: channel-reconciler-tests-ssl_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-reconciler-tests-ssl
     spec:
@@ -1123,7 +844,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -1159,13 +880,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )channel-reconciler-tests-ssl,?($|\s.*))|((?m)^/test(
-      | .* )channel-reconciler-tests-ssl_eventing-kafka-broker_release-1.10,?($|\s.*))
+      | .* )channel-reconciler-tests-ssl_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: channel-reconciler-tests-sasl-ssl_eventing-kafka-broker_release-1.10
+    name: channel-reconciler-tests-sasl-ssl_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-reconciler-tests-sasl-ssl
     spec:
@@ -1186,7 +907,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -1222,13 +943,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )channel-reconciler-tests-sasl-ssl,?($|\s.*))|((?m)^/test(
-      | .* )channel-reconciler-tests-sasl-ssl_eventing-kafka-broker_release-1.10,?($|\s.*))
+      | .* )channel-reconciler-tests-sasl-ssl_eventing-kafka-broker_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: channel-reconciler-tests-sasl-plain_eventing-kafka-broker_release-1.10
+    name: channel-reconciler-tests-sasl-plain_eventing-kafka-broker_release-1.13
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-reconciler-tests-sasl-plain
     spec:
@@ -1249,7 +970,7 @@ presubmits:
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -1285,4 +1006,4 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )channel-reconciler-tests-sasl-plain,?($|\s.*))|((?m)^/test(
-      | .* )channel-reconciler-tests-sasl-plain_eventing-kafka-broker_release-1.10,?($|\s.*))
+      | .* )channel-reconciler-tests-sasl-plain_eventing-kafka-broker_release-1.13,?($|\s.*))
