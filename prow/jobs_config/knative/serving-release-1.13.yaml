@@ -5,8 +5,8 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.10
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+- release-1.13
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
 jobs:
 - command:
   - runner.sh
@@ -47,7 +47,7 @@ jobs:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --istio-version latest --no-mesh
+  - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --no-mesh
   name: istio-latest-no-mesh-tls
   types:
   - presubmit
@@ -59,20 +59,10 @@ jobs:
   modifiers:
   - presubmit_optional
   - presubmit_skipped
-  name: performance-tests-kperf
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/performance/performance-tests-mako.sh
-  modifiers:
-  - presubmit_optional
-  - presubmit_skipped
-  name: performance-tests-mako
+  name: performance-tests
   requirements:
   - perf
+  timeout: 3h0m0s
   types:
   - presubmit
 - command:
@@ -101,7 +91,7 @@ jobs:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --istio-version latest --mesh
+  - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
   modifiers:
   - presubmit_optional
   - presubmit_skipped
@@ -123,7 +113,7 @@ jobs:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --kourier-version stable
+  - ./test/e2e-external-domain-tls-tests.sh --kourier-version stable
   modifiers:
   - presubmit_skipped
   name: kourier-stable-tls
@@ -145,7 +135,7 @@ jobs:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --contour-version latest
+  - ./test/e2e-external-domain-tls-tests.sh --contour-version latest
   modifiers:
   - presubmit_skipped
   name: contour-tls
@@ -168,7 +158,7 @@ jobs:
   - --run-test
   - ./test/e2e-tests.sh --https
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --https
+  - ./test/e2e-external-domain-tls-tests.sh --https
   command:
   - runner.sh
   modifiers:
@@ -193,7 +183,7 @@ jobs:
     mkdir -p /root/.kube
     cat /opt/cluster/ci-script > connect.sh
     chmod +x connect.sh
-    server_addr=$(./connect.sh kourier-110)
+    server_addr=$(./connect.sh kourier-main)
     kubectl get cm s390x-config-serving -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
     chmod +x adjust.sh
     ./adjust.sh
@@ -201,7 +191,7 @@ jobs:
     ./test/e2e-tests.sh --run-tests --kourier-version latest
   command:
   - runner.sh
-  cron: 20 6 * * *
+  cron: 20 2 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-serving
@@ -219,7 +209,7 @@ jobs:
     mkdir -p /root/.kube
     cat /opt/cluster/ci-script > connect.sh
     chmod +x connect.sh
-    server_addr=$(./connect.sh contour-110)
+    server_addr=$(./connect.sh contour-main)
     kubectl get cm s390x-config-serving -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
     chmod +x adjust.sh
     ./adjust.sh
@@ -227,7 +217,7 @@ jobs:
     ./test/e2e-tests.sh --run-tests --contour-version latest
   command:
   - runner.sh
-  cron: 20 7 * * *
+  cron: 20 3 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-serving
@@ -248,14 +238,14 @@ jobs:
     ./test/e2e-tests.sh --run-tests --kourier-version latest
   command:
   - runner.sh
-  cron: 0 13 * * *
+  cron: 40 5 * * *
   env:
   - name: SYSTEM_NAMESPACE
     value: knative-serving
   - name: TEST_OPTIONS
     value: --enable-alpha --enable-beta --resolvabledomain=false
   - name: CI_JOB
-    value: kourier-release-1.10
+    value: kourier-main
   name: ppc64le-kourier-tests
   requirements:
   - ppc64le
@@ -272,7 +262,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.10
+  - release-1.13
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -294,8 +284,14 @@ requirement_presets:
       serviceAccountName: test-runner
   nightly:
     env:
+    - name: E2E_CLUSTER_REGION
+      value: us-central1
     - name: GOOGLE_APPLICATION_CREDENTIALS
       value: /etc/nightly-account/service-account.json
+    - name: SIGN_IMAGES
+      value: "true"
+    - name: ATTEST_IMAGES
+      value: "true"
     podSpec:
       containers: null
       serviceAccountName: nightly
@@ -334,6 +330,10 @@ requirement_presets:
     env:
     - name: E2E_CLUSTER_REGION
       value: us-central1
+    - name: SIGN_IMAGES
+      value: "true"
+    - name: ATTEST_IMAGES
+      value: "true"
     podSpec:
       containers: null
       serviceAccountName: release
