@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: net-contour-continuous
+    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-tab-name: net-kourier-continuous
   cluster: prow-build
-  cron: 51 10 * * *
+  cron: 11 6 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative-extensions
-    path_alias: knative.dev/net-contour
-    repo: net-contour
-  name: continuous_net-contour_release-1.10_periodic
+    path_alias: knative.dev/net-kourier
+    repo: net-kourier
+  name: continuous_net-kourier_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -29,7 +29,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -49,18 +49,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.10
-    testgrid-tab-name: net-contour-release
+    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-tab-name: net-kourier-release
   cluster: prow-build
   cron: 37 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.10
+  - base_ref: release-1.13
     org: knative-extensions
-    path_alias: knative.dev/net-contour
-    repo: net-contour
+    path_alias: knative.dev/net-kourier
+    repo: net-kourier
   max_concurrency: 1
-  name: release_net-contour_release-1.10_periodic
+  name: release_net-kourier_release-1.13_periodic
   spec:
     containers:
     - command:
@@ -68,13 +68,13 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/net-contour
+      - knative-releases/net-kourier
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.10
+      - release-1.13
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -84,7 +84,7 @@ periodics:
         value: knative-extensions
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       name: ""
       resources: {}
       securityContext:
@@ -113,14 +113,14 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 presubmits:
-  knative-extensions/net-contour:
+  knative-extensions/net-kourier:
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: build-tests_net-contour_release-1.10
-    path_alias: knative.dev/net-contour
+    name: build-tests_net-kourier_release-1.13
+    path_alias: knative.dev/net-kourier
     rerun_command: /test build-tests
     spec:
       containers:
@@ -128,7 +128,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -136,14 +136,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-contour_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-kourier_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: unit-tests_net-contour_release-1.10
-    path_alias: knative.dev/net-contour
+    name: unit-tests_net-kourier_release-1.13
+    path_alias: knative.dev/net-kourier
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -151,7 +151,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -159,14 +159,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-contour_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-kourier_release-1.13,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.10$
+    - ^release-1.13$
     cluster: prow-build
     decorate: true
-    name: integration-tests_net-contour_release-1.10
-    path_alias: knative.dev/net-contour
+    name: integration-tests_net-kourier_release-1.13
+    path_alias: knative.dev/net-kourier
     rerun_command: /test integration-tests
     spec:
       containers:
@@ -179,7 +179,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         name: ""
         resources: {}
         securityContext:
@@ -198,4 +198,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-contour_release-1.10,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-kourier_release-1.13,?($|\s.*))
