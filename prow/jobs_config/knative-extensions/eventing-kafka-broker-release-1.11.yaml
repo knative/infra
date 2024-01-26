@@ -232,7 +232,7 @@ jobs:
     - name: BROKER_CLASS
       value: Kafka
 - name: ppc64le-e2e-tests-ssl
-  cron: 10 13 * * *
+  cron: 20 12 * * *
   types: [periodic]
   requirements: [ppc64le]
   command: [runner.sh]
@@ -285,7 +285,7 @@ jobs:
     - name: BROKER_CLASS
       value: Kafka
 - name: ppc64le-e2e-tests-sasl-ssl
-  cron: 0 8 * * *
+  cron: 50 7 * * *
   types: [periodic]
   requirements: [ppc64le]
   command: [runner.sh]
@@ -338,7 +338,7 @@ jobs:
     - name: BROKER_CLASS
       value: Kafka
 - name: ppc64le-e2e-tests-sasl-plain
-  cron: 0 2 * * *
+  cron: 50 3 * * *
   types: [periodic]
   requirements: [ppc64le]
   command: [runner.sh]

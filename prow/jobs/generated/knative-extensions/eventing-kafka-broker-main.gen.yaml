@@ -311,7 +311,7 @@ periodics:
     testgrid-dashboards: eventing-kafka-broker
     testgrid-tab-name: ppc64le-e2e-tests-ssl
   cluster: prow-build
-  cron: 10 12 * * *
+  cron: 20 9 * * *
   decorate: true
   extra_refs:
   - base_ref: main
@@ -467,7 +467,7 @@ periodics:
     testgrid-dashboards: eventing-kafka-broker
     testgrid-tab-name: ppc64le-e2e-tests-sasl-ssl
   cluster: prow-build
-  cron: 20 6 * * *
+  cron: 50 4 * * *
   decorate: true
   extra_refs:
   - base_ref: main
@@ -623,7 +623,7 @@ periodics:
     testgrid-dashboards: eventing-kafka-broker
     testgrid-tab-name: ppc64le-e2e-tests-sasl-plain
   cluster: prow-build
-  cron: 0 1 * * *
+  cron: 0 0 * * *
   decorate: true
   extra_refs:
   - base_ref: main
