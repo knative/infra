@@ -26,6 +26,7 @@ DIRS_TOBE_INSPECTED=(
   "vendor"
   "config"
   "third_party"
+  "prow"
 )
 
 cleanup() {

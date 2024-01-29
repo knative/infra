@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:bullseye-20231009-slim AS base
+FROM debian:bullseye-20240110-slim AS base
 
 # Pinned versions of stuff we pull in
 ARG TARGETARCH
@@ -20,7 +20,7 @@ ARG CLOUD_SDK_VERSION=432.0.0
 ARG KUBECTL_VERSION=v1.25.12
 ARG DOCKER_VERSION=5:24.0.1-1~debian.11~bullseye
 ARG MAVEN_VERSION=3.8.4
-ARG JAVA_VERSION=20
+ARG JAVA_VERSION=21
 ARG PROTOC_VERSION=3.17.0
 ARG TFENV_VERSION=v2.2.3
 ARG KOPS_VERSION=v1.25.0
@@ -175,11 +175,11 @@ RUN curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/v$
 # protoc-gen-gogofaster is installed below
 
 ############################################################
-FROM golang:1.20.10 AS external-go-previous
+FROM golang:1.20.12 AS external-go-previous
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
-FROM golang:1.21.3 AS external-go-latest
+FROM golang:1.21.5 AS external-go-latest
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
@@ -193,7 +193,7 @@ ARG PROTOC_GEN_GO_VERSION=v1.28.0
 ARG PROTOC_GEN_GOGOFASTER_VERSION=v1.3.2
 ARG GOTESTSUM_VERSION=v1.8.2
 ARG KAIL_VERSION=v0.15.0
-ARG GO_LICENSES_VERSION=v1.2.1
+ARG GO_LICENSES_VERSION=v1.6.0
 ARG DOCKER_CREDENTIAL_GCR_VERSION=v2.0.5
 ARG JSONNET_VERSION=v0.18.0
 ARG COSIGN_VERSION=v1.13.0
@@ -246,7 +246,7 @@ RUN git clone https://github.com/kubernetes/kops /tmp/kops && cd /tmp/kops/tests
     go install .
 
 ############################################################
-FROM rust:1.73-bullseye AS external-rust-gets
+FROM rust:1.75-bullseye AS external-rust-gets
 
 ARG CODESIGN_VERSION=0.22.0
 # change this when a new version with https://github.com/indygreg/apple-platform-rs/pull/20 is cut

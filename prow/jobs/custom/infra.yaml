@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Add a fake hook image here so that autobump.sh can bump only job configs
-# image: gcr.io/k8s-prow/hook:v20231027-9cda73bb73
+# image: gcr.io/k8s-prow/hook:v20240116-9788709fc1
 # See
 # https://github.com/kubernetes/test-infra/blob/5815354584709c3f436e3d682110c673d224d7b1/prow/cmd/autobump/autobump.sh#L164
 
@@ -25,7 +25,7 @@ presubmits:
     cluster: prow-build
     spec:
       containers:
-      - image: gcr.io/k8s-prow/checkconfig:v20231027-9cda73bb73
+      - image: gcr.io/k8s-prow/checkconfig:v20240116-9788709fc1
         command:
         - checkconfig
         args:
@@ -48,7 +48,7 @@ presubmits:
     cluster: "prow-build"
     spec:
       containers:
-      - image: gcr.io/k8s-prow/configurator:v20231027-9cda73bb73
+      - image: gcr.io/k8s-prow/configurator:v20240116-9788709fc1
         command:
         - configurator
         args:
@@ -71,7 +71,7 @@ presubmits:
     spec:
       serviceAccountName: test-runner
       containers:
-      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         imagePullPolicy: Always
         command:
         - runner.sh
@@ -100,7 +100,7 @@ periodics:
     cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
   spec:
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -139,7 +139,7 @@ periodics:
   spec:
     serviceAccountName: test-runner
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -168,7 +168,7 @@ periodics:
   spec:
     serviceAccountName: flaky-test-reporter
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -216,7 +216,7 @@ periodics:
   spec:
     serviceAccountName: flaky-test-reporter
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -269,7 +269,7 @@ periodics:
       report_template: '"The prow-jobs-syncer periodic job has failed, please check the logs: <{{.Status.URL}}|View logs>"'
   spec:
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
       imagePullPolicy: Always
       command:
       - "runner.sh"
@@ -332,7 +332,7 @@ postsubmits:
     spec:
       serviceAccountName: test-runner # switch a different service account
       containers:
-      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
         imagePullPolicy: Always
         command:
         - runner.sh
@@ -359,7 +359,7 @@ postsubmits:
     spec:
       serviceAccountName: testgrid-updater
       containers:
-      - image: gcr.io/k8s-prow/configurator:v20231027-9cda73bb73
+      - image: gcr.io/k8s-prow/configurator:v20240116-9788709fc1
         command:
         - configurator
         args:

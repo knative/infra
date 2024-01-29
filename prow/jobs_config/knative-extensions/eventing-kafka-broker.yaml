@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-kafka-broker
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
 
 jobs:
   - name: build-tests
@@ -72,7 +72,6 @@ jobs:
     types: [ presubmit ]
     command: [ runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/keda-reconciler-tests.sh"]
     requirements: [ docker ]
-    modifiers: [presubmit_optional, presubmit_skipped]
     env:
       - name: BROKER_CLASS
         value: Kafka
@@ -202,7 +201,7 @@ jobs:
         value: Kafka
 
   - name: ppc64le-e2e-tests-ssl
-    cron: 0 10 * * *
+    cron: 10 12 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
@@ -257,7 +256,7 @@ jobs:
         value: Kafka
 
   - name: ppc64le-e2e-tests-sasl-ssl
-    cron: 20 5 * * *
+    cron: 20 6 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]

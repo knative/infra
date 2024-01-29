@@ -6,7 +6,7 @@
 # #############################################################################
 branches:
 - release-1.11
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231207-30ee442a2
 jobs:
 - command:
   - runner.sh
@@ -102,7 +102,7 @@ jobs:
     value: /tmp/ssl.crt
   command:
   - runner.sh
-  cron: 50 21 * * *
+  cron: 10 21 * * *
   name: ppc64le-e2e-tests
   requirements:
   - ppc64le

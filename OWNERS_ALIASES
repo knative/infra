@@ -44,6 +44,7 @@ aliases:
   - pierDipi
   eventing-writers:
   - aliok
+  - cali0707
   - creydr
   - lberk
   - lionelvillard
@@ -51,10 +52,10 @@ aliases:
   - odacremolbap
   - pierDipi
   func-reviewers:
-  - gauron99
   - jrangelramos
   - nainaz
   func-writers:
+  - gauron99
   - jrangelramos
   - lance
   - lkingland
@@ -65,19 +66,20 @@ aliases:
   - salaboy
   knative-admin:
   - Cali0707
+  - Leo6Leo
   - ReToCode
+  - aliok
   - creydr
-  - csantanapr
   - davidhadas
   - dprotaso
   - dsimansk
+  - evankanderson
   - knative-automation
   - knative-prow-releaser-robot
   - knative-prow-robot
   - knative-prow-updater-robot
   - knative-test-reporter-robot
-  - kvmware
-  - lance
+  - krsna-m
   - mchmarny
   - nainaz
   - pierDipi
@@ -90,6 +92,7 @@ aliases:
   - xtreme-sameer-vohra
   knative-release-leads:
   - Cali0707
+  - Leo6Leo
   - ReToCode
   - creydr
   - dsimansk
@@ -114,17 +117,17 @@ aliases:
   - matzew
   - maximilien
   productivity-leads:
-  - kvmware
+  - krsna-m
   - upodroid
   productivity-reviewers:
   - evankanderson
   - mgencur
   productivity-wg-leads:
-  - kvmware
+  - krsna-m
   - upodroid
   productivity-writers:
   - cardil
-  - kvmware
+  - krsna-m
   - upodroid
   security-wg-leads:
   - davidhadas
@@ -138,12 +141,9 @@ aliases:
   - skonto
   serving-reviewers:
   - KauzClay
-  - jsanin-vmw
-  - kauana
-  - kvmware
+  - krsna-m
   - retocode
   - skonto
-  - xtreme-vikram-yadav
   serving-triage:
   - KauzClay
   - retocode
@@ -156,8 +156,8 @@ aliases:
   - psschwei
   - skonto
   steering-committee:
-  - csantanapr
-  - lance
+  - aliok
+  - evankanderson
   - nainaz
   - puerco
   - salaboy
@@ -165,7 +165,7 @@ aliases:
   - davidhadas
   - dprotaso
   - dsimansk
-  - kvmware
+  - krsna-m
   - psschwei
   trademark-committee:
   - mchmarny

@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: kn-plugin-event
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231023-607a173b2
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
 
 jobs:
   - name: build-tests
@@ -41,7 +41,7 @@ jobs:
     excluded_requirements:
     - gcp
   - name: ppc64le-e2e-tests
-    cron: 50 3 * * *
+    cron: 30 4 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]

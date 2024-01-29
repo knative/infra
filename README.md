@@ -72,7 +72,8 @@ build/deploy/test Knative clusters (managed by Prow).
 ## Contributing
 
 If you are interested in contributing, see [CONTRIBUTING.md](./CONTRIBUTING.md)
-and [DEVELOPMENT.md](./DEVELOPMENT.md).
+and [DEVELOPMENT.md](./DEVELOPMENT.md). For a list of help wanted issues in Knative, 
+look at [CLOTRIBUTOR](https://clotributor.dev/search?project=knative&page=1).
 
 ## Guides
 
