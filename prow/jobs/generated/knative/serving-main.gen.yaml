@@ -661,7 +661,7 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: ppc64le-kourier-tests
   cluster: prow-build
-  cron: 40 5 * * *
+  cron: 30 4 * * *
   decorate: true
   extra_refs:
   - base_ref: main

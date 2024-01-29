@@ -41,7 +41,7 @@ jobs:
     excluded_requirements:
     - gcp
   - name: ppc64le-e2e-tests
-    cron: 30 4 * * *
+    cron: 0 3 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
