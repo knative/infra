@@ -402,7 +402,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-ssl
   cluster: prow-build
-  cron: 40 15 * * *
+  cron: 20 11 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12
@@ -476,7 +476,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-sasl-ssl
   cluster: prow-build
-  cron: 30 10 * * *
+  cron: 50 6 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12
@@ -550,7 +550,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-sasl-plain
   cluster: prow-build
-  cron: 20 5 * * *
+  cron: 0 2 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12

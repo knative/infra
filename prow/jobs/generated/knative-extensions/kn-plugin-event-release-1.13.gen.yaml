@@ -182,6 +182,59 @@ periodics:
       secret:
         defaultMode: 384
         secretName: s390x-cluster1
+- annotations:
+    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-tab-name: kn-plugin-event-ppc64le-e2e-tests
+  cluster: prow-build
+  cron: 50 8 * * *
+  decorate: true
+  extra_refs:
+  - base_ref: release-1.13
+    org: knative-extensions
+    path_alias: knative.dev/kn-plugin-event
+    repo: kn-plugin-event
+  name: ppc64le-e2e-tests_kn-plugin-event_release-1.13_periodic
+  spec:
+    containers:
+    - args:
+      - bash
+      - -c
+      - |
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        ./test/e2e-tests.sh --run-tests
+      command:
+      - runner.sh
+      env:
+      - name: CI_JOB
+        value: plugin_event-113
+      - name: SSL_CERT_FILE
+        value: /tmp/ssl.crt
+      - name: KO_FLAGS
+        value: --platform=linux/ppc64le
+      - name: PLATFORM
+        value: linux/ppc64le
+      - name: KO_DOCKER_REPO
+        value: na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
+      - name: KUBECONFIG
+        value: /root/.kube/config
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
+      name: ""
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /opt/cluster
+        name: ppc64le-cluster
+        readOnly: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    volumes:
+    - name: ppc64le-cluster
+      secret:
+        defaultMode: 384
+        secretName: ppc64le-cluster
 presubmits:
   knative-extensions/kn-plugin-event:
   - always_run: true

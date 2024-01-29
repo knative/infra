@@ -126,7 +126,7 @@ periodics:
     testgrid-dashboards: knative-release-1.13
     testgrid-tab-name: operator-ppc64le-e2e-tests
   cluster: prow-build
-  cron: 10 5 * * *
+  cron: 30 9 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.13
@@ -147,7 +147,7 @@ periodics:
       - runner.sh
       env:
       - name: CI_JOB
-        value: operator-main
+        value: operator-release-1.13
       - name: INGRESS_CLASS
         value: contour.ingress.networking.knative.dev
       - name: E2E_CLUSTER_REGION
