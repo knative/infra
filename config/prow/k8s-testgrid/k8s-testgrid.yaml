@@ -17,7 +17,6 @@ dashboard_groups:
   - utilities
   name: knative
 - dashboard_names:
-  - async-component
   - backstage-plugins
   - eventing-autoscaler-keda
   - eventing-awssqs
@@ -50,12 +49,10 @@ dashboard_groups:
   - net-kourier
   - sample-controller
   - sample-source
-  - scaling-group
   - security-guard
   - serving-progressive-rollout
   name: knative-extensions
 dashboards:
-- name: async-component
 - name: backstage-plugins
 - name: client
 - name: client-pkg
@@ -109,7 +106,6 @@ dashboards:
 - name: operator
 - name: sample-controller
 - name: sample-source
-- name: scaling-group
 - name: security-guard
 - name: serving
 - name: serving-progressive-rollout

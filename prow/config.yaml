@@ -180,12 +180,6 @@ tide:
   - orgs:
     - "knative"
     - "knative-extensions"
-    excludedRepos: &knative_excluded_repos
-    - knative/build
-    - knative/build-templates
-    - knative/eventing-operator
-    - knative/serving-operator
-    - knative/observability
     labels:
     - lgtm
     - approved
@@ -197,7 +191,6 @@ tide:
   - orgs:
     - "knative"
     - "knative-extensions"
-    excludedRepos: *knative_excluded_repos
     labels:
     - "skip-review"
     missingLabels: *knative_tide_missing_labels
@@ -215,7 +208,6 @@ tide:
     # Automatically merge dependabot PRs once they pass tests
     - "knative"
     - "knative-extensions"
-    excludedRepos: *knative_excluded_repos
     labels:
     - "skip-review"
     missingLabels: *knative_tide_missing_labels
@@ -246,8 +238,6 @@ tide:
             skip-unknown-contexts: true
       knative-extensions:
         repos:
-          async-component:
-            skip-unknown-contexts: true
           eventing-kafka-broker:
             skip-unknown-contexts: true
           eventing-istio:
