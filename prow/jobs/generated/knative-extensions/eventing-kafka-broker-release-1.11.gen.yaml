@@ -196,7 +196,7 @@ periodics:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
-        value: --platform=linux/s390x --insecure-registry
+        value: --platform=linux/s390x
       - name: PLATFORM
         value: linux/s390x
       - name: KO_DOCKER_REPO
@@ -352,7 +352,7 @@ periodics:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
-        value: --platform=linux/s390x --insecure-registry
+        value: --platform=linux/s390x
       - name: PLATFORM
         value: linux/s390x
       - name: KO_DOCKER_REPO
@@ -508,7 +508,7 @@ periodics:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
-        value: --platform=linux/s390x --insecure-registry
+        value: --platform=linux/s390x
       - name: PLATFORM
         value: linux/s390x
       - name: KO_DOCKER_REPO
