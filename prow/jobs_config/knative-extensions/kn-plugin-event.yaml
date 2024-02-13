@@ -21,44 +21,7 @@ jobs:
   - name: continuous
     types: [periodic]
     command: [runner.sh, ./test/presubmit-tests.sh, --all-tests]
-  - name: s390x-e2e-tests
-    cron: 20 10 * * *
-    types: [periodic]
-    requirements: [s390x]
-    command: [runner.sh]
-    args:
-      - bash
-      - -c
-      - |
-        mkdir -p /root/.kube
-        cat /opt/cluster/ci-script > connect.sh
-        chmod +x connect.sh
-        ./connect.sh plugin_event-main
-        kubectl get cm s390x-config-plugin-event -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-        chmod +x adjust.sh
-        ./adjust.sh
-        ./test/e2e-tests.sh --run-tests
-    excluded_requirements:
-    - gcp
-  - name: ppc64le-e2e-tests
-    cron: 0 3 * * *
-    types: [periodic]
-    requirements: [ppc64le]
-    command: [runner.sh]
-    args:
-      - bash
-      - -c
-      - |
-        server_vm="$(sh /opt/cluster/vm-script)"
-        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-        ./test/e2e-tests.sh --run-tests
-    env:
-    - name: CI_JOB
-      value: plugin_event-main
-    - name: SSL_CERT_FILE
-      VALUE: /tmp/ssl.crt
-    excluded_requirements:
-    - gcp
+
   - name: nightly
     types: [periodic]
     command: [runner.sh, ./hack/release.sh, --publish, --tag-release,
