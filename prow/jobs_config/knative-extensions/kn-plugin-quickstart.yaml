@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: kn-plugin-quickstart
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240118-2363ff62a
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240213-0920a4242
 
 jobs:
   - name: build-tests
