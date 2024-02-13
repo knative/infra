@@ -101,7 +101,7 @@ periodics:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       - name: KO_FLAGS
-        value: --platform=linux/s390x --insecure-registry
+        value: --platform=linux/s390x
       - name: PLATFORM
         value: linux/s390x
       - name: KO_DOCKER_REPO
@@ -190,7 +190,7 @@ periodics:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       - name: KO_FLAGS
-        value: --platform=linux/s390x --insecure-registry
+        value: --platform=linux/s390x
       - name: PLATFORM
         value: linux/s390x
       - name: KO_DOCKER_REPO
