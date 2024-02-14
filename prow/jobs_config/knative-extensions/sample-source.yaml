@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: sample-source
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240213-74adf2624
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240214-138698e62
 
 jobs:
   - name: build-tests
