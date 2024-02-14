@@ -29,7 +29,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240213-74adf2624
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240214-138698e62
       name: ""
       resources: {}
       securityContext:
@@ -81,7 +81,7 @@ periodics:
         value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240213-74adf2624
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240214-138698e62
       name: ""
       resources: {}
       securityContext:
@@ -162,7 +162,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240213-74adf2624
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240214-138698e62
       name: ""
       resources: {}
       securityContext:
@@ -227,7 +227,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240213-74adf2624
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240214-138698e62
         name: ""
         resources: {}
         securityContext:
@@ -250,7 +250,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240213-74adf2624
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240214-138698e62
         name: ""
         resources: {}
         securityContext:
@@ -278,7 +278,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240213-74adf2624
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240214-138698e62
         name: ""
         resources: {}
         securityContext:
