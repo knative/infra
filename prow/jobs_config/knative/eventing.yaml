@@ -79,7 +79,7 @@ jobs:
         value: "1"
 
   - name: ppc64le-e2e-tests
-    cron: 45 2 * * *
+    cron: 40 2 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
@@ -99,7 +99,7 @@ jobs:
         value: "eventing-main"
 
   - name: ppc64le-e2e-reconciler-tests
-    cron: 30 0 * * *
+    cron: 20 0 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
