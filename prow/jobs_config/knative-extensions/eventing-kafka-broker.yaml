@@ -201,7 +201,7 @@ jobs:
         value: Kafka
 
   - name: ppc64le-e2e-tests-ssl
-    cron: 20 9 * * *
+    cron: 10 9 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
@@ -256,7 +256,7 @@ jobs:
         value: Kafka
 
   - name: ppc64le-e2e-tests-sasl-ssl
-    cron: 50 4 * * *
+    cron: 30 4 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]

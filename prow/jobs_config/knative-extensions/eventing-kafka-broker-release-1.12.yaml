@@ -340,7 +340,7 @@ jobs:
     - name: BROKER_CLASS
       value: Kafka
 - name: ppc64le-e2e-tests-ssl
-  cron: 20 11 * * *
+  cron: 30 11 * * *
   types: [periodic]
   requirements: [ppc64le]
   command: [runner.sh]
