@@ -174,12 +174,7 @@ RUN curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/v$
     && rm protoc.zip
 # protoc-gen-gogofaster is installed below
 
-############################################################
-FROM golang:1.20.12 AS external-go-previous
-# Capture the version that dependabot bumps so that we can install it into the base image
-RUN go version | cut -d' ' -f3 > /golang.version
-
-FROM golang:1.21.5 AS external-go-latest
+FROM golang:1.22.0 AS external-go-latest
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
@@ -259,7 +254,6 @@ FROM base
 COPY --from=external-rust-gets /usr/local/cargo/bin/rcodesign /usr/local/bin/rcodesign
 COPY --from=external-go-gets /go/bin/* /go/bin/
 COPY --from=external-go-latest /golang.version /golang-latest.version
-COPY --from=external-go-previous /golang.version /golang-previous.version
 
 # Install go using https://github.com/moovweb/gvm
 # GVM_NO_UPDATE_PROFILE=true means do not alter /root/.bashrc to automatically source gvm config, so when not using runner.sh, image works normally
@@ -271,8 +265,6 @@ RUN curl -fsSL https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/g
 COPY images/prow-tests/source-gvm-and-run.sh /usr/local/bin
 # Install our version of Go.
 
-RUN source-gvm-and-run.sh install `cat /golang-previous.version` --prefer-binary
-# The below will need to be updated to whatever the latest is when the project is ready.
 RUN source-gvm-and-run.sh install `cat /golang-latest.version` --prefer-binary
 RUN source-gvm-and-run.sh use `cat /golang-latest.version` --default
 
