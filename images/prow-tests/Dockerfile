@@ -187,12 +187,12 @@ FROM external-go-latest AS external-go-gets
 
 ARG KUBETEST2_VERSION=d306c412d528f0a5dda4b6bd1c7550a905f5edb9
 ARG KUBETEST2_KOPS_VERSION=9b957a1d6189ee612506c9b6dc5b8b1a19e9c2aa # v1.25.0 release
-ARG KIND_VERSION=v0.18.0
-ARG KO_VERSION=v0.13.0
+ARG KIND_VERSION=v0.22.0
+ARG KO_VERSION=v0.15.2
 ARG PROTOC_GEN_GO_VERSION=v1.28.0
 ARG PROTOC_GEN_GOGOFASTER_VERSION=v1.3.2
-ARG GOTESTSUM_VERSION=v1.8.2
-ARG KAIL_VERSION=v0.15.0
+ARG GOTESTSUM_VERSION=v1.11.0
+ARG KAIL_VERSION=v0.17.4
 ARG GO_LICENSES_VERSION=v1.6.0
 ARG DOCKER_CREDENTIAL_GCR_VERSION=v2.0.5
 ARG JSONNET_VERSION=v0.18.0
@@ -296,7 +296,7 @@ ENV USE_GKE_GCLOUD_AUTH_PLUGIN True
 
 # Extract versions
 RUN ko version > /ko_version
-RUN rcodesign --version 
+RUN rcodesign --version
 
 # Ensure docker config is in the final image
 RUN docker-credential-gcr configure-docker --registries=gcr.io,us-docker.pkg.dev
