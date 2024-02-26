@@ -79,7 +79,7 @@ jobs:
         value: "1"
 
   - name: ppc64le-e2e-tests
-    cron: 40 2 * * *
+    cron: 0 3 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
