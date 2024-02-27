@@ -162,6 +162,8 @@ periodics:
         value: icr.io/upstream-k8s-registry/knative
       - name: KUBECONFIG
         value: /root/.kube/config
+      - name: DOCKER_CONFIG
+        value: /opt/cluster
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240222-760202db5
       name: ""
       resources: {}
