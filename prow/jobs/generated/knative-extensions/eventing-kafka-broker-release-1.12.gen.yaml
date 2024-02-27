@@ -402,7 +402,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-ssl
   cluster: prow-build
-  cron: 30 11 * * *
+  cron: 40 11 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12
@@ -443,7 +443,7 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: docker-na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
+        value: icr.io/upstream-k8s-registry/knative
       - name: KUBECONFIG
         value: /root/.kube/config
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
@@ -476,7 +476,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-sasl-ssl
   cluster: prow-build
-  cron: 50 6 * * *
+  cron: 10 7 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12
@@ -517,7 +517,7 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: docker-na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
+        value: icr.io/upstream-k8s-registry/knative
       - name: KUBECONFIG
         value: /root/.kube/config
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
@@ -550,7 +550,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.12
     testgrid-tab-name: eventing-kafka-broker-ppc64le-e2e-tests-sasl-plain
   cluster: prow-build
-  cron: 0 2 * * *
+  cron: 20 2 * * *
   decorate: true
   extra_refs:
   - base_ref: release-1.12
@@ -591,7 +591,7 @@ periodics:
       - name: PLATFORM
         value: linux/ppc64le
       - name: KO_DOCKER_REPO
-        value: docker-na.artifactory.swg-devops.com/sys-linux-power-team-ftp3distro-docker-images-docker-local/knative
+        value: icr.io/upstream-k8s-registry/knative
       - name: KUBECONFIG
         value: /root/.kube/config
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe

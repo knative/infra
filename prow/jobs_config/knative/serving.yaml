@@ -217,7 +217,7 @@ jobs:
         value: "--enable-alpha --enable-beta --resolvabledomain=false"
 
   - name: ppc64le-kourier-tests
-    cron: 0 4 * * *
+    cron: 20 4 * * *
     types: [periodic]
     requirements: [ppc64le]
     command: [runner.sh]
