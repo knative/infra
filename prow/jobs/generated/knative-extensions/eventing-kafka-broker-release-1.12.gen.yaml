@@ -446,6 +446,8 @@ periodics:
         value: icr.io/upstream-k8s-registry/knative
       - name: KUBECONFIG
         value: /root/.kube/config
+      - name: DOCKER_CONFIG
+        value: /opt/cluster
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
       name: ""
       resources: {}
@@ -520,6 +522,8 @@ periodics:
         value: icr.io/upstream-k8s-registry/knative
       - name: KUBECONFIG
         value: /root/.kube/config
+      - name: DOCKER_CONFIG
+        value: /opt/cluster
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
       name: ""
       resources: {}
@@ -594,6 +598,8 @@ periodics:
         value: icr.io/upstream-k8s-registry/knative
       - name: KUBECONFIG
         value: /root/.kube/config
+      - name: DOCKER_CONFIG
+        value: /opt/cluster
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20231129-81431e1fe
       name: ""
       resources: {}
