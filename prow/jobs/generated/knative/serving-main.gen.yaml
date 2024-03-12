@@ -1658,6 +1658,62 @@ presubmits:
     - ^main$
     cluster: prow-build
     decorate: true
+    name: gateway-api-latest-and-contour_serving_main
+    optional: true
+    path_alias: knative.dev/serving
+    rerun_command: /test gateway-api-latest-and-contour
+    run_if_changed: ^third_party/gateway-api-latest/*
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --run-test
+        - ./test/e2e-tests.sh --gateway-api-version latest --gateway-api-implementation
+          contour
+        env:
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240308-014416ede
+        name: ""
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            memory: 12Gi
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      serviceAccountName: test-runner
+      volumes:
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
+    trigger: ((?m)^/test( | .* )gateway-api-latest-and-contour,?($|\s.*))|((?m)^/test(
+      | .* )gateway-api-latest-and-contour_serving_main,?($|\s.*))
+  - always_run: false
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
     name: https_serving_main
     optional: true
     path_alias: knative.dev/serving
