@@ -30,7 +30,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
       name: ""
       resources: {}
       securityContext:
@@ -73,7 +73,7 @@ periodics:
         value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
       name: ""
       resources: {}
       securityContext:
@@ -128,7 +128,7 @@ periodics:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
       name: ""
       resources: {}
       securityContext:
@@ -181,7 +181,7 @@ periodics:
         value: knative-extensions
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
       name: ""
       resources: {}
       securityContext:
@@ -225,7 +225,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
         name: ""
         resources: {}
         securityContext:
@@ -248,7 +248,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
         name: ""
         resources: {}
         securityContext:
@@ -277,7 +277,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
         name: ""
         resources: {}
         securityContext:
@@ -318,7 +318,7 @@ presubmits:
           value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
         name: ""
         resources: {}
         securityContext:
