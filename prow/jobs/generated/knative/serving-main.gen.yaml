@@ -64,6 +64,64 @@ periodics:
       name: cgroup
 - annotations:
     testgrid-dashboards: serving
+    testgrid-tab-name: continuous-gateway-api-contour
+  cluster: prow-build
+  cron: 36 */12 * * *
+  decorate: true
+  decoration_config:
+    timeout: 3h0m0s
+  extra_refs:
+  - base_ref: main
+    org: knative
+    path_alias: knative.dev/serving
+    repo: serving
+  name: continuous-gateway-api-contour_serving_main_periodic
+  spec:
+    containers:
+    - command:
+      - runner.sh
+      - ./test/presubmit-tests.sh
+      - --run-test
+      - ./test/e2e-tests.sh --gateway-api-version latest --gateway-api-implementation
+        contour
+      env:
+      - name: E2E_CLUSTER_REGION
+        value: us-central1
+      - name: DOCKER_IN_DOCKER_ENABLED
+        value: "true"
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+      name: ""
+      resources:
+        limits:
+          memory: 16Gi
+        requests:
+          memory: 12Gi
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /docker-graph
+        name: docker-graph
+      - mountPath: /lib/modules
+        name: modules
+      - mountPath: /sys/fs/cgroup
+        name: cgroup
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    serviceAccountName: test-runner
+    volumes:
+    - emptyDir: {}
+      name: docker-graph
+    - hostPath:
+        path: /lib/modules
+        type: Directory
+      name: modules
+    - hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
+      name: cgroup
+- annotations:
+    testgrid-dashboards: serving
     testgrid-tab-name: istio-latest-mesh
   cluster: prow-build
   cron: 36 */9 * * *
@@ -1605,9 +1663,9 @@ presubmits:
     - ^main$
     cluster: prow-build
     decorate: true
-    name: gateway-api-latest_serving_main
+    name: gateway-api-istio_serving_main
     path_alias: knative.dev/serving
-    rerun_command: /test gateway-api-latest
+    rerun_command: /test gateway-api-istio
     run_if_changed: ^third_party/gateway-api-latest/*
     spec:
       containers:
@@ -1652,7 +1710,7 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )gateway-api-latest,?($|\s.*))|((?m)^/test( | .* )gateway-api-latest_serving_main,?($|\s.*))
+    trigger: ((?m)^/test( | .* )gateway-api-istio,?($|\s.*))|((?m)^/test( | .* )gateway-api-istio_serving_main,?($|\s.*))
   - always_run: false
     branches:
     - ^main$
