@@ -157,6 +157,17 @@ jobs:
     - --run-test
     - ./test/e2e-tests.sh --gateway-api-version latest
 
+  - name: gateway-api-contour
+    types: [periodic]
+    timeout: 3h
+    regex: ^third_party/gateway-api-latest/*
+    command:
+    - runner.sh
+    args:
+    - ./test/presubmit-tests.sh
+    - --run-test
+    - ./test/e2e-tests.sh --gateway-api-version latest --gateway-api-implementation contour
+
   - name: https
     types: [periodic]
     command:
