@@ -296,16 +296,16 @@ periodics:
       name: cgroup
 - annotations:
     testgrid-dashboards: serving
-    testgrid-tab-name: gateway-api-latest
+    testgrid-tab-name: gateway-api-istio
   cluster: prow-build
-  cron: 47 */9 * * *
+  cron: 48 */9 * * *
   decorate: true
   extra_refs:
   - base_ref: main
     org: knative
     path_alias: knative.dev/serving
     repo: serving
-  name: gateway-api-latest_serving_main_periodic
+  name: gateway-api-istio_serving_main_periodic
   spec:
     containers:
     - args:
@@ -320,6 +320,65 @@ periodics:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
+      name: ""
+      resources:
+        limits:
+          memory: 16Gi
+        requests:
+          memory: 12Gi
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /docker-graph
+        name: docker-graph
+      - mountPath: /lib/modules
+        name: modules
+      - mountPath: /sys/fs/cgroup
+        name: cgroup
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    serviceAccountName: test-runner
+    volumes:
+    - emptyDir: {}
+      name: docker-graph
+    - hostPath:
+        path: /lib/modules
+        type: Directory
+      name: modules
+    - hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
+      name: cgroup
+- annotations:
+    testgrid-dashboards: serving
+    testgrid-tab-name: gateway-api-contour
+  cluster: prow-build
+  cron: 22 */12 * * *
+  decorate: true
+  decoration_config:
+    timeout: 3h0m0s
+  extra_refs:
+  - base_ref: main
+    org: knative
+    path_alias: knative.dev/serving
+    repo: serving
+  name: gateway-api-contour_serving_main_periodic
+  spec:
+    containers:
+    - args:
+      - ./test/presubmit-tests.sh
+      - --run-test
+      - ./test/e2e-tests.sh --gateway-api-version latest --gateway-api-implementation
+        contour
+      command:
+      - runner.sh
+      env:
+      - name: E2E_CLUSTER_REGION
+        value: us-central1
+      - name: DOCKER_IN_DOCKER_ENABLED
+        value: "true"
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
       name: ""
       resources:
         limits:
