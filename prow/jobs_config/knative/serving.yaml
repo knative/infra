@@ -148,7 +148,7 @@ jobs:
     - --run-test
     - ./test/e2e-external-domain-tls-tests.sh --contour-version latest --run-http01-external-domain-tls-tests
 
-  - name: gateway-api-latest
+  - name: gateway-api-istio
     types: [periodic]
     command:
     - runner.sh
