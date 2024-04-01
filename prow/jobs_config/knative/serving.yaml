@@ -148,7 +148,7 @@ jobs:
     - --run-test
     - ./test/e2e-external-domain-tls-tests.sh --contour-version latest --run-http01-external-domain-tls-tests
 
-  - name: gateway-api-latest
+  - name: gateway-api-istio
     types: [periodic]
     command:
     - runner.sh
@@ -156,6 +156,15 @@ jobs:
     - ./test/presubmit-tests.sh
     - --run-test
     - ./test/e2e-tests.sh --gateway-api-version latest
+
+  - name: gateway-api-contour
+    types: [periodic]
+    command:
+    - runner.sh
+    args:
+    - ./test/presubmit-tests.sh
+    - --run-test
+    - ./test/e2e-tests.sh --gateway-api-version latest --gateway-api-implementation contour
 
   - name: https
     types: [periodic]
