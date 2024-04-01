@@ -159,8 +159,6 @@ jobs:
 
   - name: gateway-api-contour
     types: [periodic]
-    timeout: 3h
-    regex: ^third_party/gateway-api-latest/*
     command:
     - runner.sh
     args:
