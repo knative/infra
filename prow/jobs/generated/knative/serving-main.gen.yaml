@@ -354,10 +354,8 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: gateway-api-contour
   cluster: prow-build
-  cron: 22 */12 * * *
+  cron: 22 */9 * * *
   decorate: true
-  decoration_config:
-    timeout: 3h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -378,7 +376,7 @@ periodics:
         value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240322-ec03cf0c2
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
       name: ""
       resources:
         limits:
