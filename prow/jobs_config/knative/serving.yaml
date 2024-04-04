@@ -183,6 +183,14 @@ jobs:
     requirements: [perf]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/performance/performance-tests.sh]
 
+  - name: certmanager-integration-tests
+    types: [presubmit]
+    command: [runner.sh, ./test/e2e/certmanager/presubmit-tests.sh, --integration-tests]
+
+  - name: cert-manager-continuous
+    types: [periodic]
+    command: [runner.sh, ./test/e2e/certmanager/presubmit-tests.sh, --all-tests]
+
   - name: s390x-kourier-tests
     cron: 20 2 * * *
     types: [periodic]
