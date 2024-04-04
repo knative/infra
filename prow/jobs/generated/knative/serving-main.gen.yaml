@@ -538,6 +538,60 @@ periodics:
         secretName: influx-url-secret
 - annotations:
     testgrid-dashboards: serving
+    testgrid-tab-name: cert-manager-continuous
+  cluster: prow-build
+  cron: 30 */9 * * *
+  decorate: true
+  extra_refs:
+  - base_ref: main
+    org: knative
+    path_alias: knative.dev/serving
+    repo: serving
+  name: cert-manager-continuous_serving_main_periodic
+  spec:
+    containers:
+    - command:
+      - runner.sh
+      - ./test/e2e/certmanager/presubmit-tests.sh
+      - --all-tests
+      env:
+      - name: E2E_CLUSTER_REGION
+        value: us-central1
+      - name: DOCKER_IN_DOCKER_ENABLED
+        value: "true"
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
+      name: ""
+      resources:
+        limits:
+          memory: 16Gi
+        requests:
+          memory: 12Gi
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /docker-graph
+        name: docker-graph
+      - mountPath: /lib/modules
+        name: modules
+      - mountPath: /sys/fs/cgroup
+        name: cgroup
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    serviceAccountName: test-runner
+    volumes:
+    - emptyDir: {}
+      name: docker-graph
+    - hostPath:
+        path: /lib/modules
+        type: Directory
+      name: modules
+    - hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
+      name: cgroup
+- annotations:
+    testgrid-dashboards: serving
     testgrid-tab-name: s390x-kourier-tests
   cluster: prow-build
   cron: 20 2 * * *
@@ -1823,3 +1877,55 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )https,?($|\s.*))|((?m)^/test( | .* )https_serving_main,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
+    name: certmanager-integration-tests_serving_main
+    path_alias: knative.dev/serving
+    rerun_command: /test certmanager-integration-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/e2e/certmanager/presubmit-tests.sh
+        - --integration-tests
+        env:
+        - name: E2E_CLUSTER_REGION
+          value: us-central1
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
+        name: ""
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            memory: 12Gi
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      serviceAccountName: test-runner
+      volumes:
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
+    trigger: ((?m)^/test( | .* )certmanager-integration-tests,?($|\s.*))|((?m)^/test(
+      | .* )certmanager-integration-tests_serving_main,?($|\s.*))
