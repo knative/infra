@@ -26,8 +26,6 @@ periodics:
       - ./test/presubmit-tests.sh
       - --all-tests
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
@@ -93,8 +91,6 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES

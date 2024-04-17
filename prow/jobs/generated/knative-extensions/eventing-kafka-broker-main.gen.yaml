@@ -28,8 +28,6 @@ periodics:
       env:
       - name: BROKER_CLASS
         value: Kafka
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
@@ -90,8 +88,6 @@ periodics:
       env:
       - name: BROKER_CLASS
         value: Kafka
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
@@ -163,8 +159,6 @@ periodics:
         value: Kafka
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
@@ -327,8 +321,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -406,8 +398,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -485,8 +475,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -564,8 +552,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -643,8 +629,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -722,8 +706,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -827,8 +809,6 @@ presubmits:
         env:
         - name: BROKER_CLASS
           value: Kafka
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -887,8 +867,6 @@ presubmits:
         env:
         - name: BROKER_CLASS
           value: Kafka
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -947,8 +925,6 @@ presubmits:
         env:
         - name: BROKER_CLASS
           value: Kafka
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -1007,8 +983,6 @@ presubmits:
         env:
         - name: BROKER_CLASS
           value: KafkaNamespaced
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -1068,8 +1042,6 @@ presubmits:
         env:
         - name: BROKER_CLASS
           value: Kafka
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -1131,8 +1103,6 @@ presubmits:
           value: Kafka
         - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
           value: SSL
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -1194,8 +1164,6 @@ presubmits:
           value: Kafka
         - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
           value: SASL_SSL
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -1257,8 +1225,6 @@ presubmits:
           value: Kafka
         - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
           value: SASL_PLAIN
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -1320,8 +1286,6 @@ presubmits:
           value: Kafka
         - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
           value: SSL
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -1383,8 +1347,6 @@ presubmits:
           value: Kafka
         - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
           value: SASL_SSL
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED
@@ -1446,8 +1408,6 @@ presubmits:
           value: Kafka
         - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
           value: SASL_PLAIN
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         - name: DOCKER_IN_DOCKER_ENABLED

@@ -25,8 +25,6 @@ periodics:
       - ./test/presubmit-tests.sh
       - --all-tests
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -204,8 +202,6 @@ presubmits:
         - ./test/presubmit-tests.sh
         - --integration-tests
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
