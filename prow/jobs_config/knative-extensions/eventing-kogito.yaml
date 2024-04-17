@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-kogito
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-311b6742f
 
 jobs:
   - name: build-tests
