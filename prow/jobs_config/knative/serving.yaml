@@ -294,8 +294,6 @@ requirement_presets:
     podSpec:
       serviceAccountName: nightly
     env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
       - name: SIGN_IMAGES
@@ -318,8 +316,6 @@ requirement_presets:
     podSpec:
       serviceAccountName: release
     env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
@@ -364,6 +360,3 @@ requirement_presets:
   gcp:
     podSpec:
       serviceAccountName: test-runner
-    env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1

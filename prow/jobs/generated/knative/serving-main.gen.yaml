@@ -27,8 +27,6 @@ periodics:
       - ./test/presubmit-tests.sh
       - --all-tests
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -85,8 +83,6 @@ periodics:
       command:
       - runner.sh
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -143,8 +139,6 @@ periodics:
       command:
       - runner.sh
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -201,8 +195,6 @@ periodics:
       command:
       - runner.sh
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -259,8 +251,6 @@ periodics:
       command:
       - runner.sh
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -315,8 +305,6 @@ periodics:
       command:
       - runner.sh
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -372,8 +360,6 @@ periodics:
       command:
       - runner.sh
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -430,8 +416,6 @@ periodics:
       command:
       - runner.sh
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -487,8 +471,6 @@ periodics:
       - --run-test
       - ./test/performance/performance-tests.sh
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -570,8 +552,6 @@ periodics:
         value: knative-serving
       - name: TEST_OPTIONS
         value: --enable-alpha --enable-beta --resolvabledomain=false
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       - name: KO_FLAGS
@@ -659,8 +639,6 @@ periodics:
         value: knative-serving
       - name: TEST_OPTIONS
         value: --enable-alpha --enable-beta --resolvabledomain=false
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       - name: KO_FLAGS
@@ -745,8 +723,6 @@ periodics:
         value: knative-serving
       - name: TEST_OPTIONS
         value: --enable-alpha --enable-beta --resolvabledomain=false
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       - name: KO_FLAGS
@@ -829,8 +805,6 @@ periodics:
       env:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
       - name: SIGN_IMAGES
@@ -907,8 +881,6 @@ periodics:
       env:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
@@ -1073,8 +1045,6 @@ presubmits:
         - --run-test
         - ./test/e2e-upgrade-tests.sh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1125,8 +1095,6 @@ presubmits:
         - --run-test
         - ./test/e2e-tests.sh --istio-version latest --no-mesh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1178,8 +1146,6 @@ presubmits:
         - --run-test
         - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --no-mesh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1234,8 +1200,6 @@ presubmits:
         - --run-test
         - ./test/performance/performance-tests.sh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1301,8 +1265,6 @@ presubmits:
         - --run-test
         - ./test/e2e-tests.sh --istio-version latest --mesh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1354,8 +1316,6 @@ presubmits:
         - --run-test
         - ./test/e2e-tests.sh --istio-version latest --mesh --short
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1408,8 +1368,6 @@ presubmits:
         - --run-test
         - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1462,8 +1420,6 @@ presubmits:
         - --run-test
         - ./test/e2e-tests.sh --kourier-version stable
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1515,8 +1471,6 @@ presubmits:
         - --run-test
         - ./test/e2e-external-domain-tls-tests.sh --kourier-version stable
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1568,8 +1522,6 @@ presubmits:
         - --run-test
         - ./test/e2e-tests.sh --contour-version latest
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1621,8 +1573,6 @@ presubmits:
         - --run-test
         - ./test/e2e-external-domain-tls-tests.sh --contour-version latest
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1674,8 +1624,6 @@ presubmits:
         - --run-test
         - ./test/e2e-tests.sh --gateway-api-version latest
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1729,8 +1677,6 @@ presubmits:
         - ./test/e2e-tests.sh --gateway-api-version latest --gateway-api-implementation
           contour
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -1787,8 +1733,6 @@ presubmits:
         command:
         - runner.sh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5

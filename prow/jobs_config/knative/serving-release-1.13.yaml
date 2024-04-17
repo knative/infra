@@ -276,16 +276,11 @@ org: knative
 repo: serving
 requirement_presets:
   gcp:
-    env:
-    - name: E2E_CLUSTER_REGION
-      value: us-central1
     podSpec:
       containers: null
       serviceAccountName: test-runner
   nightly:
     env:
-    - name: E2E_CLUSTER_REGION
-      value: us-central1
     - name: GOOGLE_APPLICATION_CREDENTIALS
       value: /etc/nightly-account/service-account.json
     - name: SIGN_IMAGES
@@ -328,8 +323,6 @@ requirement_presets:
         secretName: influx-url-secret
   release:
     env:
-    - name: E2E_CLUSTER_REGION
-      value: us-central1
     - name: SIGN_IMAGES
       value: "true"
     - name: ATTEST_IMAGES

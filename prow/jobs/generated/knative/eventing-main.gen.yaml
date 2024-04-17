@@ -27,8 +27,6 @@ periodics:
       - ./test/presubmit-tests.sh
       - --all-tests
       env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -87,8 +85,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -167,8 +163,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -244,8 +238,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -318,8 +310,6 @@ periodics:
         value: "1"
       - name: SYSTEM_NAMESPACE
         value: knative-eventing
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
@@ -394,8 +384,6 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
@@ -453,8 +441,6 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
@@ -563,8 +549,6 @@ presubmits:
         - --run-test
         - ./test/e2e-conformance-tests.sh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -607,8 +591,6 @@ presubmits:
         - --run-test
         - ./test/e2e-rekt-tests.sh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5
@@ -651,8 +633,6 @@ presubmits:
         - --run-test
         - ./test/e2e-upgrade-tests.sh
         env:
-        - name: E2E_CLUSTER_REGION
-          value: us-central1
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240327-0a7207ad5

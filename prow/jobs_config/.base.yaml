@@ -21,8 +21,6 @@ requirement_presets:
     env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
@@ -47,8 +45,6 @@ requirement_presets:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
     volumeMounts:
       - name: apple-notary-creds
         mountPath: /etc/notary
@@ -69,8 +65,6 @@ requirement_presets:
     env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
@@ -100,8 +94,6 @@ requirement_presets:
     podSpec:
       serviceAccountName: release
     env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
@@ -158,8 +150,6 @@ requirement_presets:
     env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
     volumeMounts:
       - name: influx-token-secret-volume
         mountPath: /etc/influx-token-secret-volume
@@ -179,8 +169,6 @@ requirement_presets:
 
   gcp:
     env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
     volumeMounts:
