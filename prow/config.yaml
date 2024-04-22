@@ -230,6 +230,8 @@ tide:
     orgs:
       knative:
         repos:
+          serving:
+            skip-unknown-contexts: true
           pkg:
             skip-unknown-contexts: true
           eventing:
