@@ -7,17 +7,19 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.12
-    testgrid-tab-name: net-istio-continuous
+    testgrid-dashboards: knative-release-1.14
+    testgrid-tab-name: eventing-continuous
   cluster: prow-build
-  cron: 23 18 * * *
+  cron: 36 7 * * *
   decorate: true
+  decoration_config:
+    timeout: 3h0m0s
   extra_refs:
-  - base_ref: release-1.12
-    org: knative-extensions
-    path_alias: knative.dev/net-istio
-    repo: net-istio
-  name: continuous_net-istio_release-1.12_periodic
+  - base_ref: release-1.14
+    org: knative
+    path_alias: knative.dev/eventing
+    repo: eventing
+  name: continuous_eventing_release-1.14_periodic
   spec:
     containers:
     - command:
@@ -29,7 +31,11 @@ periodics:
         value: /etc/test-account/service-account.json
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
       name: ""
-      resources: {}
+      resources:
+        limits:
+          memory: 16Gi
+        requests:
+          memory: 12Gi
       securityContext:
         privileged: true
       volumeMounts:
@@ -47,18 +53,20 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.12
-    testgrid-tab-name: net-istio-release
+    testgrid-dashboards: knative-release-1.14
+    testgrid-tab-name: eventing-release
   cluster: prow-build
-  cron: 53 9 * * 2
+  cron: 52 9 * * 2
   decorate: true
+  decoration_config:
+    timeout: 4h0m0s
   extra_refs:
-  - base_ref: release-1.12
-    org: knative-extensions
-    path_alias: knative.dev/net-istio
-    repo: net-istio
+  - base_ref: release-1.14
+    org: knative
+    path_alias: knative.dev/eventing
+    repo: eventing
   max_concurrency: 1
-  name: release_net-istio_release-1.12_periodic
+  name: release_eventing_release-1.14_periodic
   spec:
     containers:
     - command:
@@ -66,25 +74,27 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/net-istio
+      - knative-releases/eventing
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.12
+      - release-1.14
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: ORG_NAME
-        value: knative-extensions
+      - name: SIGN_IMAGES
+        value: "true"
       - name: ATTEST_IMAGES
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
       name: ""
-      resources: {}
+      resources:
+        limits:
+          memory: 16Gi
+        requests:
+          memory: 12Gi
       securityContext:
         privileged: true
       volumeMounts:
@@ -111,14 +121,14 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 presubmits:
-  knative-extensions/net-istio:
+  knative/eventing:
   - always_run: true
     branches:
-    - ^release-1.12$
+    - ^release-1.14$
     cluster: prow-build
     decorate: true
-    name: build-tests_net-istio_release-1.12
-    path_alias: knative.dev/net-istio
+    name: build-tests_eventing_release-1.14
+    path_alias: knative.dev/eventing
     rerun_command: /test build-tests
     spec:
       containers:
@@ -128,20 +138,24 @@ presubmits:
         - --build-tests
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
         name: ""
-        resources: {}
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            memory: 12Gi
         securityContext:
           privileged: true
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-istio_release-1.12,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing_release-1.14,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.12$
+    - ^release-1.14$
     cluster: prow-build
     decorate: true
-    name: unit-tests_net-istio_release-1.12
-    path_alias: knative.dev/net-istio
+    name: unit-tests_eventing_release-1.14
+    path_alias: knative.dev/eventing
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -151,71 +165,42 @@ presubmits:
         - --unit-tests
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
         name: ""
-        resources: {}
+        resources:
+          limits:
+            memory: 10Gi
+          requests:
+            memory: 8Gi
         securityContext:
           privileged: true
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-istio_release-1.12,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_eventing_release-1.14,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.12$
+    - ^release-1.14$
     cluster: prow-build
     decorate: true
-    name: integration-tests_net-istio_release-1.12
-    path_alias: knative.dev/net-istio
-    rerun_command: /test integration-tests
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --integration-tests
-        env:
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
-        name: ""
-        resources: {}
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /etc/test-account
-          name: test-account
-          readOnly: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      volumes:
-      - name: test-account
-        secret:
-          items:
-          - key: service-account-key.json
-            path: service-account.json
-          secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-istio_release-1.12,?($|\s.*))
-  - always_run: true
-    branches:
-    - ^release-1.12$
-    cluster: prow-build
-    decorate: true
-    name: latest_net-istio_release-1.12
-    path_alias: knative.dev/net-istio
-    rerun_command: /test latest
+    name: conformance-tests_eventing_release-1.14
+    path_alias: knative.dev/eventing
+    rerun_command: /test conformance-tests
     spec:
       containers:
       - command:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --run-test
-        - ./test/e2e-tests.sh --istio-version latest
+        - ./test/e2e-conformance-tests.sh
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
         name: ""
-        resources: {}
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            memory: 12Gi
         securityContext:
           privileged: true
         volumeMounts:
@@ -232,28 +217,32 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )latest,?($|\s.*))|((?m)^/test( | .* )latest_net-istio_release-1.12,?($|\s.*))
+    trigger: ((?m)^/test( | .* )conformance-tests,?($|\s.*))|((?m)^/test( | .* )conformance-tests_eventing_release-1.14,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.12$
+    - ^release-1.14$
     cluster: prow-build
     decorate: true
-    name: latest-mesh_net-istio_release-1.12
-    path_alias: knative.dev/net-istio
-    rerun_command: /test latest-mesh
+    name: reconciler-tests_eventing_release-1.14
+    path_alias: knative.dev/eventing
+    rerun_command: /test reconciler-tests
     spec:
       containers:
       - command:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --run-test
-        - ./test/e2e-tests.sh --istio-version latest  --mesh
+        - ./test/e2e-rekt-tests.sh
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
         name: ""
-        resources: {}
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            memory: 12Gi
         securityContext:
           privileged: true
         volumeMounts:
@@ -270,4 +259,46 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )latest-mesh,?($|\s.*))|((?m)^/test( | .* )latest-mesh_net-istio_release-1.12,?($|\s.*))
+    trigger: ((?m)^/test( | .* )reconciler-tests,?($|\s.*))|((?m)^/test( | .* )reconciler-tests_eventing_release-1.14,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^release-1.14$
+    cluster: prow-build
+    decorate: true
+    name: upgrade-tests_eventing_release-1.14
+    path_alias: knative.dev/eventing
+    rerun_command: /test upgrade-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --run-test
+        - ./test/e2e-upgrade-tests.sh
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
+        name: ""
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            memory: 12Gi
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_eventing_release-1.14,?($|\s.*))

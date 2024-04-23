@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.12
+- release-1.14
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
 jobs:
 - command:
@@ -47,7 +47,7 @@ jobs:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --istio-version latest --no-mesh
+  - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --no-mesh
   name: istio-latest-no-mesh-tls
   types:
   - presubmit
@@ -91,7 +91,7 @@ jobs:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --istio-version latest --mesh
+  - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
   modifiers:
   - presubmit_optional
   - presubmit_skipped
@@ -113,7 +113,7 @@ jobs:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --kourier-version stable
+  - ./test/e2e-external-domain-tls-tests.sh --kourier-version stable
   modifiers:
   - presubmit_skipped
   name: kourier-stable-tls
@@ -135,7 +135,7 @@ jobs:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --contour-version latest
+  - ./test/e2e-external-domain-tls-tests.sh --contour-version latest
   modifiers:
   - presubmit_skipped
   name: contour-tls
@@ -153,12 +153,25 @@ jobs:
   regex: ^third_party/gateway-api-latest/*
   types:
   - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --run-test
+  - ./test/e2e-tests.sh --gateway-api-version latest --gateway-api-implementation
+    contour
+  modifiers:
+  - presubmit_optional
+  - presubmit_skipped
+  name: gateway-api-latest-and-contour
+  regex: ^third_party/gateway-api-latest/*
+  types:
+  - presubmit
 - args:
   - ./test/presubmit-tests.sh
   - --run-test
   - ./test/e2e-tests.sh --https
   - --run-test
-  - ./test/e2e-auto-tls-tests.sh --https
+  - ./test/e2e-external-domain-tls-tests.sh --https
   command:
   - runner.sh
   modifiers:
@@ -176,81 +189,6 @@ jobs:
   timeout: 3h0m0s
   types:
   - periodic
-- args:
-  - bash
-  - -c
-  - |
-    mkdir -p /root/.kube
-    cat /opt/cluster/ci-script > connect.sh
-    chmod +x connect.sh
-    server_addr=$(./connect.sh kourier-112)
-    kubectl get cm s390x-config-serving -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-    chmod +x adjust.sh
-    ./adjust.sh
-    export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_addr}
-    ./test/e2e-tests.sh --run-tests --kourier-version latest
-  command:
-  - runner.sh
-  cron: 20 14 * * *
-  env:
-  - name: SYSTEM_NAMESPACE
-    value: knative-serving
-  - name: TEST_OPTIONS
-    value: --enable-alpha --enable-beta --resolvabledomain=false
-  name: s390x-kourier-tests
-  requirements:
-  - s390x
-  types:
-  - periodic
-- args:
-  - bash
-  - -c
-  - |
-    mkdir -p /root/.kube
-    cat /opt/cluster/ci-script > connect.sh
-    chmod +x connect.sh
-    server_addr=$(./connect.sh contour-112)
-    kubectl get cm s390x-config-serving -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-    chmod +x adjust.sh
-    ./adjust.sh
-    export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_addr}
-    ./test/e2e-tests.sh --run-tests --contour-version latest
-  command:
-  - runner.sh
-  cron: 20 15 * * *
-  env:
-  - name: SYSTEM_NAMESPACE
-    value: knative-serving
-  - name: TEST_OPTIONS
-    value: --enable-alpha --enable-beta --resolvabledomain=false
-  name: s390x-contour-tests
-  requirements:
-  - s390x
-  types:
-  - periodic
-- args:
-  - bash
-  - -c
-  - |
-    server_vm="$(sh /opt/cluster/vm-script)"
-    source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-    export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_vm}
-    ./test/e2e-tests.sh --run-tests --kourier-version latest
-  command:
-  - runner.sh
-  cron: 50 14 * * *
-  env:
-  - name: SYSTEM_NAMESPACE
-    value: knative-serving
-  - name: TEST_OPTIONS
-    value: --enable-alpha --enable-beta --resolvabledomain=false
-  - name: CI_JOB
-    value: kourier-release-1.12
-  name: ppc64le-kourier-tests
-  requirements:
-  - ppc64le
-  types:
-  - periodic
 - command:
   - runner.sh
   - ./hack/release.sh
@@ -262,7 +200,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.12
+  - release-1.14
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -283,6 +221,10 @@ requirement_presets:
     env:
     - name: GOOGLE_APPLICATION_CREDENTIALS
       value: /etc/nightly-account/service-account.json
+    - name: SIGN_IMAGES
+      value: "true"
+    - name: ATTEST_IMAGES
+      value: "true"
     podSpec:
       containers: null
       serviceAccountName: nightly
@@ -318,6 +260,11 @@ requirement_presets:
         defaultMode: 384
         secretName: influx-url-secret
   release:
+    env:
+    - name: SIGN_IMAGES
+      value: "true"
+    - name: ATTEST_IMAGES
+      value: "true"
     podSpec:
       containers: null
       serviceAccountName: release
