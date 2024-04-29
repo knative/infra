@@ -36,7 +36,6 @@ includedConfigPaths:
 #     - prow/jobs/generated/knative-extensions/kn-plugin-service-log-release
 #     - prow/jobs/generated/knative-extensions/kn-plugin-source-kafka-release
 #     - prow/jobs/generated/knative-extensions/kn-plugin-source-kamelet-release
-#     - prow/jobs/generated/knative-extensions/net-certmanager-release
 #     - prow/jobs/generated/knative-extensions/net-contour-release
 #     - prow/jobs/generated/knative-extensions/net-gateway-api-release
 #     - prow/jobs/generated/knative-extensions/net-http01-release
@@ -84,7 +83,6 @@ includedConfigPaths:
 #     - prow/jobs_config/knative-extensions/kn-plugin-service-log-release
 #     - prow/jobs_config/knative-extensions/kn-plugin-source-kafka-release
 #     - prow/jobs_config/knative-extensions/kn-plugin-source-kamelet-release
-#     - prow/jobs_config/knative-extensions/net-certmanager-release
 #     - prow/jobs_config/knative-extensions/net-contour-release
 #     - prow/jobs_config/knative-extensions/net-gateway-api-release
 #     - prow/jobs_config/knative-extensions/net-http01-release
