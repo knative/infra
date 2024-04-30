@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.12
+    testgrid-dashboards: knative-extensions-release-1.14
     testgrid-tab-name: kn-plugin-source-kafka-continuous
   cluster: prow-build
-  cron: 53 12 * * *
+  cron: 51 10 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.12
+  - base_ref: release-1.14
     org: knative-extensions
     path_alias: knative.dev/kn-plugin-source-kafka
     repo: kn-plugin-source-kafka
-  name: continuous_kn-plugin-source-kafka_release-1.12_periodic
+  name: continuous_kn-plugin-source-kafka_release-1.14_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.12
+    testgrid-dashboards: knative-extensions-release-1.14
     testgrid-tab-name: kn-plugin-source-kafka-release
   cluster: prow-build
-  cron: 59 9 * * 2
+  cron: 33 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.12
+  - base_ref: release-1.14
     org: knative-extensions
     path_alias: knative.dev/kn-plugin-source-kafka
     repo: kn-plugin-source-kafka
   max_concurrency: 1
-  name: release_kn-plugin-source-kafka_release-1.12_periodic
+  name: release_kn-plugin-source-kafka_release-1.14_periodic
   spec:
     containers:
     - command:
@@ -78,7 +78,7 @@ periodics:
       - --apple-codesign-password-file
       - /etc/notary/password
       - --branch
-      - release-1.12
+      - release-1.14
       env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
@@ -143,10 +143,10 @@ presubmits:
   knative-extensions/kn-plugin-source-kafka:
   - always_run: true
     branches:
-    - ^release-1.12$
+    - ^release-1.14$
     cluster: prow-build
     decorate: true
-    name: build-tests_kn-plugin-source-kafka_release-1.12
+    name: build-tests_kn-plugin-source-kafka_release-1.14
     path_alias: knative.dev/kn-plugin-source-kafka
     rerun_command: /test build-tests
     spec:
@@ -163,13 +163,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-source-kafka_release-1.12,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-source-kafka_release-1.14,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.12$
+    - ^release-1.14$
     cluster: prow-build
     decorate: true
-    name: unit-tests_kn-plugin-source-kafka_release-1.12
+    name: unit-tests_kn-plugin-source-kafka_release-1.14
     path_alias: knative.dev/kn-plugin-source-kafka
     rerun_command: /test unit-tests
     spec:
@@ -186,13 +186,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-source-kafka_release-1.12,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-source-kafka_release-1.14,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.12$
+    - ^release-1.14$
     cluster: prow-build
     decorate: true
-    name: integration-tests_kn-plugin-source-kafka_release-1.12
+    name: integration-tests_kn-plugin-source-kafka_release-1.14
     path_alias: knative.dev/kn-plugin-source-kafka
     rerun_command: /test integration-tests
     spec:
@@ -223,4 +223,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-source-kafka_release-1.12,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-source-kafka_release-1.14,?($|\s.*))
