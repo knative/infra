@@ -91,7 +91,6 @@ dashboards:
 - name: knative-extensions-release-1.13
 - name: knative-extensions-release-1.14
 - name: knative-extensions-release-1.2
-- name: knative-release-1.12
 - name: knative-release-1.13
 - name: knative-release-1.14
 - name: net-contour
