@@ -276,6 +276,150 @@ periodics:
       secret:
         defaultMode: 384
         secretName: s390x-cluster1
+- annotations:
+    testgrid-dashboards: knative-release-1.14
+    testgrid-tab-name: eventing-ppc64le-e2e-tests
+  cluster: prow-build
+  cron: 40 13 * * *
+  decorate: true
+  extra_refs:
+  - base_ref: release-1.14
+    org: knative
+    path_alias: knative.dev/eventing
+    repo: eventing
+  name: ppc64le-e2e-tests_eventing_release-1.14_periodic
+  spec:
+    containers:
+    - args:
+      - bash
+      - -c
+      - |
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        ./test/e2e-tests.sh --run-tests
+      command:
+      - runner.sh
+      env:
+      - name: CI_JOB
+        value: eventing-release-1.14
+      - name: SCALE_CHAOSDUCK_TO_ZERO
+        value: "1"
+      - name: SYSTEM_NAMESPACE
+        value: knative-eventing
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /etc/test-account/service-account.json
+      - name: KO_FLAGS
+        value: --platform=linux/ppc64le
+      - name: PLATFORM
+        value: linux/ppc64le
+      - name: KO_DOCKER_REPO
+        value: icr.io/upstream-k8s-registry/knative
+      - name: KUBECONFIG
+        value: /root/.kube/config
+      - name: DOCKER_CONFIG
+        value: /opt/cluster
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
+      name: ""
+      resources:
+        limits:
+          memory: 16Gi
+        requests:
+          memory: 12Gi
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /etc/test-account
+        name: test-account
+        readOnly: true
+      - mountPath: /opt/cluster
+        name: ppc64le-cluster
+        readOnly: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    volumes:
+    - name: test-account
+      secret:
+        items:
+        - key: service-account-key.json
+          path: service-account.json
+        secretName: prow-google-credentials
+    - name: ppc64le-cluster
+      secret:
+        defaultMode: 384
+        secretName: ppc64le-cluster
+- annotations:
+    testgrid-dashboards: knative-release-1.14
+    testgrid-tab-name: eventing-ppc64le-e2e-reconciler-tests
+  cluster: prow-build
+  cron: 10 12 * * *
+  decorate: true
+  extra_refs:
+  - base_ref: release-1.14
+    org: knative
+    path_alias: knative.dev/eventing
+    repo: eventing
+  name: ppc64le-e2e-reconciler-tests_eventing_release-1.14_periodic
+  spec:
+    containers:
+    - args:
+      - bash
+      - -c
+      - |
+        server_vm="$(sh /opt/cluster/vm-script)"
+        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+        ./test/e2e-rekt-tests.sh --run-tests
+      command:
+      - runner.sh
+      env:
+      - name: CI_JOB
+        value: eventing_rekt-114
+      - name: SCALE_CHAOSDUCK_TO_ZERO
+        value: "1"
+      - name: SYSTEM_NAMESPACE
+        value: knative-eventing
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /etc/test-account/service-account.json
+      - name: KO_FLAGS
+        value: --platform=linux/ppc64le
+      - name: PLATFORM
+        value: linux/ppc64le
+      - name: KO_DOCKER_REPO
+        value: icr.io/upstream-k8s-registry/knative
+      - name: KUBECONFIG
+        value: /root/.kube/config
+      - name: DOCKER_CONFIG
+        value: /opt/cluster
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240417-d0a9ee0eb
+      name: ""
+      resources:
+        limits:
+          memory: 16Gi
+        requests:
+          memory: 12Gi
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /etc/test-account
+        name: test-account
+        readOnly: true
+      - mountPath: /opt/cluster
+        name: ppc64le-cluster
+        readOnly: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    volumes:
+    - name: test-account
+      secret:
+        items:
+        - key: service-account-key.json
+          path: service-account.json
+        secretName: prow-google-credentials
+    - name: ppc64le-cluster
+      secret:
+        defaultMode: 384
+        secretName: ppc64le-cluster
 presubmits:
   knative/eventing:
   - always_run: true
