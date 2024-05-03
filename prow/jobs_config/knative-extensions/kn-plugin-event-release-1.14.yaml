@@ -86,6 +86,26 @@ jobs:
   - s390x
   types:
   - periodic
+- args:
+  - bash
+  - -c
+  - |
+    server_vm="$(sh /opt/cluster/vm-script)"
+    source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+    ./test/e2e-tests.sh --run-tests
+  env:
+  - name: CI_JOB
+    value: plugin_event-114
+  - name: SSL_CERT_FILE
+    value: /tmp/ssl.crt
+  command:
+  - runner.sh
+  cron: 40 14 * * *
+  name: ppc64le-e2e-tests
+  requirements:
+  - ppc64le
+  types:
+  - periodic
   excluded_requirements:
   - gcp
 org: knative-extensions
