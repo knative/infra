@@ -17,6 +17,7 @@ dashboard_groups:
   - utilities
   name: knative
 - dashboard_names:
+  - autoscaler-keda
   - backstage-plugins
   - eventing-autoscaler-keda
   - eventing-awssqs
@@ -52,6 +53,7 @@ dashboard_groups:
   - serving-progressive-rollout
   name: knative-extensions
 dashboards:
+- name: autoscaler-keda
 - name: backstage-plugins
 - name: client
 - name: client-pkg
