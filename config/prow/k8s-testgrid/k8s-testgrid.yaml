@@ -44,7 +44,6 @@ dashboard_groups:
   - kn-plugin-source-kamelet
   - net-contour
   - net-gateway-api
-  - net-http01
   - net-istio
   - net-kourier
   - sample-controller
@@ -88,7 +87,6 @@ dashboards:
 - name: knative-extensions-release-1.0
 - name: knative-extensions-release-1.1
 - name: knative-extensions-release-1.10
-- name: knative-extensions-release-1.11
 - name: knative-extensions-release-1.12
 - name: knative-extensions-release-1.13
 - name: knative-extensions-release-1.14
@@ -97,7 +95,6 @@ dashboards:
 - name: knative-release-1.14
 - name: net-contour
 - name: net-gateway-api
-- name: net-http01
 - name: net-istio
 - name: net-kourier
 - name: operator
