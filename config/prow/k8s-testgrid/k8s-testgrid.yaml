@@ -86,7 +86,6 @@ dashboards:
 - name: knative-extensions-release-0.6
 - name: knative-extensions-release-1.0
 - name: knative-extensions-release-1.1
-- name: knative-extensions-release-1.10
 - name: knative-extensions-release-1.12
 - name: knative-extensions-release-1.13
 - name: knative-extensions-release-1.14
