@@ -122,9 +122,9 @@ jobs:
     args:
     - ./test/presubmit-tests.sh
     - --run-test
-    - ./test/e2e-tests.sh --istio-version latest --mesh
+    - ./test/e2e-tests.sh --istio-version latest --no-mesh
     - --run-test
-    - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --mesh
+    - ./test/e2e-external-domain-tls-tests.sh --istio-version latest --no-mesh
 
   - name: kourier-stable
     types: [periodic]
