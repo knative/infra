@@ -22,6 +22,16 @@ jobs:
     types: [presubmit]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-tests.sh --contour"]
 
+  - name: integration-tests-envoy-gateway
+    types: [presubmit]
+    modifiers: [presubmit_optional, presubmit_skipped]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-tests.sh --envoy-gateway"]
+
+  - name: integration-tests-envoy-gateway-conformance
+    types: [presubmit]
+    modifiers: [presubmit_optional, presubmit_skipped]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-tests.sh --envoy-gateway --gateway-tests-only"]
+
   - name: continuous-istio
     types: [periodic]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-tests.sh"]
