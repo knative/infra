@@ -90,6 +90,47 @@ periodics:
         secretName: prow-google-credentials
 - annotations:
     testgrid-dashboards: net-gateway-api
+    testgrid-tab-name: continuous-envoy-gateway
+  cluster: prow-build
+  cron: 52 11 * * *
+  decorate: true
+  extra_refs:
+  - base_ref: main
+    org: knative-extensions
+    path_alias: knative.dev/net-gateway-api
+    repo: net-gateway-api
+  name: continuous-envoy-gateway_net-gateway-api_main_periodic
+  spec:
+    containers:
+    - command:
+      - runner.sh
+      - ./test/presubmit-tests.sh
+      - --run-test
+      - ./test/e2e-tests.sh --envoy-gateway
+      env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /etc/test-account/service-account.json
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240620-e44656589
+      name: ""
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /etc/test-account
+        name: test-account
+        readOnly: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    volumes:
+    - name: test-account
+      secret:
+        items:
+        - key: service-account-key.json
+          path: service-account.json
+        secretName: prow-google-credentials
+- annotations:
+    testgrid-dashboards: net-gateway-api
     testgrid-tab-name: nightly
   cluster: prow-build
   cron: 15 9 * * *
@@ -369,43 +410,3 @@ presubmits:
           secretName: prow-google-credentials
     trigger: ((?m)^/test( | .* )integration-tests-envoy-gateway,?($|\s.*))|((?m)^/test(
       | .* )integration-tests-envoy-gateway_net-gateway-api_main,?($|\s.*))
-  - always_run: false
-    branches:
-    - ^main$
-    cluster: prow-build
-    decorate: true
-    name: integration-tests-envoy-gateway-conformance_net-gateway-api_main
-    optional: true
-    path_alias: knative.dev/net-gateway-api
-    rerun_command: /test integration-tests-envoy-gateway-conformance
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/e2e-tests.sh --envoy-gateway --gateway-tests-only
-        env:
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240620-e44656589
-        name: ""
-        resources: {}
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /etc/test-account
-          name: test-account
-          readOnly: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      volumes:
-      - name: test-account
-        secret:
-          items:
-          - key: service-account-key.json
-            path: service-account.json
-          secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests-envoy-gateway-conformance,?($|\s.*))|((?m)^/test(
-      | .* )integration-tests-envoy-gateway-conformance_net-gateway-api_main,?($|\s.*))
