@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: kn-plugin-source-kamelet
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240704-35a1eee1c
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
 
 jobs:
   - name: build-tests

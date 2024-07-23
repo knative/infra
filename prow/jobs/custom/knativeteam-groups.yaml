@@ -8,7 +8,7 @@ presubmits:
     cluster: prow-trusted
     spec:
       containers:
-      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240704-35a1eee1c
+      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
         command:
         - runner.sh
         args:
@@ -40,7 +40,7 @@ periodics:
   spec:
     serviceAccountName: gsuite-groups-manager
     containers:
-    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240704-35a1eee1c
+    - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
       command:
       - runner.sh
       args:
@@ -76,7 +76,7 @@ postsubmits:
     spec:
       serviceAccountName: gsuite-groups-manager
       containers:
-      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240704-35a1eee1c
+      - image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
         command:
         - runner.sh
         args:
