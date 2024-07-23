@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.13
+- release-1.15
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240704-35a1eee1c
 jobs:
 - command:
@@ -29,33 +29,29 @@ jobs:
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh
-  name: integration-tests-istio
+  - --integration-tests
+  name: integration-tests
   types:
   - presubmit
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --contour
-  modifiers:
-  - presubmit_skipped
-  name: integration-tests-contour
+  - --all-tests
+  name: continuous
   types:
-  - presubmit
+  - periodic
 - command:
   - runner.sh
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/net-gateway-api
+  - knative-releases/net-kourier
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.13
+  - release-1.15
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -65,4 +61,4 @@ jobs:
   types:
   - periodic
 org: knative-extensions
-repo: net-gateway-api
+repo: net-kourier

@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.13
-    testgrid-tab-name: net-istio-continuous
+    testgrid-dashboards: knative-extensions-release-1.15
+    testgrid-tab-name: net-kourier-continuous
   cluster: prow-build
-  cron: 44 15 * * *
+  cron: 13 8 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.13
+  - base_ref: release-1.15
     org: knative-extensions
-    path_alias: knative.dev/net-istio
-    repo: net-istio
-  name: continuous_net-istio_release-1.13_periodic
+    path_alias: knative.dev/net-kourier
+    repo: net-kourier
+  name: continuous_net-kourier_release-1.15_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.13
-    testgrid-tab-name: net-istio-release
+    testgrid-dashboards: knative-extensions-release-1.15
+    testgrid-tab-name: net-kourier-release
   cluster: prow-build
-  cron: 8 9 * * 2
+  cron: 3 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.13
+  - base_ref: release-1.15
     org: knative-extensions
-    path_alias: knative.dev/net-istio
-    repo: net-istio
+    path_alias: knative.dev/net-kourier
+    repo: net-kourier
   max_concurrency: 1
-  name: release_net-istio_release-1.13_periodic
+  name: release_net-kourier_release-1.15_periodic
   spec:
     containers:
     - command:
@@ -66,13 +66,13 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/net-istio
+      - knative-releases/net-kourier
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.13
+      - release-1.15
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -111,14 +111,14 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 presubmits:
-  knative-extensions/net-istio:
+  knative-extensions/net-kourier:
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: build-tests_net-istio_release-1.13
-    path_alias: knative.dev/net-istio
+    name: build-tests_net-kourier_release-1.15
+    path_alias: knative.dev/net-kourier
     rerun_command: /test build-tests
     spec:
       containers:
@@ -134,14 +134,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-istio_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-kourier_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: unit-tests_net-istio_release-1.13
-    path_alias: knative.dev/net-istio
+    name: unit-tests_net-kourier_release-1.15
+    path_alias: knative.dev/net-kourier
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -157,14 +157,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-istio_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-kourier_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: integration-tests_net-istio_release-1.13
-    path_alias: knative.dev/net-istio
+    name: integration-tests_net-kourier_release-1.15
+    path_alias: knative.dev/net-kourier
     rerun_command: /test integration-tests
     spec:
       containers:
@@ -194,80 +194,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-istio_release-1.13,?($|\s.*))
-  - always_run: true
-    branches:
-    - ^release-1.13$
-    cluster: prow-build
-    decorate: true
-    name: latest_net-istio_release-1.13
-    path_alias: knative.dev/net-istio
-    rerun_command: /test latest
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/e2e-tests.sh --istio-version latest
-        env:
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240704-35a1eee1c
-        name: ""
-        resources: {}
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /etc/test-account
-          name: test-account
-          readOnly: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      volumes:
-      - name: test-account
-        secret:
-          items:
-          - key: service-account-key.json
-            path: service-account.json
-          secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )latest,?($|\s.*))|((?m)^/test( | .* )latest_net-istio_release-1.13,?($|\s.*))
-  - always_run: true
-    branches:
-    - ^release-1.13$
-    cluster: prow-build
-    decorate: true
-    name: latest-mesh_net-istio_release-1.13
-    path_alias: knative.dev/net-istio
-    rerun_command: /test latest-mesh
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/e2e-tests.sh --istio-version latest  --mesh
-        env:
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240704-35a1eee1c
-        name: ""
-        resources: {}
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /etc/test-account
-          name: test-account
-          readOnly: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      volumes:
-      - name: test-account
-        secret:
-          items:
-          - key: service-account-key.json
-            path: service-account.json
-          secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )latest-mesh,?($|\s.*))|((?m)^/test( | .* )latest-mesh_net-istio_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-kourier_release-1.15,?($|\s.*))
