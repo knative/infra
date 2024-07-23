@@ -196,6 +196,8 @@ ARG TOOLBOX_VERSION=cdf9cf656d1402c5c8ca558ef7f7b7ef2ff9093b
 
 # Disable CGO libs to avoid error with too old version in base image
 ENV CGO_ENABLED=0
+# Disable Go' toolchain operation, and stick to the version installed
+ENV GOTOOLCHAIN=local
 
 # Extra tools through go install
 # These run using the golang image version of Go, not any defined by `gvm`
