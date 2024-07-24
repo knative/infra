@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-dashboards: knative-extensions-release-1.15
     testgrid-tab-name: kn-plugin-event-continuous
   cluster: prow-build
-  cron: 40 11 * * *
+  cron: 38 21 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.13
+  - base_ref: release-1.15
     org: knative-extensions
     path_alias: knative.dev/kn-plugin-event
     repo: kn-plugin-event
-  name: continuous_kn-plugin-event_release-1.13_periodic
+  name: continuous_kn-plugin-event_release-1.15_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-dashboards: knative-extensions-release-1.15
     testgrid-tab-name: kn-plugin-event-release
   cluster: prow-build
-  cron: 28 9 * * 2
+  cron: 30 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.13
+  - base_ref: release-1.15
     org: knative-extensions
     path_alias: knative.dev/kn-plugin-event
     repo: kn-plugin-event
   max_concurrency: 1
-  name: release_kn-plugin-event_release-1.13_periodic
+  name: release_kn-plugin-event_release-1.15_periodic
   spec:
     containers:
     - command:
@@ -78,7 +78,7 @@ periodics:
       - --apple-codesign-password-file
       - /etc/notary/password
       - --branch
-      - release-1.13
+      - release-1.15
       env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
@@ -121,128 +121,14 @@ periodics:
         - key: signing-certificate-password
           path: password
         secretName: apple-notary-creds
-- annotations:
-    testgrid-dashboards: knative-extensions-release-1.13
-    testgrid-tab-name: kn-plugin-event-s390x-e2e-tests
-  cluster: prow-build
-  cron: 20 14 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.13
-    org: knative-extensions
-    path_alias: knative.dev/kn-plugin-event
-    repo: kn-plugin-event
-  name: s390x-e2e-tests_kn-plugin-event_release-1.13_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        mkdir -p /root/.kube
-        cat /opt/cluster/ci-script > connect.sh
-        chmod +x connect.sh
-        ./connect.sh plugin_event-113
-        kubectl get cm s390x-config-plugin-event -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-        chmod +x adjust.sh
-        ./adjust.sh
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: KO_FLAGS
-        value: --platform=linux/s390x
-      - name: PLATFORM
-        value: linux/s390x
-      - name: KO_DOCKER_REPO
-        valueFrom:
-          secretKeyRef:
-            key: ko-docker-repo
-            name: s390x-cluster1
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      - name: DOCKER_CONFIG
-        value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /opt/cluster
-        name: s390x-cluster1
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: s390x-cluster1
-      secret:
-        defaultMode: 384
-        secretName: s390x-cluster1
-- annotations:
-    testgrid-dashboards: knative-extensions-release-1.13
-    testgrid-tab-name: kn-plugin-event-ppc64le-e2e-tests
-  cluster: prow-build
-  cron: 50 8 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.13
-    org: knative-extensions
-    path_alias: knative.dev/kn-plugin-event
-    repo: kn-plugin-event
-  name: ppc64le-e2e-tests_kn-plugin-event_release-1.13_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        server_vm="$(sh /opt/cluster/vm-script)"
-        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: CI_JOB
-        value: plugin_event-113
-      - name: SSL_CERT_FILE
-        value: /tmp/ssl.crt
-      - name: KO_FLAGS
-        value: --platform=linux/ppc64le
-      - name: PLATFORM
-        value: linux/ppc64le
-      - name: KO_DOCKER_REPO
-        value: icr.io/upstream-k8s-registry/knative
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      - name: DOCKER_CONFIG
-        value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /opt/cluster
-        name: ppc64le-cluster
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: ppc64le-cluster
-      secret:
-        defaultMode: 384
-        secretName: ppc64le-cluster
 presubmits:
   knative-extensions/kn-plugin-event:
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: build-tests_kn-plugin-event_release-1.13
+    name: build-tests_kn-plugin-event_release-1.15
     path_alias: knative.dev/kn-plugin-event
     rerun_command: /test build-tests
     spec:
@@ -259,13 +145,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-event_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-event_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: unit-tests_kn-plugin-event_release-1.13
+    name: unit-tests_kn-plugin-event_release-1.15
     path_alias: knative.dev/kn-plugin-event
     rerun_command: /test unit-tests
     spec:
@@ -282,13 +168,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-event_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-event_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: integration-tests_kn-plugin-event_release-1.13
+    name: integration-tests_kn-plugin-event_release-1.15
     path_alias: knative.dev/kn-plugin-event
     rerun_command: /test integration-tests
     spec:
@@ -319,4 +205,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-event_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-event_release-1.15,?($|\s.*))
