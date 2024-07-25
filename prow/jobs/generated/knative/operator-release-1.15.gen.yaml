@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-release-1.13
+    testgrid-dashboards: knative-release-1.15
     testgrid-tab-name: operator-continuous
   cluster: prow-build
-  cron: 9 16 * * *
+  cron: 19 14 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.13
+  - base_ref: release-1.15
     org: knative
     path_alias: knative.dev/operator
     repo: operator
-  name: continuous_operator_release-1.13_periodic
+  name: continuous_operator_release-1.15_periodic
   spec:
     containers:
     - command:
@@ -47,156 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-release-1.13
-    testgrid-tab-name: operator-s390x-e2e-tests
-  cluster: prow-build
-  cron: 20 4 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.13
-    org: knative
-    path_alias: knative.dev/operator
-    repo: operator
-  name: s390x-e2e-tests_operator_release-1.13_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        mkdir -p /root/.kube
-        cat /opt/cluster/ci-script > connect.sh
-        chmod +x connect.sh
-        ./connect.sh operator-113
-        kubectl get cm s390x-config-operator -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-        chmod +x adjust.sh
-        ./adjust.sh
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: INGRESS_CLASS
-        value: contour.ingress.networking.knative.dev
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/test-account/service-account.json
-      - name: KO_FLAGS
-        value: --platform=linux/s390x
-      - name: PLATFORM
-        value: linux/s390x
-      - name: KO_DOCKER_REPO
-        valueFrom:
-          secretKeyRef:
-            key: ko-docker-repo
-            name: s390x-cluster1
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      - name: DOCKER_CONFIG
-        value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/test-account
-        name: test-account
-        readOnly: true
-      - mountPath: /opt/cluster
-        name: s390x-cluster1
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: test-account
-      secret:
-        items:
-        - key: service-account-key.json
-          path: service-account.json
-        secretName: prow-google-credentials
-    - name: s390x-cluster1
-      secret:
-        defaultMode: 384
-        secretName: s390x-cluster1
-- annotations:
-    testgrid-dashboards: knative-release-1.13
-    testgrid-tab-name: operator-ppc64le-e2e-tests
-  cluster: prow-build
-  cron: 40 9 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: release-1.13
-    org: knative
-    path_alias: knative.dev/operator
-    repo: operator
-  name: ppc64le-e2e-tests_operator_release-1.13_periodic
-  spec:
-    containers:
-    - args:
-      - bash
-      - -c
-      - |
-        server_vm="$(sh /opt/cluster/vm-script)"
-        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-        ./test/e2e-tests.sh --run-tests
-      command:
-      - runner.sh
-      env:
-      - name: CI_JOB
-        value: operator-release-1.13
-      - name: INGRESS_CLASS
-        value: contour.ingress.networking.knative.dev
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/test-account/service-account.json
-      - name: KO_FLAGS
-        value: --platform=linux/ppc64le
-      - name: PLATFORM
-        value: linux/ppc64le
-      - name: KO_DOCKER_REPO
-        value: icr.io/upstream-k8s-registry/knative
-      - name: KUBECONFIG
-        value: /root/.kube/config
-      - name: DOCKER_CONFIG
-        value: /opt/cluster
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/test-account
-        name: test-account
-        readOnly: true
-      - mountPath: /opt/cluster
-        name: ppc64le-cluster
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: test-account
-      secret:
-        items:
-        - key: service-account-key.json
-          path: service-account.json
-        secretName: prow-google-credentials
-    - name: ppc64le-cluster
-      secret:
-        defaultMode: 384
-        secretName: ppc64le-cluster
-- annotations:
-    testgrid-dashboards: knative-release-1.13
+    testgrid-dashboards: knative-release-1.15
     testgrid-tab-name: operator-release
   cluster: prow-build
-  cron: 43 9 * * 2
+  cron: 29 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.13
+  - base_ref: release-1.15
     org: knative
     path_alias: knative.dev/operator
     repo: operator
   max_concurrency: 1
-  name: release_operator_release-1.13_periodic
+  name: release_operator_release-1.15_periodic
   spec:
     containers:
     - command:
@@ -210,7 +72,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.13
+      - release-1.15
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -250,10 +112,10 @@ presubmits:
   knative/operator:
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: build-tests_operator_release-1.13
+    name: build-tests_operator_release-1.15
     path_alias: knative.dev/operator
     rerun_command: /test build-tests
     spec:
@@ -270,13 +132,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_operator_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_operator_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: unit-tests_operator_release-1.13
+    name: unit-tests_operator_release-1.15
     path_alias: knative.dev/operator
     rerun_command: /test unit-tests
     spec:
@@ -293,13 +155,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_operator_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_operator_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: integration-tests_operator_release-1.13
+    name: integration-tests_operator_release-1.15
     path_alias: knative.dev/operator
     rerun_command: /test integration-tests
     spec:
@@ -330,13 +192,13 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_operator_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_operator_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: upgrade-tests_operator_release-1.13
+    name: upgrade-tests_operator_release-1.15
     path_alias: knative.dev/operator
     rerun_command: /test upgrade-tests
     spec:
@@ -368,13 +230,13 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_operator_release-1.13,?($|\s.*))
+    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_operator_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: serving-upgrade-tests_operator_release-1.13
+    name: serving-upgrade-tests_operator_release-1.15
     path_alias: knative.dev/operator
     rerun_command: /test serving-upgrade-tests
     spec:
@@ -407,13 +269,13 @@ presubmits:
             path: service-account.json
           secretName: prow-google-credentials
     trigger: ((?m)^/test( | .* )serving-upgrade-tests,?($|\s.*))|((?m)^/test( | .*
-      )serving-upgrade-tests_operator_release-1.13,?($|\s.*))
+      )serving-upgrade-tests_operator_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: eventing-upgrade-tests_operator_release-1.13
+    name: eventing-upgrade-tests_operator_release-1.15
     path_alias: knative.dev/operator
     rerun_command: /test eventing-upgrade-tests
     spec:
@@ -446,4 +308,4 @@ presubmits:
             path: service-account.json
           secretName: prow-google-credentials
     trigger: ((?m)^/test( | .* )eventing-upgrade-tests,?($|\s.*))|((?m)^/test( | .*
-      )eventing-upgrade-tests_operator_release-1.13,?($|\s.*))
+      )eventing-upgrade-tests_operator_release-1.15,?($|\s.*))
