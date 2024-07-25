@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.13
+- release-1.15
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
 jobs:
 - command:
@@ -31,8 +31,6 @@ jobs:
   - ./test/presubmit-tests.sh
   - --integration-tests
   name: integration-tests
-  requirements:
-  - docker
   types:
   - presubmit
 - command:
@@ -40,8 +38,6 @@ jobs:
   - ./test/presubmit-tests.sh
   - --all-tests
   name: continuous
-  requirements:
-  - docker
   types:
   - periodic
 - command:
@@ -49,21 +45,27 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/eventing-istio
+  - knative-releases/kn-plugin-source-kafka
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
+  - --apple-codesign-key
+  - /etc/notary/cert.p12
+  - --apple-notary-api-key
+  - /etc/notary/key.json
+  - --apple-codesign-password-file
+  - /etc/notary/password
   - --branch
-  - release-1.13
+  - release-1.15
   excluded_requirements:
   - gcp
   max_concurrency: 1
   name: release
   requirements:
-  - release
+  - release-notary
   - docker
   types:
   - periodic
 org: knative-extensions
-repo: eventing-istio
+repo: kn-plugin-source-kafka

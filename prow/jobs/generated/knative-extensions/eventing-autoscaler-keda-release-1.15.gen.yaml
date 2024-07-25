@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-dashboards: knative-extensions-release-1.15
     testgrid-tab-name: eventing-autoscaler-keda-continuous
   cluster: prow-build
-  cron: 6 13 * * *
+  cron: 0 19 * * *
   decorate: true
   extra_refs:
-  - base_ref: release-1.13
+  - base_ref: release-1.15
     org: knative-extensions
     path_alias: knative.dev/eventing-autoscaler-keda
     repo: eventing-autoscaler-keda
-  name: continuous_eventing-autoscaler-keda_release-1.13_periodic
+  name: continuous_eventing-autoscaler-keda_release-1.15_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.13
+    testgrid-dashboards: knative-extensions-release-1.15
     testgrid-tab-name: eventing-autoscaler-keda-release
   cluster: prow-build
-  cron: 30 9 * * 2
+  cron: 4 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.13
+  - base_ref: release-1.15
     org: knative-extensions
     path_alias: knative.dev/eventing-autoscaler-keda
     repo: eventing-autoscaler-keda
   max_concurrency: 1
-  name: release_eventing-autoscaler-keda_release-1.13_periodic
+  name: release_eventing-autoscaler-keda_release-1.15_periodic
   spec:
     containers:
     - command:
@@ -72,7 +72,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.13
+      - release-1.15
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -114,10 +114,10 @@ presubmits:
   knative-extensions/eventing-autoscaler-keda:
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: integration-test-kafka-source_eventing-autoscaler-keda_release-1.13
+    name: integration-test-kafka-source_eventing-autoscaler-keda_release-1.15
     optional: true
     path_alias: knative.dev/eventing-autoscaler-keda
     rerun_command: /test integration-test-kafka-source
@@ -151,13 +151,13 @@ presubmits:
             path: service-account.json
           secretName: prow-google-credentials
     trigger: ((?m)^/test( | .* )integration-test-kafka-source,?($|\s.*))|((?m)^/test(
-      | .* )integration-test-kafka-source_eventing-autoscaler-keda_release-1.13,?($|\s.*))
+      | .* )integration-test-kafka-source_eventing-autoscaler-keda_release-1.15,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.13$
+    - ^release-1.15$
     cluster: prow-build
     decorate: true
-    name: integration-test-kafka-mt-source_eventing-autoscaler-keda_release-1.13
+    name: integration-test-kafka-mt-source_eventing-autoscaler-keda_release-1.15
     optional: true
     path_alias: knative.dev/eventing-autoscaler-keda
     rerun_command: /test integration-test-kafka-mt-source
@@ -191,4 +191,4 @@ presubmits:
             path: service-account.json
           secretName: prow-google-credentials
     trigger: ((?m)^/test( | .* )integration-test-kafka-mt-source,?($|\s.*))|((?m)^/test(
-      | .* )integration-test-kafka-mt-source_eventing-autoscaler-keda_release-1.13,?($|\s.*))
+      | .* )integration-test-kafka-mt-source_eventing-autoscaler-keda_release-1.15,?($|\s.*))
