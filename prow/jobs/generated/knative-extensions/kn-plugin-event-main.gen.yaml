@@ -131,6 +131,8 @@ periodics:
       env:
       - name: CI_JOB
         value: plugin_event-main
+      - name: KO_DEFAULTBASEIMAGE
+        value: gcr.io/distroless/static:nonroot
       - name: SSL_CERT_FILE
         value: /tmp/ssl.crt
       - name: KO_FLAGS

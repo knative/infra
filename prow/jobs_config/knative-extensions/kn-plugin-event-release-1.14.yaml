@@ -98,6 +98,8 @@ jobs:
     value: plugin_event-114
   - name: SSL_CERT_FILE
     value: /tmp/ssl.crt
+  - name: KO_DEFAULTBASEIMAGE
+    value: gcr.io/distroless/static:nonroot
   command:
   - runner.sh
   cron: 40 14 * * *

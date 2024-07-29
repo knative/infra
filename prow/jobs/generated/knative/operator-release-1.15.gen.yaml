@@ -180,6 +180,68 @@ periodics:
       secret:
         defaultMode: 384
         secretName: s390x-cluster1
+postsubmits:
+  knative/operator:
+  - branches:
+    - ^release-1.15$
+    cluster: prow-build
+    decorate: true
+    name: ppc64le-e2e-tests_operator_release-1.15_postsubmit
+    path_alias: knative.dev/operator
+    spec:
+      containers:
+      - args:
+        - bash
+        - -c
+        - |
+          server_vm="$(sh /opt/cluster/vm-script)"
+          source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+          ./test/e2e-tests.sh --run-tests
+        command:
+        - runner.sh
+        env:
+        - name: CI_JOB
+          value: operator-release-1.15
+        - name: INGRESS_CLASS
+          value: contour.ingress.networking.knative.dev
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        - name: KO_FLAGS
+          value: --platform=linux/ppc64le
+        - name: PLATFORM
+          value: linux/ppc64le
+        - name: KO_DOCKER_REPO
+          value: icr.io/upstream-k8s-registry/knative
+        - name: KUBECONFIG
+          value: /root/.kube/config
+        - name: DOCKER_CONFIG
+          value: /opt/cluster
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240729-fb7cfc68e
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+        - mountPath: /opt/cluster
+          name: ppc64le-cluster
+          readOnly: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+      - name: ppc64le-cluster
+        secret:
+          defaultMode: 384
+          secretName: ppc64le-cluster
 presubmits:
   knative/operator:
   - always_run: true
@@ -381,3 +443,66 @@ presubmits:
           secretName: prow-google-credentials
     trigger: ((?m)^/test( | .* )eventing-upgrade-tests,?($|\s.*))|((?m)^/test( | .*
       )eventing-upgrade-tests_operator_release-1.15,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^release-1.15$
+    cluster: prow-build
+    decorate: true
+    name: ppc64le-e2e-tests_operator_release-1.15
+    path_alias: knative.dev/operator
+    rerun_command: /test ppc64le-e2e-tests
+    spec:
+      containers:
+      - args:
+        - bash
+        - -c
+        - |
+          server_vm="$(sh /opt/cluster/vm-script)"
+          source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+          ./test/e2e-tests.sh --run-tests
+        command:
+        - runner.sh
+        env:
+        - name: CI_JOB
+          value: operator-release-1.15
+        - name: INGRESS_CLASS
+          value: contour.ingress.networking.knative.dev
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/test-account/service-account.json
+        - name: KO_FLAGS
+          value: --platform=linux/ppc64le
+        - name: PLATFORM
+          value: linux/ppc64le
+        - name: KO_DOCKER_REPO
+          value: icr.io/upstream-k8s-registry/knative
+        - name: KUBECONFIG
+          value: /root/.kube/config
+        - name: DOCKER_CONFIG
+          value: /opt/cluster
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240729-fb7cfc68e
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/test-account
+          name: test-account
+          readOnly: true
+        - mountPath: /opt/cluster
+          name: ppc64le-cluster
+          readOnly: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - name: test-account
+        secret:
+          items:
+          - key: service-account-key.json
+            path: service-account.json
+          secretName: prow-google-credentials
+      - name: ppc64le-cluster
+        secret:
+          defaultMode: 384
+          secretName: ppc64le-cluster
+    trigger: ((?m)^/test( | .* )ppc64le-e2e-tests,?($|\s.*))|((?m)^/test( | .* )ppc64le-e2e-tests_operator_release-1.15,?($|\s.*))

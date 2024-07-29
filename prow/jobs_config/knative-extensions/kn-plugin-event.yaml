@@ -56,7 +56,9 @@ jobs:
     - name: CI_JOB
       value: plugin_event-main
     - name: SSL_CERT_FILE
-      VALUE: /tmp/ssl.crt
+      value: /tmp/ssl.crt
+    - name: KO_DEFAULTBASEIMAGE
+      value: gcr.io/distroless/static:nonroot
     excluded_requirements:
     - gcp
   - name: nightly

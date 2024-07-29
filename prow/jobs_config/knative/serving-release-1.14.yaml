@@ -244,6 +244,7 @@ jobs:
     server_vm="$(sh /opt/cluster/vm-script)"
     source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
     export TEST_OPTIONS=$TEST_OPTIONS' --ingressendpoint '${server_vm}
+    export KO_DEFAULTBASEIMAGE="gcr.io/distroless/static:nonroot"
     ./test/e2e-tests.sh --run-tests --kourier-version latest
   command:
   - runner.sh

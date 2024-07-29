@@ -96,5 +96,25 @@ jobs:
   - s390x
   types:
   - periodic
+- args:
+  - bash
+  - -c
+  - |
+    server_vm="$(sh /opt/cluster/vm-script)"
+    source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
+    ./test/e2e-tests.sh --run-tests
+  command:
+  - runner.sh
+  cron: 40 7 * * *
+  env:
+  - name: CI_JOB
+    value: client-release-1.15
+  - name: INGRESS_CLASS
+    value: contour.ingress.networking.knative.dev
+  name: ppc64le-e2e-tests
+  requirements:
+  - ppc64le
+  types:
+  - periodic
 org: knative
 repo: client
