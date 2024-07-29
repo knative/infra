@@ -7,7 +7,7 @@
 branches:
 - release-1.15
 cluster: prow-build
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240723-cbf584354
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240729-fb7cfc68e
 jobs:
 - command:
   - runner.sh
