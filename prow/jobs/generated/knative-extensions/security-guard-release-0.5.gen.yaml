@@ -10,7 +10,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-0.5
     testgrid-tab-name: security-guard-continuous
   cluster: prow-build
-  cron: 6 1 * * *
+  cron: 6 1 * * */3
   decorate: true
   extra_refs:
   - base_ref: release-0.5

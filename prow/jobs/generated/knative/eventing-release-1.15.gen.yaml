@@ -10,7 +10,7 @@ periodics:
     testgrid-dashboards: knative-release-1.15
     testgrid-tab-name: eventing-continuous
   cluster: prow-build
-  cron: 15 10 * * *
+  cron: 15 10 * * */3
   decorate: true
   decoration_config:
     timeout: 3h0m0s

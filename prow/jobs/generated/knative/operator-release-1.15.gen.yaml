@@ -10,7 +10,7 @@ periodics:
     testgrid-dashboards: knative-release-1.15
     testgrid-tab-name: operator-continuous
   cluster: prow-build
-  cron: 19 14 * * *
+  cron: 19 14 * * */3
   decorate: true
   extra_refs:
   - base_ref: release-1.15

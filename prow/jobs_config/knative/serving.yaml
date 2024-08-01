@@ -106,6 +106,7 @@ jobs:
 
   - name: istio-latest-mesh
     types: [periodic]
+    timeout: 5h
     command:
     - runner.sh
     args:
@@ -117,6 +118,7 @@ jobs:
 
   - name: istio-latest-no-mesh
     types: [periodic]
+    timeout: 5h
     command:
     - runner.sh
     args:
@@ -128,6 +130,7 @@ jobs:
 
   - name: kourier-stable
     types: [periodic]
+    timeout: 5h
     command:
     - runner.sh
     args:
@@ -139,6 +142,7 @@ jobs:
 
   - name: contour-latest
     types: [periodic]
+    timeout: 5h
     command:
     - runner.sh
     args:
@@ -150,6 +154,7 @@ jobs:
 
   - name: gateway-api-istio
     types: [periodic]
+    timeout: 5h
     command:
     - runner.sh
     args:
@@ -159,6 +164,7 @@ jobs:
 
   - name: gateway-api-contour
     types: [periodic]
+    timeout: 5h
     command:
     - runner.sh
     args:
@@ -168,6 +174,7 @@ jobs:
 
   - name: https
     types: [periodic]
+    timeout: 5h
     command:
     - runner.sh
     args:
@@ -178,7 +185,7 @@ jobs:
     - ./test/e2e-external-domain-tls-tests.sh --https
 
   - name: performance-tests
-    timeout: 3h
+    timeout: 5h
     types: [periodic]
     requirements: [perf]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/performance/performance-tests.sh]
@@ -231,7 +238,7 @@ jobs:
 
   - name: nightly
     types: [periodic]
-    timeout: 3h
+    timeout: 5h
     command: [runner.sh, ./hack/release.sh, --publish, --tag-release]
     requirements: [nightly]
     excluded_requirements: [gcp]

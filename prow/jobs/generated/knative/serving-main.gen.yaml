@@ -64,8 +64,10 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: istio-latest-mesh
   cluster: prow-build
-  cron: 36 */9 * * *
+  cron: 36 */18 * * *
   decorate: true
+  decoration_config:
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -120,8 +122,10 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: istio-latest-no-mesh
   cluster: prow-build
-  cron: 40 */9 * * *
+  cron: 40 */18 * * *
   decorate: true
+  decoration_config:
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -176,8 +180,10 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: kourier-stable
   cluster: prow-build
-  cron: 7 */9 * * *
+  cron: 7 */18 * * *
   decorate: true
+  decoration_config:
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -232,8 +238,10 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: contour-latest
   cluster: prow-build
-  cron: 28 */9 * * *
+  cron: 28 */18 * * *
   decorate: true
+  decoration_config:
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -288,8 +296,10 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: gateway-api-istio
   cluster: prow-build
-  cron: 48 */9 * * *
+  cron: 48 */18 * * *
   decorate: true
+  decoration_config:
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -342,8 +352,10 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: gateway-api-contour
   cluster: prow-build
-  cron: 22 */9 * * *
+  cron: 22 */18 * * *
   decorate: true
+  decoration_config:
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -397,8 +409,10 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: https
   cluster: prow-build
-  cron: 11 */9 * * *
+  cron: 11 */18 * * *
   decorate: true
+  decoration_config:
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -453,10 +467,10 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: performance-tests
   cluster: prow-build
-  cron: 8 */12 * * *
+  cron: 8 */18 * * *
   decorate: true
   decoration_config:
-    timeout: 3h0m0s
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
@@ -694,7 +708,7 @@ periodics:
   cron: 15 9 * * *
   decorate: true
   decoration_config:
-    timeout: 3h0m0s
+    timeout: 5h0m0s
   extra_refs:
   - base_ref: main
     org: knative
