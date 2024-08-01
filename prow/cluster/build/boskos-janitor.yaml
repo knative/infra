@@ -21,7 +21,7 @@ metadata:
     app: boskos-janitor
   namespace: test-pods
 spec:
-  replicas: 6  # Number of distributed janitor instances; k8s has ~1/16 as many projects
+  replicas: 3
   selector:
     matchLabels:
       app: boskos-janitor
