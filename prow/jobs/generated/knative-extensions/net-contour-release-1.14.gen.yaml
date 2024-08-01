@@ -10,7 +10,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.14
     testgrid-tab-name: net-contour-continuous
   cluster: prow-build
-  cron: 7 14 * * *
+  cron: 7 14 * * */3
   decorate: true
   extra_refs:
   - base_ref: release-1.14

@@ -10,7 +10,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.15
     testgrid-tab-name: eventing-github-continuous
   cluster: prow-build
-  cron: 0 7 * * *
+  cron: 0 7 * * */3
   decorate: true
   extra_refs:
   - base_ref: release-1.15

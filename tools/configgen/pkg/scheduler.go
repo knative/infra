@@ -80,8 +80,8 @@ func generateCron(org, repo, branch, jobName string, timeout int) string {
 	daily := func(pacificHour int) string {
 		return fmt.Sprintf("%d %d * * *", minutesOffset, utcTime(pacificHour))
 	}
-	weekly := func(pacificHour, dayOfWeek int) string {
-		return fmt.Sprintf("%d %d * * %d", minutesOffset, utcTime(pacificHour), dayOfWeek)
+	weekly := func(pacificHour int, dayOfWeek string) string {
+		return fmt.Sprintf("%d %d * * %s", minutesOffset, utcTime(pacificHour), dayOfWeek)
 	}
 
 	var res string
@@ -90,21 +90,27 @@ func generateCron(org, repo, branch, jobName string, timeout int) string {
 		if branch == mainBranchName {
 			res = hourCron // Multiple times per day for main branch continuous Prow jobs
 		} else {
-			res = daily(hourOffset) // Random hour in the day for release branch continuous Prow jobs
+			res = weekly(hourOffset, "*/3") // Every third day for release branch jobs
 		}
 	case "nightly":
-		res = daily(2) // nightlys run at 2 AM
+		if branch == mainBranchName {
+			res = daily(2) // nightlys run at 2 AM
+		} else {
+			res = weekly(hourOffset, "*/3") // Every third day for release branch jobs
+		}
 	case "release":
 		if branch == mainBranchName {
 			res = hourCron // auto-release for main branch runs multiple times per day
 		} else {
-			res = weekly(2, 2) // dot-release for release branches runs every Tuesday 2 AM
+			res = weekly(2, "2") // dot-release for release branches runs every Tuesday 2 AM
 		}
 	default:
 		if repo == "serving" {
 			res = hourCron // Multiple times per day for knative/serving periodic Prow jobs
-		} else {
+		} else if branch == mainBranchName {
 			res = daily(hourOffset) // Random hour in the day for other periodic Prow jobs
+		} else {
+			res = weekly(hourOffset, "*/3") // Every third day for release branch jobs
 		}
 	}
 	return res

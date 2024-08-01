@@ -10,7 +10,7 @@ periodics:
     testgrid-dashboards: knative-extensions-release-1.15
     testgrid-tab-name: net-istio-continuous
   cluster: prow-build
-  cron: 50 9 * * *
+  cron: 50 9 * * */3
   decorate: true
   extra_refs:
   - base_ref: release-1.15
