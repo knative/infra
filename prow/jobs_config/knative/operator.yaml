@@ -53,7 +53,7 @@ jobs:
         ./test/e2e-tests.sh --run-tests
     env:
       - name: INGRESS_CLASS
-        value: contour.ingress.networking.knative.dev
+        value: kourier.ingress.networking.knative.dev
 
   - name: ppc64le-e2e-tests
     cron: 10 4 * * *

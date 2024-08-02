@@ -147,7 +147,7 @@ periodics:
       - runner.sh
       env:
       - name: INGRESS_CLASS
-        value: contour.ingress.networking.knative.dev
+        value: kourier.ingress.networking.knative.dev
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
       - name: KO_FLAGS
