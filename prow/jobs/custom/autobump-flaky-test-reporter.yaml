@@ -19,7 +19,7 @@ periodics:
       report_template: '"The autobump-flaky-test-reporter periodic job fails, check the log: <{{.Status.URL}}|View logs>"'
   spec:
     containers:
-    - image: gcr.io/k8s-prow/generic-autobumper:v20240723-dbbd2d86b
+    - image: gcr.io/k8s-prow/generic-autobumper:v20240802-66b115076
       command:
       - generic-autobumper
       args:
