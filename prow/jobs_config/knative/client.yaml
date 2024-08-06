@@ -31,45 +31,6 @@ jobs:
     types: [periodic]
     command: [runner.sh, ./test/tekton-tests.sh]
 
-  - name: s390x-e2e-tests
-    cron: 20 1 * * *
-    types: [periodic]
-    requirements: [s390x]
-    command: [runner.sh]
-    args:
-      - bash
-      - -c
-      - |
-        mkdir -p /root/.kube
-        cat /opt/cluster/ci-script > connect.sh
-        chmod +x connect.sh
-        ./connect.sh client-main
-        kubectl get cm s390x-config-client -n default -o jsonpath='{.data.adjustment-script}' > adjust.sh
-        chmod +x adjust.sh
-        ./adjust.sh
-        ./test/e2e-tests.sh --run-tests
-    env:
-      - name: INGRESS_CLASS
-        value: contour.ingress.networking.knative.dev
-
-  - name: ppc64le-e2e-tests
-    cron: 50 1 * * *
-    types: [periodic]
-    requirements: [ppc64le]
-    command: [runner.sh]
-    args:
-      - bash
-      - -c
-      - |
-        server_vm="$(sh /opt/cluster/vm-script)"
-        source /opt/cluster/ci-script "${CI_JOB}" "${server_vm}"
-        ./test/e2e-tests.sh --run-tests
-    env:
-      - name: INGRESS_CLASS
-        value: contour.ingress.networking.knative.dev
-      - name: CI_JOB
-        value: "client-main"
-
   - name: nightly
     types: [periodic]
     command: [runner.sh, ./hack/release.sh, --publish, --tag-release,
