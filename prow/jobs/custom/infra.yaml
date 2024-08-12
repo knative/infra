@@ -84,7 +84,7 @@ presubmits:
 periodics:
 # ci-knative-heartbeat is used for prometheus, alert(s) will be sent
 # if this job hadn't been succeeded for some time
-- cron: "*/3 * * * *" # Every 3 minutes
+- cron: "0 * * * *" # Every hour
   name: ci-knative-heartbeat
   agent: kubernetes
   decorate: true
@@ -227,6 +227,13 @@ periodics:
         flaky-test-reporter \
           --skip-report \
           --build-count=10
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 250m
+          memory: 512Mi
       volumeMounts:
       - name: github-credentials
         mountPath: /etc/flaky-test-reporter-github-token
@@ -284,6 +291,13 @@ periodics:
           --prow-job-config-root-path=prow/jobs_config \
           --regen-config-script=hack/generate-configs.sh \
           --label=skip-review
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 250m
+          memory: 512Mi
       volumeMounts:
       - name: github-credentials
         mountPath: /etc/prow-auto-bumper-github-token

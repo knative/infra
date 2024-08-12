@@ -6,11 +6,11 @@ resource "google_storage_bucket" "prow" {
   uniform_bucket_level_access = true
   lifecycle_rule {
     action {
-      storage_class = "NEARLINE"
+      storage_class = "COLDLINE"
       type          = "SetStorageClass"
     }
     condition {
-      age = 180
+      age = 14
     }
   }
   lifecycle_rule {
@@ -83,7 +83,8 @@ module "iam_testgrid_bucket" {
   bindings = {
     "roles/storage.admin" = [
       "serviceAccount:${google_service_account.testgrid_updater.email}",
-      "serviceAccount:updater@k8s-testgrid.iam.gserviceaccount.com"
+      "serviceAccount:updater@k8s-testgrid.iam.gserviceaccount.com",
+      "group:kn-infra-gcp-org-admins@knative.dev"
     ]
     "roles/storage.objectViewer" = [
       "serviceAccount:k8s-testgrid@appspot.gserviceaccount.com"
