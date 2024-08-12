@@ -26,6 +26,8 @@ ARG TFENV_VERSION=v2.2.3
 ARG KOPS_VERSION=v1.25.0
 ARG CHART_RELEASER_VERSION=1.6.0
 ARG HELM_VERSION=v3.12.2
+ARG NODE_VERSION=21.7.3
+ARG NVM_VERSION=0.40.0
 ARG COMMIT_HASH
 
 RUN echo "${COMMIT_HASH}" > /commit_hash
@@ -165,6 +167,26 @@ RUN java -version && \
 
 #
 # END: JAVA SETUP
+#
+
+#
+# BEGIN: NODEJS SETUP
+#
+
+ENV NVM_DIR=/usr/local/nvm
+RUN mkdir -p $NVM_DIR
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
+RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
+ENV PATH="${NVM_DIR}/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+RUN npm install -g yarn
+RUN node --version
+RUN npm --version
+RUN yarn --version
+
+#
+# END: NODEJS SETUP
 #
 
 # protoc and required golang tooling
