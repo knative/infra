@@ -2,7 +2,7 @@
 
 module "prow_trusted" {
   source                       = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  version                      = "~> 24.1"
+  version                      = "~> 30.0"
   project_id                   = module.project.project_id
   name                         = "prow-trusted"
   regional                     = false
@@ -20,6 +20,17 @@ module "prow_trusted" {
   remove_default_node_pool     = true
   gce_pd_csi_driver            = true
   authenticator_security_group = "gke-security-groups@knative.dev"
+  cluster_autoscaling = {
+    enabled             = false
+    autoscaling_profile = "OPTIMIZE_UTILIZATION"
+    gpu_resources       = []
+    max_cpu_cores       = null
+    max_memory_gb       = null
+    min_cpu_cores       = null
+    min_memory_gb       = null
+    auto_repair         = null
+    auto_upgrade        = null
+  }
   cluster_resource_labels = {
     cluster     = "prow-trusted"
     role        = "prow"
@@ -31,7 +42,7 @@ module "prow_trusted" {
       name               = "prod-v2"
       machine_type       = "e2-standard-2"
       node_locations     = "us-central1-f,us-central1-a"
-      min_count          = 2
+      min_count          = 0
       max_count          = 4
       disk_size_gb       = 100
       disk_type          = "pd-ssd"
@@ -47,7 +58,7 @@ module "prow_trusted" {
 
 module "prow" {
   source                       = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  version                      = "~> 24.1"
+  version                      = "~> 30.0"
   project_id                   = module.project.project_id
   name                         = "prow"
   region                       = "us-central1"
@@ -98,7 +109,7 @@ module "prow" {
 
 module "prow_build" {
   source                       = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  version                      = "~> 24.1"
+  version                      = "~> 30.0"
   project_id                   = module.project.project_id
   name                         = "prow-build"
   region                       = "us-central1"
@@ -123,6 +134,8 @@ module "prow_build" {
     max_memory_gb       = null
     min_cpu_cores       = null
     min_memory_gb       = null
+    auto_repair         = null
+    auto_upgrade        = null
   }
 
   cluster_resource_labels = {

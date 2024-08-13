@@ -5,8 +5,7 @@ resource "google_folder" "boskos" {
 
 locals {
   boskos_projects = [
-    // projects less than 100 were created manually, need to be imported later
-    for i in range("101", "110") : format("knative-boskos-%d", i)
+    for i in range("01", "110") : format("knative-boskos-%02d", i)
   ]
 }
 
@@ -37,4 +36,27 @@ module "project" {
     "cloudbuild.googleapis.com",
     "artifactregistry.googleapis.com"
   ]
+}
+
+
+resource "google_artifact_registry_repository" "gcr" {
+  for_each               = toset(local.boskos_projects)
+  location               = "us"
+  repository_id          = "gcr.io"
+  format                 = "DOCKER"
+  project                = module.project[each.key].project_id
+  cleanup_policy_dry_run = false
+  cleanup_policies {
+    id     = "delete-images-older-than-7-days"
+    action = "DELETE"
+    condition {
+      older_than = "604800s"
+    }
+  }
+}
+
+import {
+  for_each = toset(local.boskos_projects)
+  to       = module.project[each.key].module.project-factory.google_project.main
+  id       = each.value
 }

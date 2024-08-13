@@ -5,7 +5,7 @@ provider "google-beta" {
 }
 
 terraform {
-  required_version = "1.3.7"
+  required_version = "1.7.5"
 
   backend "gcs" {
     bucket = "knative-state"
@@ -14,10 +14,10 @@ terraform {
 
   required_providers {
     google = {
-      version = "4.52.0"
+      version = "5.40.0"
     }
     google-beta = {
-      version = "4.52.0"
+      version = "5.40.0"
     }
   }
 }

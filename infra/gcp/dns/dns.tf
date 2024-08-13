@@ -1,7 +1,7 @@
 // knative.dev DNS
 module "knative_dev" {
   source     = "terraform-google-modules/cloud-dns/google"
-  version    = "~> 4.1"
+  version    = "~> 5.2"
   project_id = module.project.project_id
   type       = "public"
   name       = "knative-dev"
@@ -156,7 +156,7 @@ module "knative_dev" {
 // knative.team DNS
 module "knative_team" {
   source     = "terraform-google-modules/cloud-dns/google"
-  version    = "~> 4.1"
+  version    = "~> 5.2"
   project_id = module.project.project_id
   type       = "public"
   name       = "knative-team"
@@ -207,7 +207,7 @@ module "knative_team" {
 // kn.dev DNS
 module "kn_dev" {
   source     = "terraform-google-modules/cloud-dns/google"
-  version    = "~> 4.1"
+  version    = "~> 5.2"
   project_id = module.project.project_id
   type       = "public"
   name       = "kn-dev"
@@ -220,7 +220,7 @@ module "kn_dev" {
 // kn-e2e.dev DNS
 module "kn_e2e_dev" {
   source      = "terraform-google-modules/cloud-dns/google"
-  version     = "~> 4.1"
+  version     = "~> 5.2"
   description = "Custom domain used only for Knative E2E tests."
   project_id  = "knative-e2e-dns"
   type        = "public"
