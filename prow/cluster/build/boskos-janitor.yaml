@@ -21,7 +21,7 @@ metadata:
     app: boskos-janitor
   namespace: test-pods
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: boskos-janitor
@@ -44,8 +44,27 @@ spec:
         - --verbose
         resources:
           requests:
-              cpu: 200m
-              memory: 20Mi
+              cpu: 1000m
+              memory: 1000Mi
           limits:
-              cpu: 4000m
-              memory: 2560Mi
+              cpu: 3000m
+              memory: 6000Mi
+# ---
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: boskos-janitor
+# spec:
+#   maxReplicas: 10
+#   minReplicas: 1
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: boskos-janitor
+#   metrics:
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: Utilization
+#         averageUtilization: 50
