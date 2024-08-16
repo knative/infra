@@ -4,6 +4,12 @@ branches: [main]
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240814-5855b4567
 
 jobs:
+
+  - name: build-tests
+    types: [presubmit]
+    command: [runner.sh, ./test/presubmit-tests.sh, --build-tests]
+    excluded_requirements: [gcp]
+
   - name: continuous
     types: [periodic]
     command: [runner.sh, ./test/presubmit-tests.sh, --all-tests]
