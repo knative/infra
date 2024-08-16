@@ -208,3 +208,28 @@ periodics:
         path: /sys/fs/cgroup
         type: Directory
       name: cgroup
+presubmits:
+  knative-extensions/backstage-plugins:
+  - always_run: true
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
+    name: build-tests_backstage-plugins_main
+    path_alias: knative.dev/backstage-plugins
+    rerun_command: /test build-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --build-tests
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240814-5855b4567
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_backstage-plugins_main,?($|\s.*))
