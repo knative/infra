@@ -10,6 +10,16 @@ jobs:
     command: [runner.sh, ./test/presubmit-tests.sh, --build-tests]
     excluded_requirements: [gcp]
 
+  - name: unit-tests
+    types: [ presubmit ]
+    resources: default
+    command: [ runner.sh, ./test/presubmit-tests.sh, --unit-tests ]
+    excluded_requirements: [ gcp ]
+
+  - name: e2e-tests
+    types: [presubmit]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/e2e-tests.sh]
+
   - name: continuous
     types: [periodic]
     command: [runner.sh, ./test/presubmit-tests.sh, --all-tests]
