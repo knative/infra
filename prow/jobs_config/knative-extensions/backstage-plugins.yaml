@@ -39,14 +39,8 @@ jobs:
     excluded_requirements: [gcp]
     max_concurrency: 1
 
-resources: high
+resources: default
 resources_presets:
-  high:
-    limits:
-      memory: 16Gi
-    requests:
-      memory: 12Gi
-
   default:
     limits:
       memory: 10Gi

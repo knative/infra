@@ -33,9 +33,9 @@ periodics:
       name: ""
       resources:
         limits:
-          memory: 16Gi
+          memory: 10Gi
         requests:
-          memory: 12Gi
+          memory: 8Gi
       securityContext:
         privileged: true
       volumeMounts:
@@ -101,9 +101,9 @@ periodics:
       name: ""
       resources:
         limits:
-          memory: 16Gi
+          memory: 10Gi
         requests:
-          memory: 12Gi
+          memory: 8Gi
       securityContext:
         privileged: true
       volumeMounts:
@@ -176,9 +176,9 @@ periodics:
       name: ""
       resources:
         limits:
-          memory: 16Gi
+          memory: 10Gi
         requests:
-          memory: 12Gi
+          memory: 8Gi
       securityContext:
         privileged: true
       volumeMounts:
@@ -240,9 +240,9 @@ presubmits:
         name: ""
         resources:
           limits:
-            memory: 16Gi
+            memory: 10Gi
           requests:
-            memory: 12Gi
+            memory: 8Gi
         securityContext:
           privileged: true
       nodeSelector:
@@ -298,9 +298,9 @@ presubmits:
         name: ""
         resources:
           limits:
-            memory: 16Gi
+            memory: 10Gi
           requests:
-            memory: 12Gi
+            memory: 8Gi
         securityContext:
           privileged: true
         volumeMounts:
