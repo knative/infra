@@ -1,7 +1,7 @@
 org: knative
 repo: operator
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240903-94f42b47a
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240909-fdd81f9aa
 
 jobs:
   - name: build-tests
