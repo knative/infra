@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-natss
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240909-fdd81f9aa
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240926-e046f9a1f
 
 jobs:
   - name: continuous
