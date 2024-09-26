@@ -7,8 +7,7 @@ gitHubOrg: "knative"
 gitHubRepo: "infra"
 remoteName: "infra"
 headBranchName: "autobump-knative"
-upstreamURLBase: "https://raw.githubusercontent.com/kubernetes/test-infra/master"
-targetVersion: "upstream"
+targetVersion: "latest"
 includedConfigPaths:
   - "prow/cluster/control-plane"
   - "prow/cluster/build"
@@ -19,25 +18,12 @@ extraFiles:
   - "prow/jobs/run_job.sh"
 prefixes:
   - name: "Prow"
-    prefix: "gcr.io/k8s-prow/"
-    refConfigFile: "config/prow/cluster/deck_deployment.yaml"
-    repo: "https://github.com/kubernetes/test-infra"
+    prefix: "us-docker.pkg.dev/k8s-infra-prow/images/"
+    repo: "https://github.com/kubernetes-sigs/prow"
     summarise: false
     consistentImages: true
-    consistentImageExceptions:
-      - "gcr.io/k8s-prow/alpine"
-      - "gcr.io/k8s-prow/analyze"
-      - "gcr.io/k8s-prow/commenter"
-      - "gcr.io/k8s-prow/configurator"
-      - "gcr.io/k8s-prow/gcsweb"
-      - "gcr.io/k8s-prow/gencred"
-      - "gcr.io/k8s-prow/git"
-      - "gcr.io/k8s-prow/issue-creator"
-      - "gcr.io/k8s-prow/label_sync"
-      - "gcr.io/k8s-prow/pr-creator"
   - name: "Boskos"
     prefix: "gcr.io/k8s-staging-boskos/"
-    refConfigFile: "config/prow/cluster/build/boskos.yaml"
     repo: "https://github.com/kubernetes-sigs/boskos"
     summarise: false
     consistentImages: true
