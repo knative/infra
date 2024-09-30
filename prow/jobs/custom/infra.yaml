@@ -48,7 +48,7 @@ presubmits:
     cluster: "prow-build"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/configurator:v20240914-93a93a3da
+      - image: gcr.io/k8s-staging-test-infra/configurator:v20240914-93a93a3da9
         command:
         - configurator
         args:
@@ -373,7 +373,7 @@ postsubmits:
     spec:
       serviceAccountName: testgrid-updater
       containers:
-      - image: gcr.io/k8s-staging-test-infra/configurator:v20240914-93a93a3da
+      - image: gcr.io/k8s-staging-test-infra/configurator:v20240914-93a93a3da9
         command:
         - configurator
         args:
