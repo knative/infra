@@ -83,7 +83,7 @@ update-testgrid-config: confirm-main
 		-v "$(GOOGLE_APPLICATION_CREDENTIALS):$(GOOGLE_APPLICATION_CREDENTIALS)" \
 		-e "GOOGLE_APPLICATION_CREDENTIALS" \
 		-w "$(PWD)" \
-		gcr.io/k8s-prow/configurator:v20240731-a5d9345e59 \
+		gcr.io/k8s-staging-test-infra/configurator:v20240914-93a93a3da \
 		"--oneshot" \
 		"--output=gs://$(TESTGRID_GCS)/config" \
 		"--yaml=$(realpath $(TESTGRID_CONFIG))"
