@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-autoscaler-keda
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240930-e046f9a1f
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20240930-d0dc1f7e7
 
 jobs:
   - name: integration-test-kafka-source
