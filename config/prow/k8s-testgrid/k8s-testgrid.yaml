@@ -23,6 +23,7 @@ dashboard_groups:
   - eventing-ceph
   - eventing-github
   - eventing-gitlab
+  - eventing-integrations
   - eventing-istio
   - eventing-kafka-broker
   - eventing-kogito
@@ -58,6 +59,7 @@ dashboards:
 - name: eventing-ceph
 - name: eventing-github
 - name: eventing-gitlab
+- name: eventing-integrations
 - name: eventing-istio
 - name: eventing-kafka-broker
 - name: eventing-kogito
