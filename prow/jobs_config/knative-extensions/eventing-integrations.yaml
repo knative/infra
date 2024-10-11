@@ -1,0 +1,13 @@
+org: knative-extensions
+repo: eventing-integrations
+branches: [main]
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241007-37b7a5285
+
+jobs:
+
+  - name: nightly
+    types: [periodic]
+    command: [runner.sh, ./hack/release.sh, --publish, --tag-release]
+    requirements: [nightly, docker]
+    excluded_requirements: [gcp]
+    max_concurrency: 1
