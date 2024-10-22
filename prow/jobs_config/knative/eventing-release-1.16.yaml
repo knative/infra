@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.14
+- release-1.16
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241021-2b4a426d3
 jobs:
 - command:
@@ -70,7 +70,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.14
+  - release-1.16
   excluded_requirements:
   - gcp
   max_concurrency: 1
