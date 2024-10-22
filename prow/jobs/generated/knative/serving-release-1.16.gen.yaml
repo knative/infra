@@ -7,19 +7,19 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-release-1.14
+    testgrid-dashboards: knative-release-1.16
     testgrid-tab-name: serving-continuous
   cluster: prow-build
-  cron: 58 17 * * */3
+  cron: 36 19 * * */3
   decorate: true
   decoration_config:
     timeout: 3h0m0s
   extra_refs:
-  - base_ref: release-1.14
+  - base_ref: release-1.16
     org: knative
     path_alias: knative.dev/serving
     repo: serving
-  name: continuous_serving_release-1.14_periodic
+  name: continuous_serving_release-1.16_periodic
   spec:
     containers:
     - command:
@@ -61,20 +61,20 @@ periodics:
         type: Directory
       name: cgroup
 - annotations:
-    testgrid-dashboards: knative-release-1.14
+    testgrid-dashboards: knative-release-1.16
     testgrid-tab-name: serving-release
   cluster: prow-build
-  cron: 30 9 * * 2
+  cron: 36 9 * * 2
   decorate: true
   decoration_config:
     timeout: 3h0m0s
   extra_refs:
-  - base_ref: release-1.14
+  - base_ref: release-1.16
     org: knative
     path_alias: knative.dev/serving
     repo: serving
   max_concurrency: 1
-  name: release_serving_release-1.14_periodic
+  name: release_serving_release-1.16_periodic
   spec:
     containers:
     - command:
@@ -88,7 +88,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.14
+      - release-1.16
       env:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
@@ -146,10 +146,10 @@ presubmits:
   knative/serving:
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: build-tests_serving_release-1.14
+    name: build-tests_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test build-tests
     spec:
@@ -191,13 +191,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_serving_release-1.16,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: unit-tests_serving_release-1.14
+    name: unit-tests_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test unit-tests
     spec:
@@ -239,13 +239,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_serving_release-1.16,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: upgrade-tests_serving_release-1.14
+    name: upgrade-tests_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test upgrade-tests
     spec:
@@ -289,13 +289,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_serving_release-1.16,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: istio-latest-no-mesh_serving_release-1.14
+    name: istio-latest-no-mesh_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-no-mesh
     spec:
@@ -340,13 +340,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )istio-latest-no-mesh,?($|\s.*))|((?m)^/test( | .*
-      )istio-latest-no-mesh_serving_release-1.14,?($|\s.*))
+      )istio-latest-no-mesh_serving_release-1.16,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: istio-latest-no-mesh-tls_serving_release-1.14
+    name: istio-latest-no-mesh-tls_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-no-mesh-tls
     spec:
@@ -391,15 +391,15 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )istio-latest-no-mesh-tls,?($|\s.*))|((?m)^/test( |
-      .* )istio-latest-no-mesh-tls_serving_release-1.14,?($|\s.*))
+      .* )istio-latest-no-mesh-tls_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
     decoration_config:
       timeout: 3h0m0s
-    name: performance-tests_serving_release-1.14
+    name: performance-tests_serving_release-1.16
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test performance-tests
@@ -458,13 +458,13 @@ presubmits:
         secret:
           defaultMode: 384
           secretName: influx-url-secret
-    trigger: ((?m)^/test( | .* )performance-tests,?($|\s.*))|((?m)^/test( | .* )performance-tests_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )performance-tests,?($|\s.*))|((?m)^/test( | .* )performance-tests_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: istio-latest-mesh_serving_release-1.14
+    name: istio-latest-mesh_serving_release-1.16
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-mesh
@@ -509,13 +509,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )istio-latest-mesh,?($|\s.*))|((?m)^/test( | .* )istio-latest-mesh_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )istio-latest-mesh,?($|\s.*))|((?m)^/test( | .* )istio-latest-mesh_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: istio-latest-mesh-short_serving_release-1.14
+    name: istio-latest-mesh-short_serving_release-1.16
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-mesh-short
@@ -561,13 +561,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )istio-latest-mesh-short,?($|\s.*))|((?m)^/test( |
-      .* )istio-latest-mesh-short_serving_release-1.14,?($|\s.*))
+      .* )istio-latest-mesh-short_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: istio-latest-mesh-tls_serving_release-1.14
+    name: istio-latest-mesh-tls_serving_release-1.16
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test istio-latest-mesh-tls
@@ -613,13 +613,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )istio-latest-mesh-tls,?($|\s.*))|((?m)^/test( | .*
-      )istio-latest-mesh-tls_serving_release-1.14,?($|\s.*))
+      )istio-latest-mesh-tls_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: kourier-stable_serving_release-1.14
+    name: kourier-stable_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test kourier-stable
     run_if_changed: ^third_party/kourier-latest/*
@@ -664,13 +664,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )kourier-stable,?($|\s.*))|((?m)^/test( | .* )kourier-stable_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )kourier-stable,?($|\s.*))|((?m)^/test( | .* )kourier-stable_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: kourier-stable-tls_serving_release-1.14
+    name: kourier-stable-tls_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test kourier-stable-tls
     run_if_changed: ^third_party/kourier-latest/*
@@ -715,13 +715,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )kourier-stable-tls,?($|\s.*))|((?m)^/test( | .* )kourier-stable-tls_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )kourier-stable-tls,?($|\s.*))|((?m)^/test( | .* )kourier-stable-tls_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: contour-latest_serving_release-1.14
+    name: contour-latest_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test contour-latest
     run_if_changed: ^third_party/contour-latest/*
@@ -766,13 +766,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )contour-latest,?($|\s.*))|((?m)^/test( | .* )contour-latest_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )contour-latest,?($|\s.*))|((?m)^/test( | .* )contour-latest_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: contour-tls_serving_release-1.14
+    name: contour-tls_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test contour-tls
     run_if_changed: ^third_party/contour-latest/*
@@ -817,13 +817,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )contour-tls,?($|\s.*))|((?m)^/test( | .* )contour-tls_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )contour-tls,?($|\s.*))|((?m)^/test( | .* )contour-tls_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: gateway-api-latest_serving_release-1.14
+    name: gateway-api-latest_serving_release-1.16
     path_alias: knative.dev/serving
     rerun_command: /test gateway-api-latest
     run_if_changed: ^third_party/gateway-api-latest/*
@@ -868,13 +868,13 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )gateway-api-latest,?($|\s.*))|((?m)^/test( | .* )gateway-api-latest_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )gateway-api-latest,?($|\s.*))|((?m)^/test( | .* )gateway-api-latest_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: gateway-api-latest-and-contour_serving_release-1.14
+    name: gateway-api-latest-and-contour_serving_release-1.16
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test gateway-api-latest-and-contour
@@ -922,13 +922,13 @@ presubmits:
           type: Directory
         name: cgroup
     trigger: ((?m)^/test( | .* )gateway-api-latest-and-contour,?($|\s.*))|((?m)^/test(
-      | .* )gateway-api-latest-and-contour_serving_release-1.14,?($|\s.*))
+      | .* )gateway-api-latest-and-contour_serving_release-1.16,?($|\s.*))
   - always_run: false
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: https_serving_release-1.14
+    name: https_serving_release-1.16
     optional: true
     path_alias: knative.dev/serving
     rerun_command: /test https
@@ -977,4 +977,4 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )https,?($|\s.*))|((?m)^/test( | .* )https_serving_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )https,?($|\s.*))|((?m)^/test( | .* )https_serving_release-1.16,?($|\s.*))
