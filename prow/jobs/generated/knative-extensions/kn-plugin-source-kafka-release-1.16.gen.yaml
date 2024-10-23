@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.14
-    testgrid-tab-name: eventing-autoscaler-keda-continuous
+    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-tab-name: kn-plugin-source-kafka-continuous
   cluster: prow-build
-  cron: 39 22 * * */3
+  cron: 41 0 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.14
+  - base_ref: release-1.16
     org: knative-extensions
-    path_alias: knative.dev/eventing-autoscaler-keda
-    repo: eventing-autoscaler-keda
-  name: continuous_eventing-autoscaler-keda_release-1.14_periodic
+    path_alias: knative.dev/kn-plugin-source-kafka
+    repo: kn-plugin-source-kafka
+  name: continuous_kn-plugin-source-kafka_release-1.16_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.14
-    testgrid-tab-name: eventing-autoscaler-keda-release
+    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-tab-name: kn-plugin-source-kafka-release
   cluster: prow-build
-  cron: 21 9 * * 2
+  cron: 59 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.14
+  - base_ref: release-1.16
     org: knative-extensions
-    path_alias: knative.dev/eventing-autoscaler-keda
-    repo: eventing-autoscaler-keda
+    path_alias: knative.dev/kn-plugin-source-kafka
+    repo: kn-plugin-source-kafka
   max_concurrency: 1
-  name: release_eventing-autoscaler-keda_release-1.14_periodic
+  name: release_kn-plugin-source-kafka_release-1.16_periodic
   spec:
     containers:
     - command:
@@ -66,21 +66,29 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/eventing-autoscaler-keda
+      - knative-releases/kn-plugin-source-kafka
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
+      - --apple-codesign-key
+      - /etc/notary/cert.p12
+      - --apple-notary-api-key
+      - /etc/notary/key.json
+      - --apple-codesign-password-file
+      - /etc/notary/password
       - --branch
-      - release-1.14
+      - release-1.16
       env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/release-account/service-account.json
       - name: E2E_CLUSTER_REGION
         value: us-central1
+      - name: SIGN_IMAGES
+        value: "true"
       - name: ORG_NAME
         value: knative-extensions
       - name: ATTEST_IMAGES
+        value: "true"
+      - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241021-2b4a426d3
       name: ""
@@ -91,12 +99,19 @@ periodics:
       - mountPath: /etc/hub-token
         name: hub-token
         readOnly: true
-      - mountPath: /etc/release-account
-        name: release-account
+      - mountPath: /etc/notary
+        name: apple-notary-creds
         readOnly: true
+      - mountPath: /docker-graph
+        name: docker-graph
+      - mountPath: /lib/modules
+        name: modules
+      - mountPath: /sys/fs/cgroup
+        name: cgroup
     nodeSelector:
       kubernetes.io/arch: amd64
       type: testing
+    serviceAccountName: release
     volumes:
     - name: hub-token
       secret:
@@ -104,30 +119,88 @@ periodics:
         - key: hub_token
           path: token
         secretName: github-credentials
-    - name: release-account
+    - name: apple-notary-creds
       secret:
         items:
-        - key: release.json
-          path: service-account.json
-        secretName: prow-google-credentials
+        - key: notary-api-key
+          path: key.json
+        - key: signing-certificate
+          path: cert.p12
+        - key: signing-certificate-password
+          path: password
+        secretName: apple-notary-creds
+    - emptyDir: {}
+      name: docker-graph
+    - hostPath:
+        path: /lib/modules
+        type: Directory
+      name: modules
+    - hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
+      name: cgroup
 presubmits:
-  knative-extensions/eventing-autoscaler-keda:
+  knative-extensions/kn-plugin-source-kafka:
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: integration-test-kafka-source_eventing-autoscaler-keda_release-1.14
-    optional: true
-    path_alias: knative.dev/eventing-autoscaler-keda
-    rerun_command: /test integration-test-kafka-source
+    name: build-tests_kn-plugin-source-kafka_release-1.16
+    path_alias: knative.dev/kn-plugin-source-kafka
+    rerun_command: /test build-tests
     spec:
       containers:
       - command:
         - runner.sh
         - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/e2e-tests.sh --kafka-source
+        - --build-tests
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241021-2b4a426d3
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-source-kafka_release-1.16,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^release-1.16$
+    cluster: prow-build
+    decorate: true
+    name: unit-tests_kn-plugin-source-kafka_release-1.16
+    path_alias: knative.dev/kn-plugin-source-kafka
+    rerun_command: /test unit-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --unit-tests
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241021-2b4a426d3
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-source-kafka_release-1.16,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^release-1.16$
+    cluster: prow-build
+    decorate: true
+    name: integration-tests_kn-plugin-source-kafka_release-1.16
+    path_alias: knative.dev/kn-plugin-source-kafka
+    rerun_command: /test integration-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --integration-tests
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
@@ -150,45 +223,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-test-kafka-source,?($|\s.*))|((?m)^/test(
-      | .* )integration-test-kafka-source_eventing-autoscaler-keda_release-1.14,?($|\s.*))
-  - always_run: true
-    branches:
-    - ^release-1.14$
-    cluster: prow-build
-    decorate: true
-    name: integration-test-kafka-mt-source_eventing-autoscaler-keda_release-1.14
-    optional: true
-    path_alias: knative.dev/eventing-autoscaler-keda
-    rerun_command: /test integration-test-kafka-mt-source
-    spec:
-      containers:
-      - command:
-        - runner.sh
-        - ./test/presubmit-tests.sh
-        - --run-test
-        - ./test/e2e-tests.sh --kafka-mt-source
-        env:
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241021-2b4a426d3
-        name: ""
-        resources: {}
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /etc/test-account
-          name: test-account
-          readOnly: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
-        type: testing
-      volumes:
-      - name: test-account
-        secret:
-          items:
-          - key: service-account-key.json
-            path: service-account.json
-          secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-test-kafka-mt-source,?($|\s.*))|((?m)^/test(
-      | .* )integration-test-kafka-mt-source_eventing-autoscaler-keda_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-source-kafka_release-1.16,?($|\s.*))
