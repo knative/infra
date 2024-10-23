@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.14
+- release-1.16
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241021-2b4a426d3
 jobs:
 - command:
@@ -24,37 +24,15 @@ jobs:
   excluded_requirements:
   - gcp
   name: unit-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --integration-tests
-  name: integration-tests
+  resources: default
   types:
   - presubmit
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
   - --run-test
-  - ./test/e2e-upgrade-tests.sh
-  name: upgrade-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-serving-upgrade-tests.sh
-  name: serving-upgrade-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-eventing-upgrade-tests.sh
-  name: eventing-upgrade-tests
+  - ./test/e2e-tests.sh
+  name: e2e-tests
   types:
   - presubmit
 - command:
@@ -62,6 +40,8 @@ jobs:
   - ./test/presubmit-tests.sh
   - --all-tests
   name: continuous
+  requirements:
+  - docker
   types:
   - periodic
 - command:
@@ -69,20 +49,28 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/operator
+  - knative-releases/backstage-plugins
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.14
+  - release-1.16
   excluded_requirements:
   - gcp
   max_concurrency: 1
   name: release
   requirements:
   - release
+  - docker
   types:
   - periodic
-org: knative
-repo: operator
+org: knative-extensions
+repo: backstage-plugins
+resources: default
+resources_presets:
+  default:
+    limits:
+      memory: 10Gi
+    requests:
+      memory: 8Gi
