@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.14
-    testgrid-tab-name: serving-progressive-rollout-continuous
+    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-tab-name: kn-plugin-operator-continuous
   cluster: prow-build
-  cron: 41 0 * * */3
+  cron: 47 18 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.14
+  - base_ref: release-1.16
     org: knative-extensions
-    path_alias: knative.dev/serving-progressive-rollout
-    repo: serving-progressive-rollout
-  name: continuous_serving-progressive-rollout_release-1.14_periodic
+    path_alias: knative.dev/kn-plugin-operator
+    repo: kn-plugin-operator
+  name: continuous_kn-plugin-operator_release-1.16_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,17 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.14
-    testgrid-tab-name: serving-progressive-rollout-release
+    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-tab-name: kn-plugin-operator-release
   cluster: prow-build
-  cron: 19 9 * * 2
+  cron: 41 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.14
+  - base_ref: release-1.16
     org: knative-extensions
-    path_alias: knative.dev/serving-progressive-rollout
-    repo: serving-progressive-rollout
-  max_concurrency: 1
-  name: release_serving-progressive-rollout_release-1.14_periodic
+    path_alias: knative.dev/kn-plugin-operator
+    repo: kn-plugin-operator
+  name: release_kn-plugin-operator_release-1.16_periodic
   spec:
     containers:
     - command:
@@ -66,18 +65,24 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/serving-progressive-rollout
+      - knative-releases/kn-plugin-operator
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
+      - --apple-codesign-key
+      - /etc/notary/cert.p12
+      - --apple-notary-api-key
+      - /etc/notary/key.json
+      - --apple-codesign-password-file
+      - /etc/notary/password
       - --branch
-      - release-1.14
+      - release-1.16
       env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/release-account/service-account.json
       - name: E2E_CLUSTER_REGION
         value: us-central1
+      - name: SIGN_IMAGES
+        value: "true"
       - name: ORG_NAME
         value: knative-extensions
       - name: ATTEST_IMAGES
@@ -91,12 +96,13 @@ periodics:
       - mountPath: /etc/hub-token
         name: hub-token
         readOnly: true
-      - mountPath: /etc/release-account
-        name: release-account
+      - mountPath: /etc/notary
+        name: apple-notary-creds
         readOnly: true
     nodeSelector:
       kubernetes.io/arch: amd64
       type: testing
+    serviceAccountName: release
     volumes:
     - name: hub-token
       secret:
@@ -104,21 +110,25 @@ periodics:
         - key: hub_token
           path: token
         secretName: github-credentials
-    - name: release-account
+    - name: apple-notary-creds
       secret:
         items:
-        - key: release.json
-          path: service-account.json
-        secretName: prow-google-credentials
+        - key: notary-api-key
+          path: key.json
+        - key: signing-certificate
+          path: cert.p12
+        - key: signing-certificate-password
+          path: password
+        secretName: apple-notary-creds
 presubmits:
-  knative-extensions/serving-progressive-rollout:
+  knative-extensions/kn-plugin-operator:
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: build-tests_serving-progressive-rollout_release-1.14
-    path_alias: knative.dev/serving-progressive-rollout
+    name: build-tests_kn-plugin-operator_release-1.16
+    path_alias: knative.dev/kn-plugin-operator
     rerun_command: /test build-tests
     spec:
       containers:
@@ -134,14 +144,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_serving-progressive-rollout_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-operator_release-1.16,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: unit-tests_serving-progressive-rollout_release-1.14
-    path_alias: knative.dev/serving-progressive-rollout
+    name: unit-tests_kn-plugin-operator_release-1.16
+    path_alias: knative.dev/kn-plugin-operator
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -157,14 +167,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_serving-progressive-rollout_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-operator_release-1.16,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.14$
+    - ^release-1.16$
     cluster: prow-build
     decorate: true
-    name: integration-tests_serving-progressive-rollout_release-1.14
-    path_alias: knative.dev/serving-progressive-rollout
+    name: integration-tests_kn-plugin-operator_release-1.16
+    path_alias: knative.dev/kn-plugin-operator
     rerun_command: /test integration-tests
     spec:
       containers:
@@ -194,4 +204,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_serving-progressive-rollout_release-1.14,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-operator_release-1.16,?($|\s.*))
