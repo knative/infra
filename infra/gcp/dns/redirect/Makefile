@@ -27,7 +27,7 @@ default slack blog stats testgrid:
 	["testgrid"]="https://testgrid.k8s.io/r/knative-own-testgrid" \
 	["slack"]="https:/slack.cncf.io" \
 	["blog"]="https://knative.dev/blog" \
-	["stats"]="https://knative.teststats.cncf.io/" \
+	["stats"]="https://knative.devstats.cncf.io/" \
 	############################################## \
 	) ; sed -e 's/$$SERVICE_NAME/$@/' -e "s*\$$REDIR_TO*$${REDIRS[$@]}*" redir.yaml > app.yaml
 	gcloud app deploy --quiet --project="$(PROJECT)" $(OPTIONS) app.yaml
