@@ -35,7 +35,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241026-10422e45a
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241202-b00b5ca4d
       name: ""
       resources: {}
       securityContext:
