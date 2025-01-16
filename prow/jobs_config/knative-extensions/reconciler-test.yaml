@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: reconciler-test
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20241202-b00b5ca4d
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250116-9d03c2241
 
 jobs:
   - name: build-tests
