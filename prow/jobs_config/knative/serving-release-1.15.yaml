@@ -10,6 +10,27 @@ image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250116-ca9750e30
 jobs:
 - command:
   - runner.sh
+  - ./hack/release.sh
+  - --dot-release
+  - --release-gcs
+  - knative-releases/serving
+  - --release-gcr
+  - gcr.io/knative-releases
+  - --github-token
+  - /etc/hub-token/token
+  - --branch
+  - release-1.15
+  excluded_requirements:
+  - gcp
+  max_concurrency: 1
+  name: release
+  requirements:
+  - release
+  timeout: 3h0m0s
+  types:
+  - periodic
+- command:
+  - runner.sh
   - ./test/presubmit-tests.sh
   - --build-tests
   excluded_requirements:
