@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.15
+- release-1.17
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250116-ca9750e30
 jobs:
 - command:
@@ -45,13 +45,13 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/net-kourier
+  - knative-releases/net-contour
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.15
+  - release-1.17
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -61,4 +61,4 @@ jobs:
   types:
   - periodic
 org: knative-extensions
-repo: net-kourier
+repo: net-contour
