@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.15
+- release-1.17
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250116-ca9750e30
 jobs:
 - command:
@@ -29,29 +29,42 @@ jobs:
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --integration-tests
-  name: integration-tests
+  - --run-test
+  - ./test/e2e-tests.sh
+  name: integration-tests-istio
   types:
   - presubmit
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --all-tests
-  name: continuous
+  - --run-test
+  - ./test/e2e-tests.sh --contour
+  name: integration-tests-contour
   types:
-  - periodic
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --run-test
+  - ./test/e2e-tests.sh --envoy-gateway
+  modifiers:
+  - presubmit_optional
+  - presubmit_skipped
+  name: integration-tests-envoy-gateway
+  types:
+  - presubmit
 - command:
   - runner.sh
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/net-contour
+  - knative-releases/net-gateway-api
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.15
+  - release-1.17
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -61,4 +74,4 @@ jobs:
   types:
   - periodic
 org: knative-extensions
-repo: net-contour
+repo: net-gateway-api
