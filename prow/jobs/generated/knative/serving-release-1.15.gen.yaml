@@ -8,6 +8,88 @@
 periodics:
 - annotations:
     testgrid-dashboards: knative-release-1.15
+    testgrid-tab-name: serving-release
+  cluster: prow-build
+  cron: 15 9 * * 2
+  decorate: true
+  decoration_config:
+    timeout: 3h0m0s
+  extra_refs:
+  - base_ref: release-1.15
+    org: knative
+    path_alias: knative.dev/serving
+    repo: serving
+  max_concurrency: 1
+  name: release_serving_release-1.15_periodic
+  spec:
+    containers:
+    - command:
+      - runner.sh
+      - ./hack/release.sh
+      - --dot-release
+      - --release-gcs
+      - knative-releases/serving
+      - --release-gcr
+      - gcr.io/knative-releases
+      - --github-token
+      - /etc/hub-token/token
+      - --branch
+      - release-1.15
+      env:
+      - name: DOCKER_IN_DOCKER_ENABLED
+        value: "true"
+      - name: SIGN_IMAGES
+        value: "true"
+      - name: ATTEST_IMAGES
+        value: "true"
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250116-ca9750e30
+      name: ""
+      resources:
+        limits:
+          memory: 16Gi
+        requests:
+          memory: 12Gi
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - mountPath: /docker-graph
+        name: docker-graph
+      - mountPath: /lib/modules
+        name: modules
+      - mountPath: /sys/fs/cgroup
+        name: cgroup
+      - mountPath: /etc/hub-token
+        name: hub-token
+        readOnly: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      type: testing
+    serviceAccountName: release
+    volumes:
+    - emptyDir: {}
+      name: docker-graph
+    - hostPath:
+        path: /lib/modules
+        type: Directory
+      name: modules
+    - hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
+      name: cgroup
+    - name: hub-token
+      secret:
+        items:
+        - key: hub_token
+          path: token
+        secretName: github-credentials
+    - name: release-account
+      secret:
+        items:
+        - key: release.json
+          path: service-account.json
+        secretName: prow-google-credentials
+- annotations:
+    testgrid-dashboards: knative-release-1.15
     testgrid-tab-name: serving-continuous
   cluster: prow-build
   cron: 45 4 * * */3
