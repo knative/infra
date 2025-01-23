@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.15
+- release-1.17
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
 jobs:
 - command:
@@ -13,6 +13,8 @@ jobs:
   - ./test/presubmit-tests.sh
   - --all-tests
   name: continuous
+  requirements:
+  - docker
   types:
   - periodic
 - command:
@@ -20,20 +22,21 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/eventing-natss
+  - knative-releases/eventing-github
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.15
+  - release-1.17
   excluded_requirements:
   - gcp
   max_concurrency: 1
   name: release
   requirements:
   - release
+  - docker
   types:
   - periodic
 org: knative-extensions
-repo: eventing-natss
+repo: eventing-github
