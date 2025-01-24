@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.15
-    testgrid-tab-name: eventing-istio-continuous
+    testgrid-dashboards: knative-extensions-release-1.17
+    testgrid-tab-name: backstage-plugins-continuous
   cluster: prow-build
-  cron: 45 16 * * */3
+  cron: 44 15 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.15
+  - base_ref: release-1.17
     org: knative-extensions
-    path_alias: knative.dev/eventing-istio
-    repo: eventing-istio
-  name: continuous_eventing-istio_release-1.15_periodic
+    path_alias: knative.dev/backstage-plugins
+    repo: backstage-plugins
+  name: continuous_backstage-plugins_release-1.17_periodic
   spec:
     containers:
     - command:
@@ -31,7 +31,11 @@ periodics:
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
       name: ""
-      resources: {}
+      resources:
+        limits:
+          memory: 10Gi
+        requests:
+          memory: 8Gi
       securityContext:
         privileged: true
       volumeMounts:
@@ -65,18 +69,18 @@ periodics:
         type: Directory
       name: cgroup
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.15
-    testgrid-tab-name: eventing-istio-release
+    testgrid-dashboards: knative-extensions-release-1.17
+    testgrid-tab-name: backstage-plugins-release
   cluster: prow-build
-  cron: 51 9 * * 2
+  cron: 52 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.15
+  - base_ref: release-1.17
     org: knative-extensions
-    path_alias: knative.dev/eventing-istio
-    repo: eventing-istio
+    path_alias: knative.dev/backstage-plugins
+    repo: backstage-plugins
   max_concurrency: 1
-  name: release_eventing-istio_release-1.15_periodic
+  name: release_backstage-plugins_release-1.17_periodic
   spec:
     containers:
     - command:
@@ -84,13 +88,13 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/eventing-istio
+      - knative-releases/backstage-plugins
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.15
+      - release-1.17
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -104,7 +108,11 @@ periodics:
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
       name: ""
-      resources: {}
+      resources:
+        limits:
+          memory: 10Gi
+        requests:
+          memory: 8Gi
       securityContext:
         privileged: true
       volumeMounts:
@@ -147,14 +155,14 @@ periodics:
         type: Directory
       name: cgroup
 presubmits:
-  knative-extensions/eventing-istio:
+  knative-extensions/backstage-plugins:
   - always_run: true
     branches:
-    - ^release-1.15$
+    - ^release-1.17$
     cluster: prow-build
     decorate: true
-    name: build-tests_eventing-istio_release-1.15
-    path_alias: knative.dev/eventing-istio
+    name: build-tests_backstage-plugins_release-1.17
+    path_alias: knative.dev/backstage-plugins
     rerun_command: /test build-tests
     spec:
       containers:
@@ -164,20 +172,24 @@ presubmits:
         - --build-tests
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
         name: ""
-        resources: {}
+        resources:
+          limits:
+            memory: 10Gi
+          requests:
+            memory: 8Gi
         securityContext:
           privileged: true
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing-istio_release-1.15,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_backstage-plugins_release-1.17,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.15$
+    - ^release-1.17$
     cluster: prow-build
     decorate: true
-    name: unit-tests_eventing-istio_release-1.15
-    path_alias: knative.dev/eventing-istio
+    name: unit-tests_backstage-plugins_release-1.17
+    path_alias: knative.dev/backstage-plugins
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -187,47 +199,48 @@ presubmits:
         - --unit-tests
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
         name: ""
-        resources: {}
+        resources:
+          limits:
+            memory: 10Gi
+          requests:
+            memory: 8Gi
         securityContext:
           privileged: true
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_eventing-istio_release-1.15,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_backstage-plugins_release-1.17,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.15$
+    - ^release-1.17$
     cluster: prow-build
     decorate: true
-    name: integration-tests_eventing-istio_release-1.15
-    path_alias: knative.dev/eventing-istio
-    rerun_command: /test integration-tests
+    name: e2e-tests_backstage-plugins_release-1.17
+    path_alias: knative.dev/backstage-plugins
+    rerun_command: /test e2e-tests
     spec:
       containers:
       - command:
         - runner.sh
         - ./test/presubmit-tests.sh
-        - --integration-tests
+        - --run-test
+        - ./test/e2e-tests.sh
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        - name: DOCKER_IN_DOCKER_ENABLED
-          value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
         name: ""
-        resources: {}
+        resources:
+          limits:
+            memory: 10Gi
+          requests:
+            memory: 8Gi
         securityContext:
           privileged: true
         volumeMounts:
         - mountPath: /etc/test-account
           name: test-account
           readOnly: true
-        - mountPath: /docker-graph
-          name: docker-graph
-        - mountPath: /lib/modules
-          name: modules
-        - mountPath: /sys/fs/cgroup
-          name: cgroup
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
@@ -238,14 +251,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-      - emptyDir: {}
-        name: docker-graph
-      - hostPath:
-          path: /lib/modules
-          type: Directory
-        name: modules
-      - hostPath:
-          path: /sys/fs/cgroup
-          type: Directory
-        name: cgroup
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_eventing-istio_release-1.15,?($|\s.*))
+    trigger: ((?m)^/test( | .* )e2e-tests,?($|\s.*))|((?m)^/test( | .* )e2e-tests_backstage-plugins_release-1.17,?($|\s.*))
