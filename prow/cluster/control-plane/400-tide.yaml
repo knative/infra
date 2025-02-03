@@ -51,7 +51,7 @@ spec:
       serviceAccountName: "tide"
       containers:
       - name: tide
-        image: us-docker.pkg.dev/k8s-infra-prow/images/tide:v20250124-d572f855b
+        image: us-docker.pkg.dev/k8s-infra-prow/images/tide:v20250202-8cd7d6837
         args:
         - --config-path=/etc/config/config.yaml
         - --job-config-path=/etc/job-config

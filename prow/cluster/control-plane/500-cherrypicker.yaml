@@ -33,7 +33,7 @@ spec:
       terminationGracePeriodSeconds: 180
       containers:
       - name: cherrypicker
-        image: us-docker.pkg.dev/k8s-infra-prow/images/cherrypicker:v20250124-d572f855b
+        image: us-docker.pkg.dev/k8s-infra-prow/images/cherrypicker:v20250202-8cd7d6837
         args:
         - --dry-run=false
         - --use-prow-assignments=false
