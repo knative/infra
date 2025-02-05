@@ -6,7 +6,7 @@
 # #############################################################################
 branches:
 - release-1.16
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250205-e0e2d9c00
 jobs:
 - command:
   - runner.sh

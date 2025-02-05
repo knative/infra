@@ -27,7 +27,7 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250205-e0e2d9c00
       name: ""
       resources: {}
       securityContext:
@@ -82,7 +82,7 @@ periodics:
         value: knative-extensions
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250121-eeaf1252f
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250205-e0e2d9c00
       name: ""
       resources: {}
       securityContext:
