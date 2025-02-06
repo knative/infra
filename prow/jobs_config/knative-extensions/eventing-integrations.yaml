@@ -14,7 +14,7 @@ jobs:
 
   - name: release
     types: [ periodic ]
-    command: [ runner.sh, ./hack/release.sh, --auto-release, --release-gcs, knative-releases/eventing-kafka-broker, --release-gcr, gcr.io/knative-releases, --github-token, /etc/hub-token/token ]
+    command: [ runner.sh, ./hack/release.sh, --auto-release, --release-gcs, knative-releases/eventing-integrations, --release-gcr, gcr.io/knative-releases, --github-token, /etc/hub-token/token ]
     requirements: [ release, docker ]
     excluded_requirements: [ gcp ]
     max_concurrency: 1
