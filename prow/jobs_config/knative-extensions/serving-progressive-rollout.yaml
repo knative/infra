@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: serving-progressive-rollout
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250205-e0e2d9c00
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250213-3453a0c1d
 
 jobs:
   - name: build-tests
