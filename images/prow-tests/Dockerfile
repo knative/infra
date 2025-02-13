@@ -19,6 +19,7 @@ ARG TARGETARCH
 ARG CLOUD_SDK_VERSION=432.0.0
 ARG KUBECTL_VERSION=v1.29.2
 ARG DOCKER_VERSION=5:27.5.1-1~debian.11~bullseye
+ARG DOCKER_BUILDX_PLUGIN=0.20.0-1~debian.11~bullseye
 ARG MAVEN_VERSION=3.8.4
 ARG JAVA_VERSION=21
 ARG PROTOC_VERSION=3.17.0
@@ -126,7 +127,9 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /
 # the pod logs, so we just comment out the call to it... :shrug:
 RUN apt-get update -qqy && \
     apt-get install -qqy --no-install-recommends docker-ce="${DOCKER_VERSION}" && \
-    sed -i 's/cgroupfs_mount$/#cgroupfs_mount\n/' /etc/init.d/docker \
+    apt-get install -qqy --no-install-recommends docker-buildx-plugin="${DOCKER_BUILDX_PLUGIN}" && \
+    sed -i 's/cgroupfs_mount$/#cgroupfs_mount\n/' /etc/init.d/docker && \
+    sed -i 's/ulimit -Hn/ulimit -n/' /etc/init.d/docker \
     && update-alternatives --set iptables /usr/sbin/iptables-legacy \
     && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 
