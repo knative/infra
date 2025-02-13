@@ -127,6 +127,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /
 RUN apt-get update -qqy && \
     apt-get install -qqy --no-install-recommends docker-ce="${DOCKER_VERSION}" && \
     sed -i 's/cgroupfs_mount$/#cgroupfs_mount\n/' /etc/init.d/docker \
+    sed -i 's/ulimit -Hn/ulimit -n/' \
     && update-alternatives --set iptables /usr/sbin/iptables-legacy \
     && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 
