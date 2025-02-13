@@ -27,13 +27,13 @@ periodics:
       - --publish
       - --tag-release
       env:
+      - name: DOCKER_IN_DOCKER_ENABLED
+        value: "true"
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/nightly-account/service-account.json
       - name: SIGN_IMAGES
         value: "true"
       - name: ATTEST_IMAGES
-        value: "true"
-      - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250205-e0e2d9c00
       name: ""
@@ -41,25 +41,19 @@ periodics:
       securityContext:
         privileged: true
       volumeMounts:
-      - mountPath: /etc/nightly-account
-        name: nightly-account
-        readOnly: true
       - mountPath: /docker-graph
         name: docker-graph
       - mountPath: /lib/modules
         name: modules
       - mountPath: /sys/fs/cgroup
         name: cgroup
+      - mountPath: /etc/nightly-account
+        name: nightly-account
+        readOnly: true
     nodeSelector:
       kubernetes.io/arch: amd64
       type: testing
     volumes:
-    - name: nightly-account
-      secret:
-        items:
-        - key: nightly.json
-          path: service-account.json
-        secretName: prow-google-credentials
     - emptyDir: {}
       name: docker-graph
     - hostPath:
@@ -70,6 +64,12 @@ periodics:
         path: /sys/fs/cgroup
         type: Directory
       name: cgroup
+    - name: nightly-account
+      secret:
+        items:
+        - key: nightly.json
+          path: service-account.json
+        secretName: prow-google-credentials
 - annotations:
     testgrid-dashboards: eventing-integrations
     testgrid-tab-name: release
@@ -96,6 +96,8 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       env:
+      - name: DOCKER_IN_DOCKER_ENABLED
+        value: "true"
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
       - name: E2E_CLUSTER_REGION
@@ -104,30 +106,38 @@ periodics:
         value: knative-extensions
       - name: ATTEST_IMAGES
         value: "true"
-      - name: DOCKER_IN_DOCKER_ENABLED
-        value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250205-e0e2d9c00
       name: ""
       resources: {}
       securityContext:
         privileged: true
       volumeMounts:
-      - mountPath: /etc/hub-token
-        name: hub-token
-        readOnly: true
-      - mountPath: /etc/release-account
-        name: release-account
-        readOnly: true
       - mountPath: /docker-graph
         name: docker-graph
       - mountPath: /lib/modules
         name: modules
       - mountPath: /sys/fs/cgroup
         name: cgroup
+      - mountPath: /etc/hub-token
+        name: hub-token
+        readOnly: true
+      - mountPath: /etc/release-account
+        name: release-account
+        readOnly: true
     nodeSelector:
       kubernetes.io/arch: amd64
       type: testing
     volumes:
+    - emptyDir: {}
+      name: docker-graph
+    - hostPath:
+        path: /lib/modules
+        type: Directory
+      name: modules
+    - hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
+      name: cgroup
     - name: hub-token
       secret:
         items:
@@ -140,16 +150,6 @@ periodics:
         - key: release.json
           path: service-account.json
         secretName: prow-google-credentials
-    - emptyDir: {}
-      name: docker-graph
-    - hostPath:
-        path: /lib/modules
-        type: Directory
-      name: modules
-    - hostPath:
-        path: /sys/fs/cgroup
-        type: Directory
-      name: cgroup
 presubmits:
   knative-extensions/eventing-integrations:
   - always_run: true
@@ -166,12 +166,33 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
+        env:
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250205-e0e2d9c00
         name: ""
         resources: {}
         securityContext:
           privileged: true
+        volumeMounts:
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
+      volumes:
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
     trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing-integrations_main,?($|\s.*))
