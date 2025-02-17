@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Add a fake hook image here so that autobump.sh can bump only job configs
-# image: us-docker.pkg.dev/k8s-infra-prow/images/hook:v20250209-8531f883f
+# image: us-docker.pkg.dev/k8s-infra-prow/images/hook:v20250216-9af35b74c
 # See
 # https://github.com/kubernetes/test-infra/blob/5815354584709c3f436e3d682110c673d224d7b1/prow/cmd/autobump/autobump.sh#L164
 
@@ -25,7 +25,7 @@ presubmits:
     cluster: prow-build
     spec:
       containers:
-      - image: us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20250209-8531f883f
+      - image: us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20250216-9af35b74c
         command:
         - checkconfig
         args:
