@@ -199,7 +199,7 @@ RUN curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/v$
     && rm protoc.zip
 # protoc-gen-gogofaster is installed below
 
-FROM golang:1.23.6 AS external-go-latest
+FROM golang:1.24.1 AS external-go-latest
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
@@ -207,11 +207,11 @@ FROM external-go-latest AS external-go-gets
 
 ARG KUBETEST2_VERSION=d306c412d528f0a5dda4b6bd1c7550a905f5edb9
 ARG KUBETEST2_KOPS_VERSION=9b957a1d6189ee612506c9b6dc5b8b1a19e9c2aa # v1.25.0 release
-ARG KIND_VERSION=v0.22.0
-ARG KO_VERSION=v0.15.2
+ARG KIND_VERSION=v0.27.0
+ARG KO_VERSION=v0.17.1
 ARG PROTOC_GEN_GO_VERSION=v1.28.0
 ARG PROTOC_GEN_GOGOFASTER_VERSION=v1.3.2
-ARG GOTESTSUM_VERSION=v1.11.0
+ARG GOTESTSUM_VERSION=v1.12.0
 ARG KAIL_VERSION=v0.17.4
 ARG GO_LICENSES_VERSION=v1.6.0
 ARG DOCKER_CREDENTIAL_GCR_VERSION=v2.0.5
