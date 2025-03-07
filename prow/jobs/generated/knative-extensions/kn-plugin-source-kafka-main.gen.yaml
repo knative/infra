@@ -27,7 +27,7 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250218-dd58d4da1
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250307-bc85e28e0
       name: ""
       resources: {}
       securityContext:
@@ -79,7 +79,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250218-dd58d4da1
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250307-bc85e28e0
       name: ""
       resources: {}
       securityContext:
@@ -161,7 +161,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250218-dd58d4da1
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250307-bc85e28e0
       name: ""
       resources: {}
       securityContext:
@@ -226,7 +226,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250218-dd58d4da1
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250307-bc85e28e0
         name: ""
         resources: {}
         securityContext:
@@ -249,7 +249,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250218-dd58d4da1
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250307-bc85e28e0
         name: ""
         resources: {}
         securityContext:
@@ -275,7 +275,7 @@ presubmits:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250218-dd58d4da1
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250307-bc85e28e0
         name: ""
         resources: {}
         securityContext:
