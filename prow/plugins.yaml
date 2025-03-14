@@ -117,6 +117,24 @@ triggers:
   trusted_apps: 
     - dependabot
 
+# Settings for the "override" plugin.
+override:
+  allowed_github_teams:
+    knative:
+      - knative-release-leads
+      - client-wg-leads
+      - eventing-wg-leads
+      - functions-wg-leads
+      - productivity-wg-leads
+      - serving-wg-leads
+    knative-extensions:
+      - knative-release-leads
+      - client-wg-leads
+      - eventing-wg-leads
+      - functions-wg-leads
+      - productivity-wg-leads
+      - serving-wg-leads
+
 # Plugins enabled for each repo.
 plugins:
   knative:
