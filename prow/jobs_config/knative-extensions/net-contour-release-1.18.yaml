@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.16
+- release-1.18
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250411-d47a89b34
 jobs:
 - command:
@@ -24,31 +24,13 @@ jobs:
   excluded_requirements:
   - gcp
   name: unit-tests
-  resources: default
   types:
   - presubmit
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-conformance-tests.sh
-  name: conformance-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-rekt-tests.sh
-  name: reconciler-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-upgrade-tests.sh
-  name: upgrade-tests
+  - --integration-tests
+  name: integration-tests
   types:
   - presubmit
 - command:
@@ -56,7 +38,6 @@ jobs:
   - ./test/presubmit-tests.sh
   - --all-tests
   name: continuous
-  timeout: 3h0m0s
   types:
   - periodic
 - command:
@@ -64,33 +45,20 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/eventing
+  - knative-releases/net-contour
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.16
+  - release-1.18
   excluded_requirements:
   - gcp
   max_concurrency: 1
   name: release
   requirements:
   - release
-  timeout: 4h0m0s
   types:
   - periodic
-org: knative
-repo: eventing
-resources: high
-resources_presets:
-  default:
-    limits:
-      memory: 10Gi
-    requests:
-      memory: 8Gi
-  high:
-    limits:
-      memory: 16Gi
-    requests:
-      memory: 12Gi
+org: knative-extensions
+repo: net-contour

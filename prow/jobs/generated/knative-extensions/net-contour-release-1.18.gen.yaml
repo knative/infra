@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: net-contour-continuous
   cluster: prow-build
-  cron: 17 12 * * */3
+  cron: 15 10 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/net-contour
     repo: net-contour
-  name: continuous_net-contour_release-1.16_periodic
+  name: continuous_net-contour_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: net-contour-release
   cluster: prow-build
-  cron: 27 9 * * 2
+  cron: 17 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/net-contour
     repo: net-contour
   max_concurrency: 1
-  name: release_net-contour_release-1.16_periodic
+  name: release_net-contour_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -72,7 +72,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.16
+      - release-1.18
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -114,10 +114,10 @@ presubmits:
   knative-extensions/net-contour:
   - always_run: true
     branches:
-    - ^release-1.16$
+    - ^release-1.18$
     cluster: prow-build
     decorate: true
-    name: build-tests_net-contour_release-1.16
+    name: build-tests_net-contour_release-1.18
     path_alias: knative.dev/net-contour
     rerun_command: /test build-tests
     spec:
@@ -134,13 +134,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-contour_release-1.16,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_net-contour_release-1.18,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.16$
+    - ^release-1.18$
     cluster: prow-build
     decorate: true
-    name: unit-tests_net-contour_release-1.16
+    name: unit-tests_net-contour_release-1.18
     path_alias: knative.dev/net-contour
     rerun_command: /test unit-tests
     spec:
@@ -157,13 +157,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-contour_release-1.16,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_net-contour_release-1.18,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.16$
+    - ^release-1.18$
     cluster: prow-build
     decorate: true
-    name: integration-tests_net-contour_release-1.16
+    name: integration-tests_net-contour_release-1.18
     path_alias: knative.dev/net-contour
     rerun_command: /test integration-tests
     spec:
@@ -194,4 +194,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-contour_release-1.16,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_net-contour_release-1.18,?($|\s.*))
