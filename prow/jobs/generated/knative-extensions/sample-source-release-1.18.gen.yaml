@@ -7,18 +7,18 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: sample-source-release
   cluster: prow-build
-  cron: 43 9 * * 2
+  cron: 5 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/sample-source
     repo: sample-source
   max_concurrency: 1
-  name: release_sample-source_release-1.16_periodic
+  name: release_sample-source_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -32,7 +32,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.16
+      - release-1.18
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -74,10 +74,10 @@ presubmits:
   knative-extensions/sample-source:
   - always_run: true
     branches:
-    - ^release-1.16$
+    - ^release-1.18$
     cluster: prow-build
     decorate: true
-    name: build-tests_sample-source_release-1.16
+    name: build-tests_sample-source_release-1.18
     path_alias: knative.dev/sample-source
     rerun_command: /test build-tests
     spec:
@@ -94,13 +94,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_sample-source_release-1.16,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_sample-source_release-1.18,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.16$
+    - ^release-1.18$
     cluster: prow-build
     decorate: true
-    name: unit-tests_sample-source_release-1.16
+    name: unit-tests_sample-source_release-1.18
     path_alias: knative.dev/sample-source
     rerun_command: /test unit-tests
     spec:
@@ -117,4 +117,4 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_sample-source_release-1.16,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_sample-source_release-1.18,?($|\s.*))
