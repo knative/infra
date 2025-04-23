@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: eventing-rabbitmq-continuous
   cluster: prow-build
-  cron: 24 7 * * */3
+  cron: 58 17 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/eventing-rabbitmq
     repo: eventing-rabbitmq
-  name: continuous_eventing-rabbitmq_release-1.16_periodic
+  name: continuous_eventing-rabbitmq_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: eventing-rabbitmq-release
   cluster: prow-build
-  cron: 24 9 * * 2
+  cron: 34 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/eventing-rabbitmq
     repo: eventing-rabbitmq
   max_concurrency: 1
-  name: release_eventing-rabbitmq_release-1.16_periodic
+  name: release_eventing-rabbitmq_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -72,7 +72,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.16
+      - release-1.18
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
