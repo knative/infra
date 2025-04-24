@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: eventing-redis-continuous
   cluster: prow-build
-  cron: 19 2 * * */3
+  cron: 21 4 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/eventing-redis
     repo: eventing-redis
-  name: continuous_eventing-redis_release-1.16_periodic
+  name: continuous_eventing-redis_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -65,18 +65,18 @@ periodics:
         type: Directory
       name: cgroup
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: eventing-redis-release
   cluster: prow-build
-  cron: 1 9 * * 2
+  cron: 47 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/eventing-redis
     repo: eventing-redis
   max_concurrency: 1
-  name: release_eventing-redis_release-1.16_periodic
+  name: release_eventing-redis_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -90,7 +90,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.16
+      - release-1.18
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
