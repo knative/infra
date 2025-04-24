@@ -5,27 +5,34 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.16
+- release-1.18
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250411-d47a89b34
 jobs:
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --kafka-source
-  modifiers:
-  - presubmit_optional
-  name: integration-test-kafka-source
+  - --build-tests
+  excluded_requirements:
+  - gcp
+  name: build-tests
   types:
   - presubmit
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --kafka-mt-source
-  modifiers:
-  - presubmit_optional
-  name: integration-test-kafka-mt-source
+  - --unit-tests
+  excluded_requirements:
+  - gcp
+  name: unit-tests
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --integration-tests
+  name: integration-tests
+  requirements:
+  - docker
   types:
   - presubmit
 - command:
@@ -33,6 +40,8 @@ jobs:
   - ./test/presubmit-tests.sh
   - --all-tests
   name: continuous
+  requirements:
+  - docker
   types:
   - periodic
 - command:
@@ -40,20 +49,21 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/eventing-autoscaler-keda
+  - knative-releases/eventing-istio
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.16
+  - release-1.18
   excluded_requirements:
   - gcp
   max_concurrency: 1
   name: release
   requirements:
   - release
+  - docker
   types:
   - periodic
 org: knative-extensions
-repo: eventing-autoscaler-keda
+repo: eventing-istio

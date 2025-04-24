@@ -5,9 +5,18 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.16
+- release-1.18
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250411-d47a89b34
 jobs:
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --build-tests
+  excluded_requirements:
+  - gcp
+  name: build-tests
+  types:
+  - presubmit
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
@@ -19,10 +28,24 @@ jobs:
   - presubmit
 - command:
   - runner.sh
+  - ./test/presubmit-tests.sh
+  - --integration-tests
+  name: integration-tests
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --all-tests
+  name: continuous
+  types:
+  - periodic
+- command:
+  - runner.sh
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/func
+  - knative-releases/kn-plugin-source-kafka
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
@@ -34,7 +57,7 @@ jobs:
   - --apple-codesign-password-file
   - /etc/notary/password
   - --branch
-  - release-1.16
+  - release-1.18
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -44,5 +67,5 @@ jobs:
   - docker
   types:
   - periodic
-org: knative
-repo: func
+org: knative-extensions
+repo: kn-plugin-source-kafka
