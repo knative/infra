@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.16
+- release-1.18
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250411-d47a89b34
 jobs:
 - command:
@@ -57,7 +57,7 @@ jobs:
   - --apple-codesign-password-file
   - /etc/notary/password
   - --branch
-  - release-1.16
+  - release-1.18
   excluded_requirements:
   - gcp
   name: release
