@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: serving-progressive-rollout-continuous
   cluster: prow-build
-  cron: 39 10 * * */3
+  cron: 17 12 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/serving-progressive-rollout
     repo: serving-progressive-rollout
-  name: continuous_serving-progressive-rollout_release-1.16_periodic
+  name: continuous_serving-progressive-rollout_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.16
+    testgrid-dashboards: knative-extensions-release-1.18
     testgrid-tab-name: serving-progressive-rollout-release
   cluster: prow-build
-  cron: 5 9 * * 2
+  cron: 31 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.16
+  - base_ref: release-1.18
     org: knative-extensions
     path_alias: knative.dev/serving-progressive-rollout
     repo: serving-progressive-rollout
   max_concurrency: 1
-  name: release_serving-progressive-rollout_release-1.16_periodic
+  name: release_serving-progressive-rollout_release-1.18_periodic
   spec:
     containers:
     - command:
@@ -72,7 +72,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.16
+      - release-1.18
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -114,10 +114,10 @@ presubmits:
   knative-extensions/serving-progressive-rollout:
   - always_run: true
     branches:
-    - ^release-1.16$
+    - ^release-1.18$
     cluster: prow-build
     decorate: true
-    name: build-tests_serving-progressive-rollout_release-1.16
+    name: build-tests_serving-progressive-rollout_release-1.18
     path_alias: knative.dev/serving-progressive-rollout
     rerun_command: /test build-tests
     spec:
@@ -134,13 +134,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_serving-progressive-rollout_release-1.16,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_serving-progressive-rollout_release-1.18,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.16$
+    - ^release-1.18$
     cluster: prow-build
     decorate: true
-    name: unit-tests_serving-progressive-rollout_release-1.16
+    name: unit-tests_serving-progressive-rollout_release-1.18
     path_alias: knative.dev/serving-progressive-rollout
     rerun_command: /test unit-tests
     spec:
@@ -157,13 +157,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_serving-progressive-rollout_release-1.16,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_serving-progressive-rollout_release-1.18,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.16$
+    - ^release-1.18$
     cluster: prow-build
     decorate: true
-    name: integration-tests_serving-progressive-rollout_release-1.16
+    name: integration-tests_serving-progressive-rollout_release-1.18
     path_alias: knative.dev/serving-progressive-rollout
     rerun_command: /test integration-tests
     spec:
@@ -194,4 +194,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_serving-progressive-rollout_release-1.16,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_serving-progressive-rollout_release-1.18,?($|\s.*))

@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.16
+- release-1.18
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250411-d47a89b34
 jobs:
 - command:
@@ -36,6 +36,30 @@ jobs:
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
+  - --run-test
+  - ./test/e2e-upgrade-tests.sh
+  name: upgrade-tests
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --run-test
+  - ./test/e2e-serving-upgrade-tests.sh
+  name: serving-upgrade-tests
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --run-test
+  - ./test/e2e-eventing-upgrade-tests.sh
+  name: eventing-upgrade-tests
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
   - --all-tests
   name: continuous
   types:
@@ -45,13 +69,13 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/serving-progressive-rollout
+  - knative-releases/operator
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.16
+  - release-1.18
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -60,5 +84,5 @@ jobs:
   - release
   types:
   - periodic
-org: knative-extensions
-repo: serving-progressive-rollout
+org: knative
+repo: operator
