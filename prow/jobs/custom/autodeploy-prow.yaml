@@ -38,7 +38,7 @@ periodics:
       report_template: '"The config-bootstrapper periodic has failed, check the log: <{{.Status.URL}}|View logs>"'
   spec:
     containers:
-    - image: us-docker.pkg.dev/k8s-infra-prow/images/config-bootstrapper:v20250425-fcccd15fe
+    - image: us-docker.pkg.dev/k8s-infra-prow/images/config-bootstrapper:v20250503-d852aabe5
       imagePullPolicy: Always
       command:
       - config-bootstrapper
