@@ -41,7 +41,7 @@ periodics:
   spec:
     containers:
     - name: branchprotector
-      image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20250503-d852aabe5
+      image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20250512-8cd4af136
       command:
       - branchprotector
       args:
