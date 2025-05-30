@@ -44,7 +44,8 @@ presubmits:
         - "--fix-org=true"
         - "--fix-org-members=true"
         - "--fix-repos=true"
-        - "--github-hourly-tokens=1200"
+        - "--github-hourly-tokens=600"
+        - "--github-allowed-burst=200"
         # Set --confirm=false to only validate the configuration file.
         - "--confirm=false"
         volumeMounts:
@@ -83,7 +84,8 @@ presubmits:
         - "--fix-org=true"
         - "--fix-org-members=true"
         - "--fix-repos=true"
-        - "--github-hourly-tokens=1200"
+        - "--github-hourly-tokens=600"
+        - "--github-allowed-burst=200"
         # Set --confirm=false to only validate the configuration file.
         - "--confirm=false"
         volumeMounts:
