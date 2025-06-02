@@ -44,8 +44,6 @@ presubmits:
         - "--fix-org=true"
         - "--fix-org-members=true"
         - "--fix-repos=true"
-        - "--github-hourly-tokens=600"
-        - "--github-allowed-burst=200"
         # Set --confirm=false to only validate the configuration file.
         - "--confirm=false"
         volumeMounts:
@@ -84,8 +82,6 @@ presubmits:
         - "--fix-org=true"
         - "--fix-org-members=true"
         - "--fix-repos=true"
-        - "--github-hourly-tokens=600"
-        - "--github-allowed-burst=200"
         # Set --confirm=false to only validate the configuration file.
         - "--confirm=false"
         volumeMounts:
@@ -128,8 +124,6 @@ postsubmits:
         - "--config-path=peribolos/knative.yaml"
         - --github-app-id=$(GITHUB_APP_ID)
         - --github-app-private-key-path=/etc/github/cert
-        - "--github-hourly-tokens=1000"
-        - "--github-allowed-burst=500"
         - "--min-admins=5"
         - "--fix-org=true"
         - "--fix-org-members=true"
@@ -182,8 +176,6 @@ postsubmits:
         - "--config-path=peribolos/knative-extensions.yaml"
         - --github-app-id=$(GITHUB_APP_ID)
         - --github-app-private-key-path=/etc/github/cert
-        - "--github-hourly-tokens=1000"
-        - "--github-allowed-burst=500"
         - "--min-admins=5"
         - "--fix-org=true"
         - "--fix-org-members=true"
@@ -232,8 +224,6 @@ periodics:
       - "--config-path=peribolos/knative.yaml"
       - --github-app-id=$(GITHUB_APP_ID)
       - --github-app-private-key-path=/etc/github/cert
-      - "--github-hourly-tokens=1000"
-      - "--github-allowed-burst=500"
       - "--min-admins=5"
       - "--fix-org=true"
       - "--fix-org-members=true"
@@ -280,8 +270,6 @@ periodics:
       - "--config-path=peribolos/knative-extensions.yaml"
       - --github-app-id=$(GITHUB_APP_ID)
       - --github-app-private-key-path=/etc/github/cert
-      - "--github-hourly-tokens=1000"
-      - "--github-allowed-burst=500"
       - "--min-admins=5"
       - "--fix-org=true"
       - "--fix-org-members=true"
