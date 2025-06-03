@@ -205,6 +205,8 @@ periodics:
 - cron: "0 17 * * *"
   name: ci-knative-peribolos
   agent: kubernetes
+  decoration_config:
+    timeout: 4h0m0s
   decorate: true
   cluster: "prow-trusted"
   extra_refs:
@@ -251,6 +253,8 @@ periodics:
 - cron: "0 17 * * *"
   name: ci-knative-extensions-peribolos
   agent: kubernetes
+  decoration_config:
+    timeout: 4h0m0s
   decorate: true
   cluster: "prow-trusted"
   extra_refs:
