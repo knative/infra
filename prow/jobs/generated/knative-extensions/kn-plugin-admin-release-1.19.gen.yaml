@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.17
-    testgrid-tab-name: kn-plugin-event-continuous
+    testgrid-dashboards: knative-extensions-release-1.19
+    testgrid-tab-name: kn-plugin-admin-continuous
   cluster: prow-build
-  cron: 24 7 * * */3
+  cron: 5 12 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.17
+  - base_ref: release-1.19
     org: knative-extensions
-    path_alias: knative.dev/kn-plugin-event
-    repo: kn-plugin-event
-  name: continuous_kn-plugin-event_release-1.17_periodic
+    path_alias: knative.dev/kn-plugin-admin
+    repo: kn-plugin-admin
+  name: continuous_kn-plugin-admin_release-1.19_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.17
-    testgrid-tab-name: kn-plugin-event-release
+    testgrid-dashboards: knative-extensions-release-1.19
+    testgrid-tab-name: kn-plugin-admin-release
   cluster: prow-build
-  cron: 8 9 * * 2
+  cron: 19 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.17
+  - base_ref: release-1.19
     org: knative-extensions
-    path_alias: knative.dev/kn-plugin-event
-    repo: kn-plugin-event
+    path_alias: knative.dev/kn-plugin-admin
+    repo: kn-plugin-admin
   max_concurrency: 1
-  name: release_kn-plugin-event_release-1.17_periodic
+  name: release_kn-plugin-admin_release-1.19_periodic
   spec:
     containers:
     - command:
@@ -66,7 +66,7 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/kn-plugin-event
+      - knative-releases/kn-plugin-admin
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
@@ -78,7 +78,7 @@ periodics:
       - --apple-codesign-password-file
       - /etc/notary/password
       - --branch
-      - release-1.17
+      - release-1.19
       env:
       - name: E2E_CLUSTER_REGION
         value: us-central1
@@ -122,14 +122,14 @@ periodics:
           path: password
         secretName: apple-notary-creds
 presubmits:
-  knative-extensions/kn-plugin-event:
+  knative-extensions/kn-plugin-admin:
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: build-tests_kn-plugin-event_release-1.17
-    path_alias: knative.dev/kn-plugin-event
+    name: build-tests_kn-plugin-admin_release-1.19
+    path_alias: knative.dev/kn-plugin-admin
     rerun_command: /test build-tests
     spec:
       containers:
@@ -145,14 +145,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-event_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-admin_release-1.19,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: unit-tests_kn-plugin-event_release-1.17
-    path_alias: knative.dev/kn-plugin-event
+    name: unit-tests_kn-plugin-admin_release-1.19
+    path_alias: knative.dev/kn-plugin-admin
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -168,14 +168,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-event_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-admin_release-1.19,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: integration-tests_kn-plugin-event_release-1.17
-    path_alias: knative.dev/kn-plugin-event
+    name: integration-tests_kn-plugin-admin_release-1.19
+    path_alias: knative.dev/kn-plugin-admin
     rerun_command: /test integration-tests
     spec:
       containers:
@@ -205,4 +205,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-event_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-admin_release-1.19,?($|\s.*))
