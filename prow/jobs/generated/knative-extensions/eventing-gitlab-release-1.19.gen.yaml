@@ -7,18 +7,18 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.17
+    testgrid-dashboards: knative-extensions-release-1.19
     testgrid-tab-name: eventing-gitlab-continuous
   cluster: prow-build
-  cron: 26 21 * * */3
+  cron: 52 11 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.17
+  - base_ref: release-1.19
     org: knative-extensions
     path_alias: knative.dev/eventing-gitlab
     repo: eventing-gitlab
   max_concurrency: 1
-  name: continuous_eventing-gitlab_release-1.17_periodic
+  name: continuous_eventing-gitlab_release-1.19_periodic
   spec:
     containers:
     - command:
@@ -70,18 +70,18 @@ periodics:
         type: Directory
       name: cgroup
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.17
+    testgrid-dashboards: knative-extensions-release-1.19
     testgrid-tab-name: eventing-gitlab-release
   cluster: prow-build
-  cron: 42 9 * * 2
+  cron: 0 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.17
+  - base_ref: release-1.19
     org: knative-extensions
     path_alias: knative.dev/eventing-gitlab
     repo: eventing-gitlab
   max_concurrency: 1
-  name: release_eventing-gitlab_release-1.17_periodic
+  name: release_eventing-gitlab_release-1.19_periodic
   spec:
     containers:
     - command:
@@ -95,7 +95,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.17
+      - release-1.19
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json

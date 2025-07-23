@@ -5,46 +5,17 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.17
-cluster: prow-build
+- release-1.19
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250718-576bab17d
 jobs:
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --build-tests
-  excluded_requirements:
-  - gcp
-  name: build-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --unit-tests
-  excluded_requirements:
-  - gcp
-  name: unit-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --integration-tests
-  name: integration-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-integration-tests-latest-release.sh
-  name: integration-tests-latest-release
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
   - --all-tests
+  max_concurrency: 1
   name: continuous
+  requirements:
+  - docker
   types:
   - periodic
 - command:
@@ -52,26 +23,27 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/client
+  - knative-releases/eventing-gitlab
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
-  - --apple-codesign-key
-  - /etc/notary/cert.p12
-  - --apple-notary-api-key
-  - /etc/notary/key.json
-  - --apple-codesign-password-file
-  - /etc/notary/password
   - --branch
-  - release-1.17
+  - release-1.19
   excluded_requirements:
   - gcp
   max_concurrency: 1
   name: release
   requirements:
-  - release-notary
+  - release
+  - docker
   types:
   - periodic
-org: knative
-repo: client
+org: knative-extensions
+repo: eventing-gitlab
+resources_presets:
+  default:
+    limits:
+      memory: 16Gi
+    requests:
+      memory: 12Gi

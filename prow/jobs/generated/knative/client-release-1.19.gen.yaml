@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-release-1.17
+    testgrid-dashboards: knative-release-1.19
     testgrid-tab-name: client-continuous
   cluster: prow-build
-  cron: 46 17 * * */3
+  cron: 52 23 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.17
+  - base_ref: release-1.19
     org: knative
     path_alias: knative.dev/client
     repo: client
-  name: continuous_client_release-1.17_periodic
+  name: continuous_client_release-1.19_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-release-1.17
+    testgrid-dashboards: knative-release-1.19
     testgrid-tab-name: client-release
   cluster: prow-build
-  cron: 30 9 * * 2
+  cron: 4 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.17
+  - base_ref: release-1.19
     org: knative
     path_alias: knative.dev/client
     repo: client
   max_concurrency: 1
-  name: release_client_release-1.17_periodic
+  name: release_client_release-1.19_periodic
   spec:
     containers:
     - command:
@@ -78,7 +78,7 @@ periodics:
       - --apple-codesign-password-file
       - /etc/notary/password
       - --branch
-      - release-1.17
+      - release-1.19
       env:
       - name: SIGN_IMAGES
         value: "true"
@@ -121,10 +121,10 @@ presubmits:
   knative/client:
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: build-tests_client_release-1.17
+    name: build-tests_client_release-1.19
     path_alias: knative.dev/client
     rerun_command: /test build-tests
     spec:
@@ -141,13 +141,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_client_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_client_release-1.19,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: unit-tests_client_release-1.17
+    name: unit-tests_client_release-1.19
     path_alias: knative.dev/client
     rerun_command: /test unit-tests
     spec:
@@ -164,13 +164,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_client_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_client_release-1.19,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: integration-tests_client_release-1.17
+    name: integration-tests_client_release-1.19
     path_alias: knative.dev/client
     rerun_command: /test integration-tests
     spec:
@@ -201,13 +201,13 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_client_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_client_release-1.19,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: integration-tests-latest-release_client_release-1.17
+    name: integration-tests-latest-release_client_release-1.19
     path_alias: knative.dev/client
     rerun_command: /test integration-tests-latest-release
     spec:
@@ -238,4 +238,4 @@ presubmits:
             path: service-account.json
           secretName: prow-google-credentials
     trigger: ((?m)^/test( | .* )integration-tests-latest-release,?($|\s.*))|((?m)^/test(
-      | .* )integration-tests-latest-release_client_release-1.17,?($|\s.*))
+      | .* )integration-tests-latest-release_client_release-1.19,?($|\s.*))
