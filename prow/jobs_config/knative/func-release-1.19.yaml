@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.17
+- release-1.19
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250718-576bab17d
 jobs:
 - command:
@@ -34,7 +34,7 @@ jobs:
   - --apple-codesign-password-file
   - /etc/notary/password
   - --branch
-  - release-1.17
+  - release-1.19
   excluded_requirements:
   - gcp
   max_concurrency: 1
