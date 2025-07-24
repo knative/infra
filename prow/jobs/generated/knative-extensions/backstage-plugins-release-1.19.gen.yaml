@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.17
+    testgrid-dashboards: knative-extensions-release-1.19
     testgrid-tab-name: backstage-plugins-continuous
   cluster: prow-build
-  cron: 44 15 * * */3
+  cron: 14 9 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.17
+  - base_ref: release-1.19
     org: knative-extensions
     path_alias: knative.dev/backstage-plugins
     repo: backstage-plugins
-  name: continuous_backstage-plugins_release-1.17_periodic
+  name: continuous_backstage-plugins_release-1.19_periodic
   spec:
     containers:
     - command:
@@ -69,18 +69,18 @@ periodics:
         type: Directory
       name: cgroup
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.17
+    testgrid-dashboards: knative-extensions-release-1.19
     testgrid-tab-name: backstage-plugins-release
   cluster: prow-build
-  cron: 52 9 * * 2
+  cron: 30 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.17
+  - base_ref: release-1.19
     org: knative-extensions
     path_alias: knative.dev/backstage-plugins
     repo: backstage-plugins
   max_concurrency: 1
-  name: release_backstage-plugins_release-1.17_periodic
+  name: release_backstage-plugins_release-1.19_periodic
   spec:
     containers:
     - command:
@@ -94,7 +94,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.17
+      - release-1.19
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -158,10 +158,10 @@ presubmits:
   knative-extensions/backstage-plugins:
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: build-tests_backstage-plugins_release-1.17
+    name: build-tests_backstage-plugins_release-1.19
     path_alias: knative.dev/backstage-plugins
     rerun_command: /test build-tests
     spec:
@@ -182,13 +182,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_backstage-plugins_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_backstage-plugins_release-1.19,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: unit-tests_backstage-plugins_release-1.17
+    name: unit-tests_backstage-plugins_release-1.19
     path_alias: knative.dev/backstage-plugins
     rerun_command: /test unit-tests
     spec:
@@ -209,13 +209,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_backstage-plugins_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_backstage-plugins_release-1.19,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.17$
+    - ^release-1.19$
     cluster: prow-build
     decorate: true
-    name: e2e-tests_backstage-plugins_release-1.17
+    name: e2e-tests_backstage-plugins_release-1.19
     path_alias: knative.dev/backstage-plugins
     rerun_command: /test e2e-tests
     spec:
@@ -251,4 +251,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )e2e-tests,?($|\s.*))|((?m)^/test( | .* )e2e-tests_backstage-plugins_release-1.17,?($|\s.*))
+    trigger: ((?m)^/test( | .* )e2e-tests,?($|\s.*))|((?m)^/test( | .* )e2e-tests_backstage-plugins_release-1.19,?($|\s.*))
