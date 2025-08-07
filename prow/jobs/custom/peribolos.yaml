@@ -135,6 +135,7 @@ postsubmits:
         - "--fix-repos=true"
         - "--require-self=false"
         - "--maximum-removal-delta=0.55"
+        - "--log-level=debug"
         - "--confirm=true"
         volumeMounts:
         - name: github-token
@@ -188,6 +189,7 @@ postsubmits:
         - "--fix-repos=true"
         - "--require-self=false"
         - "--maximum-removal-delta=0.55"
+        - "--log-level=debug"
         - "--confirm=true"
         volumeMounts:
         - name: github-token
