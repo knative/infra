@@ -29,7 +29,7 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250806-847c1e14b
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250808-a2d9ddbe4
       name: ""
       resources:
         limits:
@@ -88,7 +88,7 @@ periodics:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250806-847c1e14b
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250808-a2d9ddbe4
       name: ""
       resources:
         limits:
@@ -136,7 +136,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250806-847c1e14b
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250808-a2d9ddbe4
         name: ""
         resources:
           limits:
@@ -163,7 +163,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250806-847c1e14b
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250808-a2d9ddbe4
         name: ""
         resources:
           limits:
@@ -194,7 +194,7 @@ presubmits:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250806-847c1e14b
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250808-a2d9ddbe4
         name: ""
         resources:
           limits:
@@ -236,7 +236,7 @@ presubmits:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250806-847c1e14b
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250808-a2d9ddbe4
         name: ""
         resources:
           limits:
@@ -278,7 +278,7 @@ presubmits:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250806-847c1e14b
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250808-a2d9ddbe4
         name: ""
         resources:
           limits:
