@@ -47,7 +47,6 @@ dashboard_groups:
   - sample-controller
   - sample-source
   - security-guard
-  - serving-progressive-rollout
   name: knative-extensions
 dashboards:
 - name: autoscaler-keda
@@ -96,5 +95,4 @@ dashboards:
 - name: sample-source
 - name: security-guard
 - name: serving
-- name: serving-progressive-rollout
 - name: utilities
