@@ -28,7 +28,7 @@ presubmits:
     - "main"
     spec:
       containers:
-      - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250823-25d79acb8
+      - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250903-f49c6158b
         command:
         - "peribolos"
         args:
@@ -67,7 +67,7 @@ presubmits:
     - "main"
     spec:
       containers:
-      - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250823-25d79acb8
+      - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250903-f49c6158b
         command:
         - "peribolos"
         args:
@@ -118,7 +118,7 @@ postsubmits:
       testgrid-tab-name: post-knative-peribolos
     spec:
       containers:
-      - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250823-25d79acb8
+      - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250903-f49c6158b
         command:
         - "peribolos"
         args:
@@ -171,7 +171,7 @@ postsubmits:
       testgrid-tab-name: post-knative-extensions-peribolos
     spec:
       containers:
-      - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250823-25d79acb8
+      - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250903-f49c6158b
         command:
         - "peribolos"
         args:
@@ -223,7 +223,7 @@ periodics:
     testgrid-tab-name: ci-knative-peribolos
   spec:
     containers:
-    - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250823-25d79acb8
+    - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250903-f49c6158b
       command:
       - "peribolos"
       args:
@@ -272,7 +272,7 @@ periodics:
     testgrid-tab-name: ci-knative-extensions-peribolos
   spec:
     containers:
-    - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250823-25d79acb8
+    - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20250903-f49c6158b
       command:
       - "peribolos"
       args:
