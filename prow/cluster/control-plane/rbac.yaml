@@ -57,8 +57,10 @@ rules:
       - ""
     resources:
       - pods
+      - pods/logs
     verbs:
       - get
+      - list
 ---
 
 kind: ServiceAccount
