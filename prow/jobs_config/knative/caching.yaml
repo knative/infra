@@ -1,7 +1,7 @@
 org: knative
 repo: caching
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250924-1fa28503d
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20250930-8b8b693ff
 cluster: prow-build
 
 jobs:
