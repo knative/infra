@@ -38,7 +38,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: deck
-        image: us-docker.pkg.dev/k8s-infra-prow/images/deck:v20250927-87810a762
+        image: us-docker.pkg.dev/k8s-infra-prow/images/deck:v20251011-7dbcd42f9
         args:
         - --hook-url=http://hook:8888/plugin-help
         - --tide-url=http://tide/
