@@ -16,8 +16,8 @@ FROM debian:bullseye-20250929-slim AS base
 
 # Pinned versions of stuff we pull in
 ARG TARGETARCH
-ARG CLOUD_SDK_VERSION=432.0.0
-ARG KUBECTL_VERSION=v1.29.2
+ARG CLOUD_SDK_VERSION=543.0.0
+ARG KUBECTL_VERSION=v1.34.1
 ARG DOCKER_VERSION=5:27.5.1-1~debian.11~bullseye
 ARG DOCKER_BUILDX_PLUGIN=0.20.0-1~debian.11~bullseye
 ARG MAVEN_VERSION=3.8.4
@@ -199,7 +199,7 @@ RUN curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/v$
     && rm protoc.zip
 # protoc-gen-gogofaster is installed below
 
-FROM golang:1.24.9 AS external-go-latest
+FROM golang:1.25.3 AS external-go-latest
 # Capture the version that dependabot bumps so that we can install it into the base image
 RUN go version | cut -d' ' -f3 > /golang.version
 
@@ -207,11 +207,11 @@ FROM external-go-latest AS external-go-gets
 
 ARG KUBETEST2_VERSION=d306c412d528f0a5dda4b6bd1c7550a905f5edb9
 ARG KUBETEST2_KOPS_VERSION=9b957a1d6189ee612506c9b6dc5b8b1a19e9c2aa # v1.25.0 release
-ARG KIND_VERSION=v0.27.0
+ARG KIND_VERSION=v0.30.0
 ARG KO_VERSION=v0.18.0
 ARG PROTOC_GEN_GO_VERSION=v1.28.0
 ARG PROTOC_GEN_GOGOFASTER_VERSION=v1.3.2
-ARG GOTESTSUM_VERSION=v1.12.2
+ARG GOTESTSUM_VERSION=v1.13.0
 ARG KAIL_VERSION=v0.17.4
 ARG GO_LICENSES_VERSION=v1.6.0
 ARG DOCKER_CREDENTIAL_GCR_VERSION=v2.0.5
