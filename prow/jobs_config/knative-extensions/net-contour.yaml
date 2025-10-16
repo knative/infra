@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: net-contour
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251014-3b4b5bd5a
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251016-631243d7d
 
 jobs:
   - name: build-tests

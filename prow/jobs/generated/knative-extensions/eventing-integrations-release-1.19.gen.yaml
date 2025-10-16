@@ -44,7 +44,7 @@ periodics:
         value: knative-extensions
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251014-3b4b5bd5a
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251016-631243d7d
       name: ""
       resources: {}
       securityContext:
@@ -107,7 +107,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251014-3b4b5bd5a
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251016-631243d7d
         name: ""
         resources: {}
         securityContext:
