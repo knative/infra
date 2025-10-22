@@ -213,6 +213,7 @@ ARG PROTOC_GEN_GO_VERSION=v1.28.0
 ARG PROTOC_GEN_GOGOFASTER_VERSION=v1.3.2
 ARG GOTESTSUM_VERSION=v1.13.0
 ARG KAIL_VERSION=v0.17.4
+ARG STERN_VERSION=v1.33.0
 ARG GO_LICENSES_VERSION=v1.6.0
 ARG DOCKER_CREDENTIAL_GCR_VERSION=v2.0.5
 ARG JSONNET_VERSION=v0.18.0
@@ -228,6 +229,7 @@ ENV GOTOOLCHAIN=local
 # These run using the golang image version of Go, not any defined by `gvm`
 RUN go install github.com/google/ko@${KO_VERSION}
 RUN go install github.com/boz/kail/cmd/kail@${KAIL_VERSION}
+RUN go install github.com/stern/stern@${STERN_VERSION}
 RUN go install gotest.tools/gotestsum@${GOTESTSUM_VERSION}
 RUN go install sigs.k8s.io/kind@${KIND_VERSION}
 RUN go install sigs.k8s.io/kubetest2@${KUBETEST2_VERSION}
@@ -236,7 +238,6 @@ RUN go install sigs.k8s.io/kubetest2/kubetest2-kind@${KUBETEST2_VERSION}
 RUN go install sigs.k8s.io/kubetest2/kubetest2-tester-exec@${KUBETEST2_VERSION}
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@${PROTOC_GEN_GO_VERSION}
 RUN go install github.com/google/go-licenses@${GO_LICENSES_VERSION}
-RUN go install sigs.k8s.io/kind@${KIND_VERSION}
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@${JSONNET_VERSION}
 RUN go install github.com/sigstore/cosign/cmd/cosign@${COSIGN_VERSION}
 RUN go install knative.dev/toolbox/provenance-generator@${TOOLBOX_VERSION}
