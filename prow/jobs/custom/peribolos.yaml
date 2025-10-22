@@ -101,6 +101,8 @@ postsubmits:
   - name: post-knative-peribolos
     agent: kubernetes
     decorate: true
+    decoration_config:
+      timeout: 3h0m0s
     path_alias: knative.dev/community
     max_concurrency: 1
     run_if_changed: "^peribolos/knative.yaml$"
@@ -154,6 +156,8 @@ postsubmits:
   - name: post-knative-extensions-peribolos
     agent: kubernetes
     decorate: true
+    decoration_config:
+      timeout: 3h0m0s
     path_alias: knative.dev/community
     max_concurrency: 1
     run_if_changed: "^peribolos/knative-extensions.yaml$"
@@ -212,6 +216,8 @@ periodics:
   decoration_config:
     timeout: 4h0m0s
   decorate: true
+  decoration_config:
+    timeout: 3h0m0s
   cluster: "prow-trusted"
   extra_refs:
   - org: knative
@@ -261,6 +267,8 @@ periodics:
   decoration_config:
     timeout: 4h0m0s
   decorate: true
+  decoration_config:
+    timeout: 3h0m0s
   cluster: "prow-trusted"
   extra_refs:
   - org: knative
