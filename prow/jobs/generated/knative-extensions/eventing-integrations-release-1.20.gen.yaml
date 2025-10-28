@@ -7,18 +7,18 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
+    testgrid-dashboards: knative-extensions-release-1.20
     testgrid-tab-name: eventing-integrations-release
   cluster: prow-build
-  cron: 13 9 * * 2
+  cron: 4 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
     path_alias: knative.dev/eventing-integrations
     repo: eventing-integrations
   max_concurrency: 1
-  name: release_eventing-integrations_release-1.18_periodic
+  name: release_eventing-integrations_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -32,7 +32,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.18
+      - release-1.20
       env:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
@@ -92,10 +92,10 @@ presubmits:
   knative-extensions/eventing-integrations:
   - always_run: true
     branches:
-    - ^release-1.18$
+    - ^release-1.20$
     cluster: prow-build
     decorate: true
-    name: build-tests_eventing-integrations_release-1.18
+    name: build-tests_eventing-integrations_release-1.20
     path_alias: knative.dev/eventing-integrations
     rerun_command: /test build-tests
     spec:
@@ -133,4 +133,4 @@ presubmits:
           path: /sys/fs/cgroup
           type: Directory
         name: cgroup
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing-integrations_release-1.18,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing-integrations_release-1.20,?($|\s.*))
