@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.18
+- release-1.20
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251022-0e51815da
 jobs:
 - command:
@@ -36,6 +36,22 @@ jobs:
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
+  - --run-test
+  - ./test/e2e-tests.sh --istio-version latest
+  name: latest
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --run-test
+  - ./test/e2e-tests.sh --istio-version latest  --mesh
+  name: latest-mesh
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
   - --all-tests
   name: continuous
   types:
@@ -45,13 +61,13 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/net-contour
+  - knative-releases/net-istio
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.18
+  - release-1.20
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -61,4 +77,4 @@ jobs:
   types:
   - periodic
 org: knative-extensions
-repo: net-contour
+repo: net-istio
