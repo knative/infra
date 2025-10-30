@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
-    testgrid-tab-name: eventing-ceph-continuous
+    testgrid-dashboards: knative-extensions-release-1.20
+    testgrid-tab-name: eventing-rabbitmq-continuous
   cluster: prow-build
-  cron: 56 15 * * */3
+  cron: 45 16 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
-    path_alias: knative.dev/eventing-ceph
-    repo: eventing-ceph
-  name: continuous_eventing-ceph_release-1.18_periodic
+    path_alias: knative.dev/eventing-rabbitmq
+    repo: eventing-rabbitmq
+  name: continuous_eventing-rabbitmq_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -27,8 +27,6 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      - name: DOCKER_IN_DOCKER_ENABLED
-        value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251022-0e51815da
       name: ""
       resources: {}
@@ -38,12 +36,6 @@ periodics:
       - mountPath: /etc/test-account
         name: test-account
         readOnly: true
-      - mountPath: /docker-graph
-        name: docker-graph
-      - mountPath: /lib/modules
-        name: modules
-      - mountPath: /sys/fs/cgroup
-        name: cgroup
     nodeSelector:
       kubernetes.io/arch: amd64
       type: testing
@@ -54,29 +46,19 @@ periodics:
         - key: service-account-key.json
           path: service-account.json
         secretName: prow-google-credentials
-    - emptyDir: {}
-      name: docker-graph
-    - hostPath:
-        path: /lib/modules
-        type: Directory
-      name: modules
-    - hostPath:
-        path: /sys/fs/cgroup
-        type: Directory
-      name: cgroup
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
-    testgrid-tab-name: eventing-ceph-release
+    testgrid-dashboards: knative-extensions-release-1.20
+    testgrid-tab-name: eventing-rabbitmq-release
   cluster: prow-build
-  cron: 0 9 * * 2
+  cron: 43 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
-    path_alias: knative.dev/eventing-ceph
-    repo: eventing-ceph
+    path_alias: knative.dev/eventing-rabbitmq
+    repo: eventing-rabbitmq
   max_concurrency: 1
-  name: release_eventing-ceph_release-1.18_periodic
+  name: release_eventing-rabbitmq_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -84,13 +66,13 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/eventing-ceph
+      - knative-releases/eventing-rabbitmq
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.18
+      - release-1.20
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -99,8 +81,6 @@ periodics:
       - name: ORG_NAME
         value: knative-extensions
       - name: ATTEST_IMAGES
-        value: "true"
-      - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251022-0e51815da
       name: ""
@@ -114,12 +94,6 @@ periodics:
       - mountPath: /etc/release-account
         name: release-account
         readOnly: true
-      - mountPath: /docker-graph
-        name: docker-graph
-      - mountPath: /lib/modules
-        name: modules
-      - mountPath: /sys/fs/cgroup
-        name: cgroup
     nodeSelector:
       kubernetes.io/arch: amd64
       type: testing
@@ -136,13 +110,3 @@ periodics:
         - key: release.json
           path: service-account.json
         secretName: prow-google-credentials
-    - emptyDir: {}
-      name: docker-graph
-    - hostPath:
-        path: /lib/modules
-        type: Directory
-      name: modules
-    - hostPath:
-        path: /sys/fs/cgroup
-        type: Directory
-      name: cgroup
