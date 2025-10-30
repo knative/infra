@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
+    testgrid-dashboards: knative-extensions-release-1.20
     testgrid-tab-name: eventing-natss-continuous
   cluster: prow-build
-  cron: 27 22 * * */3
+  cron: 40 11 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
     path_alias: knative.dev/eventing-natss
     repo: eventing-natss
-  name: continuous_eventing-natss_release-1.18_periodic
+  name: continuous_eventing-natss_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
+    testgrid-dashboards: knative-extensions-release-1.20
     testgrid-tab-name: eventing-natss-release
   cluster: prow-build
-  cron: 21 9 * * 2
+  cron: 44 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
     path_alias: knative.dev/eventing-natss
     repo: eventing-natss
   max_concurrency: 1
-  name: release_eventing-natss_release-1.18_periodic
+  name: release_eventing-natss_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -72,7 +72,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.18
+      - release-1.20
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json

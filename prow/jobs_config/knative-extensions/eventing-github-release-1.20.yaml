@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.18
+- release-1.20
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251022-0e51815da
 jobs:
 - command:
@@ -22,13 +22,13 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/eventing-redis
+  - knative-releases/eventing-github
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.18
+  - release-1.20
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -39,4 +39,4 @@ jobs:
   types:
   - periodic
 org: knative-extensions
-repo: eventing-redis
+repo: eventing-github

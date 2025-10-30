@@ -7,18 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
-    testgrid-tab-name: eventing-gitlab-continuous
+    testgrid-dashboards: knative-extensions-release-1.20
+    testgrid-tab-name: eventing-redis-continuous
   cluster: prow-build
-  cron: 15 22 * * */3
+  cron: 6 13 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
-    path_alias: knative.dev/eventing-gitlab
-    repo: eventing-gitlab
-  max_concurrency: 1
-  name: continuous_eventing-gitlab_release-1.18_periodic
+    path_alias: knative.dev/eventing-redis
+    repo: eventing-redis
+  name: continuous_eventing-redis_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -32,11 +31,7 @@ periodics:
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251022-0e51815da
       name: ""
-      resources:
-        limits:
-          memory: 16Gi
-        requests:
-          memory: 12Gi
+      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -70,18 +65,18 @@ periodics:
         type: Directory
       name: cgroup
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
-    testgrid-tab-name: eventing-gitlab-release
+    testgrid-dashboards: knative-extensions-release-1.20
+    testgrid-tab-name: eventing-redis-release
   cluster: prow-build
-  cron: 21 9 * * 2
+  cron: 10 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
-    path_alias: knative.dev/eventing-gitlab
-    repo: eventing-gitlab
+    path_alias: knative.dev/eventing-redis
+    repo: eventing-redis
   max_concurrency: 1
-  name: release_eventing-gitlab_release-1.18_periodic
+  name: release_eventing-redis_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -89,13 +84,13 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/eventing-gitlab
+      - knative-releases/eventing-redis
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.18
+      - release-1.20
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -109,11 +104,7 @@ periodics:
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251022-0e51815da
       name: ""
-      resources:
-        limits:
-          memory: 16Gi
-        requests:
-          memory: 12Gi
+      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
