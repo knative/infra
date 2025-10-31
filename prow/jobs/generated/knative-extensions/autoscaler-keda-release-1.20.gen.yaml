@@ -7,17 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
-    testgrid-tab-name: kn-plugin-quickstart-continuous
+    testgrid-dashboards: knative-extensions-release-1.20
+    testgrid-tab-name: autoscaler-keda-continuous
   cluster: prow-build
-  cron: 52 11 * * */3
+  cron: 57 4 * * */3
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
-    path_alias: knative.dev/kn-plugin-quickstart
-    repo: kn-plugin-quickstart
-  name: continuous_kn-plugin-quickstart_release-1.18_periodic
+    path_alias: knative.dev/autoscaler-keda
+    repo: autoscaler-keda
+  name: continuous_autoscaler-keda_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -47,18 +47,18 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.18
-    testgrid-tab-name: kn-plugin-quickstart-release
+    testgrid-dashboards: knative-extensions-release-1.20
+    testgrid-tab-name: autoscaler-keda-release
   cluster: prow-build
-  cron: 4 9 * * 2
+  cron: 3 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.18
+  - base_ref: release-1.20
     org: knative-extensions
-    path_alias: knative.dev/kn-plugin-quickstart
-    repo: kn-plugin-quickstart
+    path_alias: knative.dev/autoscaler-keda
+    repo: autoscaler-keda
   max_concurrency: 1
-  name: release_kn-plugin-quickstart_release-1.18_periodic
+  name: release_autoscaler-keda_release-1.20_periodic
   spec:
     containers:
     - command:
@@ -66,24 +66,18 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/kn-plugin-quickstart
+      - knative-releases/autoscaler-keda
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
-      - --apple-codesign-key
-      - /etc/notary/cert.p12
-      - --apple-notary-api-key
-      - /etc/notary/key.json
-      - --apple-codesign-password-file
-      - /etc/notary/password
       - --branch
-      - release-1.18
+      - release-1.20
       env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /etc/release-account/service-account.json
       - name: E2E_CLUSTER_REGION
         value: us-central1
-      - name: SIGN_IMAGES
-        value: "true"
       - name: ORG_NAME
         value: knative-extensions
       - name: ATTEST_IMAGES
@@ -97,13 +91,12 @@ periodics:
       - mountPath: /etc/hub-token
         name: hub-token
         readOnly: true
-      - mountPath: /etc/notary
-        name: apple-notary-creds
+      - mountPath: /etc/release-account
+        name: release-account
         readOnly: true
     nodeSelector:
       kubernetes.io/arch: amd64
       type: testing
-    serviceAccountName: release
     volumes:
     - name: hub-token
       secret:
@@ -111,25 +104,21 @@ periodics:
         - key: hub_token
           path: token
         secretName: github-credentials
-    - name: apple-notary-creds
+    - name: release-account
       secret:
         items:
-        - key: notary-api-key
-          path: key.json
-        - key: signing-certificate
-          path: cert.p12
-        - key: signing-certificate-password
-          path: password
-        secretName: apple-notary-creds
+        - key: release.json
+          path: service-account.json
+        secretName: prow-google-credentials
 presubmits:
-  knative-extensions/kn-plugin-quickstart:
+  knative-extensions/autoscaler-keda:
   - always_run: true
     branches:
-    - ^release-1.18$
+    - ^release-1.20$
     cluster: prow-build
     decorate: true
-    name: build-tests_kn-plugin-quickstart_release-1.18
-    path_alias: knative.dev/kn-plugin-quickstart
+    name: build-tests_autoscaler-keda_release-1.20
+    path_alias: knative.dev/autoscaler-keda
     rerun_command: /test build-tests
     spec:
       containers:
@@ -145,14 +134,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_kn-plugin-quickstart_release-1.18,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_autoscaler-keda_release-1.20,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.18$
+    - ^release-1.20$
     cluster: prow-build
     decorate: true
-    name: unit-tests_kn-plugin-quickstart_release-1.18
-    path_alias: knative.dev/kn-plugin-quickstart
+    name: unit-tests_autoscaler-keda_release-1.20
+    path_alias: knative.dev/autoscaler-keda
     rerun_command: /test unit-tests
     spec:
       containers:
@@ -168,14 +157,14 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_kn-plugin-quickstart_release-1.18,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_autoscaler-keda_release-1.20,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.18$
+    - ^release-1.20$
     cluster: prow-build
     decorate: true
-    name: integration-tests_kn-plugin-quickstart_release-1.18
-    path_alias: knative.dev/kn-plugin-quickstart
+    name: integration-tests_autoscaler-keda_release-1.20
+    path_alias: knative.dev/autoscaler-keda
     rerun_command: /test integration-tests
     spec:
       containers:
@@ -205,4 +194,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_kn-plugin-quickstart_release-1.18,?($|\s.*))
+    trigger: ((?m)^/test( | .* )integration-tests,?($|\s.*))|((?m)^/test( | .* )integration-tests_autoscaler-keda_release-1.20,?($|\s.*))
