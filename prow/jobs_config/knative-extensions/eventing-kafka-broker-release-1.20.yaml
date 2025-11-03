@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.18
+- release-1.20
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251031-25bf04abe
 jobs:
 - command:
@@ -203,7 +203,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.18
+  - release-1.20
   env:
   - name: BROKER_CLASS
     value: Kafka
