@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: backstage-plugins
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251031-25bf04abe
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251104-a7ad95343
 
 jobs:
 
