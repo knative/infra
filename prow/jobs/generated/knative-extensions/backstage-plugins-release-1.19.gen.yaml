@@ -29,7 +29,7 @@ periodics:
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251104-a7ad95343
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251105-d597274a4
       name: ""
       resources:
         limits:
@@ -106,7 +106,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251104-a7ad95343
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251105-d597274a4
       name: ""
       resources:
         limits:
@@ -170,7 +170,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251104-a7ad95343
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251105-d597274a4
         name: ""
         resources:
           limits:
@@ -197,7 +197,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251104-a7ad95343
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251105-d597274a4
         name: ""
         resources:
           limits:
@@ -228,7 +228,7 @@ presubmits:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251104-a7ad95343
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251105-d597274a4
         name: ""
         resources:
           limits:

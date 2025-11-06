@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: discovery
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251104-a7ad95343
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251105-d597274a4
 
 jobs:
   - name: build-tests
