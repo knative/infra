@@ -29,7 +29,7 @@ periodics:
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251209-347fb4f44
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251211-ce6d6c676
       name: ""
       resources: {}
       securityContext:
@@ -102,7 +102,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251209-347fb4f44
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20251211-ce6d6c676
       name: ""
       resources: {}
       securityContext:
