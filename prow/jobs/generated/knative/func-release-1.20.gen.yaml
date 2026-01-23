@@ -46,7 +46,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260115-27c803727
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
       name: ""
       resources: {}
       securityContext:
@@ -111,7 +111,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260115-27c803727
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
         name: ""
         resources: {}
         securityContext:
