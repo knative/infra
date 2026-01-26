@@ -9,7 +9,6 @@
 dashboard_groups:
 - dashboard_names:
   - client
-  - client-pkg
   - eventing
   - func
   - operator
@@ -26,14 +25,11 @@ dashboard_groups:
   - eventing-integrations
   - eventing-istio
   - eventing-kafka-broker
-  - eventing-kogito
   - eventing-natss
   - eventing-rabbitmq
   - eventing-redis
   - kn-plugin-admin
-  - kn-plugin-diag
   - kn-plugin-event
-  - kn-plugin-migration
   - kn-plugin-operator
   - kn-plugin-quickstart
   - kn-plugin-sample
@@ -52,7 +48,6 @@ dashboards:
 - name: autoscaler-keda
 - name: backstage-plugins
 - name: client
-- name: client-pkg
 - name: eventing
 - name: eventing-autoscaler-keda
 - name: eventing-ceph
@@ -61,15 +56,12 @@ dashboards:
 - name: eventing-integrations
 - name: eventing-istio
 - name: eventing-kafka-broker
-- name: eventing-kogito
 - name: eventing-natss
 - name: eventing-rabbitmq
 - name: eventing-redis
 - name: func
 - name: kn-plugin-admin
-- name: kn-plugin-diag
 - name: kn-plugin-event
-- name: kn-plugin-migration
 - name: kn-plugin-operator
 - name: kn-plugin-quickstart
 - name: kn-plugin-sample
@@ -79,7 +71,6 @@ dashboards:
 - name: knative-extensions-release-0.5
 - name: knative-extensions-release-0.6
 - name: knative-extensions-release-1.1
-- name: knative-extensions-release-1.14
 - name: knative-extensions-release-1.15
 - name: knative-extensions-release-1.16
 - name: knative-extensions-release-1.19
