@@ -7,19 +7,19 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-release-1.19
+    testgrid-dashboards: knative-release-1.21
     testgrid-tab-name: eventing-continuous
   cluster: prow-build
-  cron: 35 6 * * */3
+  cron: 36 19 * * */3
   decorate: true
   decoration_config:
     timeout: 3h0m0s
   extra_refs:
-  - base_ref: release-1.19
+  - base_ref: release-1.21
     org: knative
     path_alias: knative.dev/eventing
     repo: eventing
-  name: continuous_eventing_release-1.19_periodic
+  name: continuous_eventing_release-1.21_periodic
   spec:
     containers:
     - command:
@@ -53,20 +53,20 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 - annotations:
-    testgrid-dashboards: knative-release-1.19
+    testgrid-dashboards: knative-release-1.21
     testgrid-tab-name: eventing-release
   cluster: prow-build
-  cron: 5 9 * * 2
+  cron: 40 9 * * 2
   decorate: true
   decoration_config:
     timeout: 4h0m0s
   extra_refs:
-  - base_ref: release-1.19
+  - base_ref: release-1.21
     org: knative
     path_alias: knative.dev/eventing
     repo: eventing
   max_concurrency: 1
-  name: release_eventing_release-1.19_periodic
+  name: release_eventing_release-1.21_periodic
   spec:
     containers:
     - command:
@@ -80,7 +80,7 @@ periodics:
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.19
+      - release-1.21
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
@@ -124,10 +124,10 @@ presubmits:
   knative/eventing:
   - always_run: true
     branches:
-    - ^release-1.19$
+    - ^release-1.21$
     cluster: prow-build
     decorate: true
-    name: build-tests_eventing_release-1.19
+    name: build-tests_eventing_release-1.21
     path_alias: knative.dev/eventing
     rerun_command: /test build-tests
     spec:
@@ -148,13 +148,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing_release-1.19,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing_release-1.21,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.19$
+    - ^release-1.21$
     cluster: prow-build
     decorate: true
-    name: unit-tests_eventing_release-1.19
+    name: unit-tests_eventing_release-1.21
     path_alias: knative.dev/eventing
     rerun_command: /test unit-tests
     spec:
@@ -175,13 +175,13 @@ presubmits:
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_eventing_release-1.19,?($|\s.*))
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_eventing_release-1.21,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.19$
+    - ^release-1.21$
     cluster: prow-build
     decorate: true
-    name: conformance-tests_eventing_release-1.19
+    name: conformance-tests_eventing_release-1.21
     path_alias: knative.dev/eventing
     rerun_command: /test conformance-tests
     spec:
@@ -217,13 +217,13 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )conformance-tests,?($|\s.*))|((?m)^/test( | .* )conformance-tests_eventing_release-1.19,?($|\s.*))
+    trigger: ((?m)^/test( | .* )conformance-tests,?($|\s.*))|((?m)^/test( | .* )conformance-tests_eventing_release-1.21,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.19$
+    - ^release-1.21$
     cluster: prow-build
     decorate: true
-    name: reconciler-tests_eventing_release-1.19
+    name: reconciler-tests_eventing_release-1.21
     path_alias: knative.dev/eventing
     rerun_command: /test reconciler-tests
     spec:
@@ -259,13 +259,13 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )reconciler-tests,?($|\s.*))|((?m)^/test( | .* )reconciler-tests_eventing_release-1.19,?($|\s.*))
+    trigger: ((?m)^/test( | .* )reconciler-tests,?($|\s.*))|((?m)^/test( | .* )reconciler-tests_eventing_release-1.21,?($|\s.*))
   - always_run: true
     branches:
-    - ^release-1.19$
+    - ^release-1.21$
     cluster: prow-build
     decorate: true
-    name: upgrade-tests_eventing_release-1.19
+    name: upgrade-tests_eventing_release-1.21
     path_alias: knative.dev/eventing
     rerun_command: /test upgrade-tests
     spec:
@@ -301,4 +301,4 @@ presubmits:
           - key: service-account-key.json
             path: service-account.json
           secretName: prow-google-credentials
-    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_eventing_release-1.19,?($|\s.*))
+    trigger: ((?m)^/test( | .* )upgrade-tests,?($|\s.*))|((?m)^/test( | .* )upgrade-tests_eventing_release-1.21,?($|\s.*))
