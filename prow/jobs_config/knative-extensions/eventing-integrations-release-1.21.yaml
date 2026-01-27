@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.19
+- release-1.21
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
 jobs:
 - command:
@@ -19,59 +19,26 @@ jobs:
   - presubmit
 - command:
   - runner.sh
-  - ./test/presubmit-tests.sh
-  - --unit-tests
-  excluded_requirements:
-  - gcp
-  name: unit-tests
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh
-  name: integration-tests-istio
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --contour
-  name: integration-tests-contour
-  types:
-  - presubmit
-- command:
-  - runner.sh
-  - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --envoy-gateway
-  modifiers:
-  - presubmit_optional
-  - presubmit_skipped
-  name: integration-tests-envoy-gateway
-  types:
-  - presubmit
-- command:
-  - runner.sh
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/net-gateway-api
+  - knative-releases/eventing-integrations
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.19
+  - release-1.21
   excluded_requirements:
   - gcp
   max_concurrency: 1
   name: release
   requirements:
   - release
+  - docker
   types:
   - periodic
 org: knative-extensions
-repo: net-gateway-api
+repo: eventing-integrations
+requirements:
+- docker
