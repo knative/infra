@@ -7,18 +7,17 @@
 
 periodics:
 - annotations:
-    testgrid-dashboards: knative-extensions-release-1.19
-    testgrid-tab-name: eventing-integrations-release
+    testgrid-dashboards: knative-extensions-release-1.21
+    testgrid-tab-name: sample-controller-release
   cluster: prow-build
-  cron: 20 9 * * 2
+  cron: 50 9 * * 2
   decorate: true
   extra_refs:
-  - base_ref: release-1.19
+  - base_ref: release-1.21
     org: knative-extensions
-    path_alias: knative.dev/eventing-integrations
-    repo: eventing-integrations
-  max_concurrency: 1
-  name: release_eventing-integrations_release-1.19_periodic
+    path_alias: knative.dev/sample-controller
+    repo: sample-controller
+  name: release_sample-controller_release-1.21_periodic
   spec:
     containers:
     - command:
@@ -26,16 +25,14 @@ periodics:
       - ./hack/release.sh
       - --dot-release
       - --release-gcs
-      - knative-releases/eventing-integrations
+      - knative-releases/sample-controller
       - --release-gcr
       - gcr.io/knative-releases
       - --github-token
       - /etc/hub-token/token
       - --branch
-      - release-1.19
+      - release-1.21
       env:
-      - name: DOCKER_IN_DOCKER_ENABLED
-        value: "true"
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/release-account/service-account.json
       - name: E2E_CLUSTER_REGION
@@ -50,12 +47,6 @@ periodics:
       securityContext:
         privileged: true
       volumeMounts:
-      - mountPath: /docker-graph
-        name: docker-graph
-      - mountPath: /lib/modules
-        name: modules
-      - mountPath: /sys/fs/cgroup
-        name: cgroup
       - mountPath: /etc/hub-token
         name: hub-token
         readOnly: true
@@ -66,16 +57,6 @@ periodics:
       kubernetes.io/arch: amd64
       type: testing
     volumes:
-    - emptyDir: {}
-      name: docker-graph
-    - hostPath:
-        path: /lib/modules
-        type: Directory
-      name: modules
-    - hostPath:
-        path: /sys/fs/cgroup
-        type: Directory
-      name: cgroup
     - name: hub-token
       secret:
         items:
@@ -89,14 +70,14 @@ periodics:
           path: service-account.json
         secretName: prow-google-credentials
 presubmits:
-  knative-extensions/eventing-integrations:
+  knative-extensions/sample-controller:
   - always_run: true
     branches:
-    - ^release-1.19$
+    - ^release-1.21$
     cluster: prow-build
     decorate: true
-    name: build-tests_eventing-integrations_release-1.19
-    path_alias: knative.dev/eventing-integrations
+    name: build-tests_sample-controller_release-1.21
+    path_alias: knative.dev/sample-controller
     rerun_command: /test build-tests
     spec:
       containers:
@@ -104,33 +85,35 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        env:
-        - name: DOCKER_IN_DOCKER_ENABLED
-          value: "true"
         image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
         name: ""
         resources: {}
         securityContext:
           privileged: true
-        volumeMounts:
-        - mountPath: /docker-graph
-          name: docker-graph
-        - mountPath: /lib/modules
-          name: modules
-        - mountPath: /sys/fs/cgroup
-          name: cgroup
       nodeSelector:
         kubernetes.io/arch: amd64
         type: testing
-      volumes:
-      - emptyDir: {}
-        name: docker-graph
-      - hostPath:
-          path: /lib/modules
-          type: Directory
-        name: modules
-      - hostPath:
-          path: /sys/fs/cgroup
-          type: Directory
-        name: cgroup
-    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_eventing-integrations_release-1.19,?($|\s.*))
+    trigger: ((?m)^/test( | .* )build-tests,?($|\s.*))|((?m)^/test( | .* )build-tests_sample-controller_release-1.21,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^release-1.21$
+    cluster: prow-build
+    decorate: true
+    name: unit-tests_sample-controller_release-1.21
+    path_alias: knative.dev/sample-controller
+    rerun_command: /test unit-tests
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --unit-tests
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        name: ""
+        resources: {}
+        securityContext:
+          privileged: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+    trigger: ((?m)^/test( | .* )unit-tests,?($|\s.*))|((?m)^/test( | .* )unit-tests_sample-controller_release-1.21,?($|\s.*))
