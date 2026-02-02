@@ -32,7 +32,7 @@ spec:
       serviceAccountName: "sinker"
       containers:
       - name: sinker
-        image: us-docker.pkg.dev/k8s-infra-prow/images/sinker:v20260126-ced54ae87
+        image: us-docker.pkg.dev/k8s-infra-prow/images/sinker:v20260201-a50f011ce
         args:
         - --config-path=/etc/config/config.yaml
         - --job-config-path=/etc/job-config
