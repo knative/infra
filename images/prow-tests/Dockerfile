@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:bullseye-20260112-slim AS base
+FROM debian:bullseye-20260202-slim AS base
 
 # Pinned versions of stuff we pull in
 ARG TARGETARCH
