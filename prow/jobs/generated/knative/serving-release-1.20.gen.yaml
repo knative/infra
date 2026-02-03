@@ -29,7 +29,7 @@ periodics:
       env:
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
       name: ""
       resources:
         limits:
@@ -96,7 +96,7 @@ periodics:
         value: "true"
       - name: ATTEST_IMAGES
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
       name: ""
       resources:
         limits:
@@ -161,7 +161,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -209,7 +209,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -258,7 +258,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -308,7 +308,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -359,7 +359,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -413,7 +413,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -478,7 +478,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -529,7 +529,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -581,7 +581,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -633,7 +633,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -684,7 +684,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -735,7 +735,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -786,7 +786,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -837,7 +837,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -890,7 +890,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
@@ -946,7 +946,7 @@ presubmits:
         env:
         - name: DOCKER_IN_DOCKER_ENABLED
           value: "true"
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260122-2dddaac70
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
         name: ""
         resources:
           limits:
