@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-istio
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260203-cb80c9185
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260204-ff60093e6
 
 jobs:
   - name: build-tests
