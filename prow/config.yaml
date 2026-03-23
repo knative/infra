@@ -25,10 +25,10 @@ plank:
         grace_period: 15s
         utility_images:
           # Update these versions when updating plank version in cluster.yaml
-          clonerefs: "us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260313-c94d0199c"
-          initupload: "us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260313-c94d0199c"
-          entrypoint: "us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260313-c94d0199c"
-          sidecar: "us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260313-c94d0199c"
+          clonerefs: "us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260320-e8838e224"
+          initupload: "us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260320-e8838e224"
+          entrypoint: "us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260320-e8838e224"
+          sidecar: "us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260320-e8838e224"
         gcs_configuration:
           bucket: "knative-prow"
           path_strategy: "explicit"
@@ -44,10 +44,10 @@ plank:
         grace_period: 15s
         utility_images:
           # Update these versions when updating plank version in cluster.yaml
-          clonerefs: "us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260313-c94d0199c"
-          initupload: "us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260313-c94d0199c"
-          entrypoint: "us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260313-c94d0199c"
-          sidecar: "us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260313-c94d0199c"
+          clonerefs: "us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260320-e8838e224"
+          initupload: "us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260320-e8838e224"
+          entrypoint: "us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260320-e8838e224"
+          sidecar: "us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260320-e8838e224"
         gcs_configuration:
           bucket: "knative-prow"
           path_strategy: "explicit"
