@@ -626,6 +626,8 @@ presubmits:
     - ^main$
     cluster: prow-build
     decorate: true
+    decoration_config:
+      timeout: 3h0m0s
     name: channel-integration-tests-ssl_eventing-kafka-broker_main
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-integration-tests-ssl
@@ -687,6 +689,8 @@ presubmits:
     - ^main$
     cluster: prow-build
     decorate: true
+    decoration_config:
+      timeout: 3h0m0s
     name: channel-integration-tests-sasl-ssl_eventing-kafka-broker_main
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-integration-tests-sasl-ssl
@@ -748,6 +752,8 @@ presubmits:
     - ^main$
     cluster: prow-build
     decorate: true
+    decoration_config:
+      timeout: 3h0m0s
     name: channel-integration-tests-sasl-plain_eventing-kafka-broker_main
     path_alias: knative.dev/eventing-kafka-broker
     rerun_command: /test channel-integration-tests-sasl-plain
