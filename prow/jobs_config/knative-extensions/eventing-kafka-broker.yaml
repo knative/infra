@@ -66,6 +66,7 @@ jobs:
     types: [presubmit]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-tests.sh"]
     requirements: [docker]
+    timeout: 3h
     env:
       - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
         value: SSL
@@ -76,6 +77,7 @@ jobs:
     types: [presubmit]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-tests.sh"]
     requirements: [docker]
+    timeout: 3h
     env:
       - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
         value: SASL_SSL
@@ -86,6 +88,7 @@ jobs:
     types: [presubmit]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, "./test/e2e-tests.sh"]
     requirements: [docker]
+    timeout: 3h
     env:
       - name: EVENTING_KAFKA_BROKER_CHANNEL_AUTH_SCENARIO
         value: SASL_PLAIN
