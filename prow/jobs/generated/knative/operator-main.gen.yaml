@@ -249,6 +249,60 @@ presubmits:
     - ^main$
     cluster: prow-build
     decorate: true
+    decoration_config:
+      timeout: 1h30m0s
+    name: integration-tests-multicluster_operator_main
+    path_alias: knative.dev/operator
+    rerun_command: /test integration-tests-multicluster
+    spec:
+      containers:
+      - command:
+        - runner.sh
+        - ./test/presubmit-tests.sh
+        - --run-test
+        - ./test/e2e-tests-multicluster.sh
+        env:
+        - name: DOCKER_IN_DOCKER_ENABLED
+          value: "true"
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260407-03476d3cc
+        name: ""
+        resources:
+          limits:
+            cpu: "4"
+            memory: 12Gi
+          requests:
+            cpu: "4"
+            memory: 12Gi
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /docker-graph
+          name: docker-graph
+        - mountPath: /lib/modules
+          name: modules
+        - mountPath: /sys/fs/cgroup
+          name: cgroup
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        type: testing
+      volumes:
+      - emptyDir: {}
+        name: docker-graph
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: modules
+      - hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+        name: cgroup
+    trigger: ((?m)^/test( | .* )integration-tests-multicluster,?($|\s.*))|((?m)^/test(
+      | .* )integration-tests-multicluster_operator_main,?($|\s.*))
+  - always_run: true
+    branches:
+    - ^main$
+    cluster: prow-build
+    decorate: true
     name: upgrade-tests_operator_main
     path_alias: knative.dev/operator
     rerun_command: /test upgrade-tests
