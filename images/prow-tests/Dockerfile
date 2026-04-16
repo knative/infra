@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:bullseye-20260406-slim AS base
+FROM debian:bookworm-20260406-slim AS base
 
 # Pinned versions of stuff we pull in
 ARG TARGETARCH
 ARG CLOUD_SDK_VERSION=543.0.0
 ARG KUBECTL_VERSION=v1.34.1
-ARG DOCKER_VERSION=5:27.5.1-1~debian.11~bullseye
-ARG DOCKER_BUILDX_PLUGIN=0.20.0-1~debian.11~bullseye
+ARG DOCKER_VERSION=5:27.5.1-1~debian.12~bookworm
+ARG DOCKER_BUILDX_PLUGIN=0.20.0-1~debian.12~bookworm
 ARG MAVEN_VERSION=3.8.4
 ARG JAVA_VERSION=21
 ARG PROTOC_VERSION=3.17.0
@@ -72,7 +72,6 @@ RUN apt-get update -qqy && apt-get install -qqy \
     bsdextrautils \
     gettext-base
 
-RUN pip3 install -U crcmod==1.7
 RUN curl -fsSLO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
 RUN tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz -C /
 RUN rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
@@ -269,7 +268,7 @@ RUN git clone https://github.com/kubernetes/kops /tmp/kops && cd /tmp/kops/tests
     go install .
 
 ############################################################
-FROM rust:1.94-bullseye AS external-rust-gets
+FROM rust:1.94-bookworm AS external-rust-gets
 
 ARG CODESIGN_VERSION=0.22.0
 # change this when a new version with https://github.com/indygreg/apple-platform-rs/pull/20 is cut
