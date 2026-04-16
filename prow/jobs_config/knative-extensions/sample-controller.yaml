@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: sample-controller
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260407-03476d3cc
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260416-651f327ca
 
 jobs:
   - name: build-tests
