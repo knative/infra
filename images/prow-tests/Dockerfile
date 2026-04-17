@@ -268,7 +268,7 @@ RUN git clone https://github.com/kubernetes/kops /tmp/kops && cd /tmp/kops/tests
     go install .
 
 ############################################################
-FROM rust:1.94-bookworm AS external-rust-gets
+FROM rust:1.95-bookworm AS external-rust-gets
 
 ARG CODESIGN_VERSION=0.22.0
 # change this when a new version with https://github.com/indygreg/apple-platform-rs/pull/20 is cut
