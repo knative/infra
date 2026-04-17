@@ -1,7 +1,7 @@
 org: knative
 repo: pkg
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260416-651f327ca
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260417-3d429a396
 
 jobs:
   - name: build-tests
