@@ -18,6 +18,14 @@ jobs:
     types: [presubmit]
     command: [runner.sh, ./test/presubmit-tests.sh, --integration-tests]
 
+  - name: integration-tests-multicluster
+    types: [presubmit]
+    command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/e2e-tests-multicluster.sh]
+    requirements: [docker]
+    excluded_requirements: [gcp]
+    resources: multicluster
+    timeout: 90m
+
   - name: upgrade-tests
     types: [presubmit]
     command: [runner.sh, ./test/presubmit-tests.sh, --run-test, ./test/e2e-upgrade-tests.sh]
@@ -54,3 +62,12 @@ jobs:
     requirements: [release]
     excluded_requirements: [gcp]
     max_concurrency: 1
+
+resources_presets:
+  multicluster:
+    requests:
+      cpu: 4000m
+      memory: 12Gi
+    limits:
+      cpu: 4000m
+      memory: 12Gi
