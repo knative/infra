@@ -236,7 +236,7 @@ RUN go install sigs.k8s.io/kubetest2/kubetest2-gke@${KUBETEST2_VERSION}
 RUN go install sigs.k8s.io/kubetest2/kubetest2-kind@${KUBETEST2_VERSION}
 RUN go install sigs.k8s.io/kubetest2/kubetest2-tester-exec@${KUBETEST2_VERSION}
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@${PROTOC_GEN_GO_VERSION}
-RUN go install github.com/google/go-licenses@${GO_LICENSES_VERSION}
+RUN go install github.com/google/go-licenses/v2@${GO_LICENSES_VERSION}
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@${JSONNET_VERSION}
 RUN go install github.com/sigstore/cosign/cmd/cosign@${COSIGN_VERSION}
 RUN go install knative.dev/toolbox/provenance-generator@${TOOLBOX_VERSION}
