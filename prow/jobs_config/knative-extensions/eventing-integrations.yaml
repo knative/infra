@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-integrations
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260417-3d429a396
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260417-4618847e8
 requirements: [docker]
 
 jobs:
