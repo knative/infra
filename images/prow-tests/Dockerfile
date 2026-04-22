@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:bookworm-20260406-slim AS base
+FROM debian:bookworm-20260421-slim AS base
 
 # Pinned versions of stuff we pull in
 ARG TARGETARCH
