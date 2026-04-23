@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: security-guard
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260420-c03816ac0
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260422-3232e865a
 
 jobs:
   - name: build-tests
