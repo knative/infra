@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.20
+- release-1.22
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260422-3232e865a
 jobs:
 - command:
@@ -103,6 +103,7 @@ jobs:
   name: channel-integration-tests-ssl
   requirements:
   - docker
+  timeout: 3h0m0s
   types:
   - presubmit
 - command:
@@ -118,6 +119,7 @@ jobs:
   name: channel-integration-tests-sasl-ssl
   requirements:
   - docker
+  timeout: 3h0m0s
   types:
   - presubmit
 - command:
@@ -133,6 +135,7 @@ jobs:
   name: channel-integration-tests-sasl-plain
   requirements:
   - docker
+  timeout: 3h0m0s
   types:
   - presubmit
 - command:
@@ -203,7 +206,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.20
+  - release-1.22
   env:
   - name: BROKER_CLASS
     value: Kafka
