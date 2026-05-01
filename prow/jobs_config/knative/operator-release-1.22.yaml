@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.20
+- release-1.22
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260422-3232e865a
 jobs:
 - command:
@@ -31,6 +31,20 @@ jobs:
   - ./test/presubmit-tests.sh
   - --integration-tests
   name: integration-tests
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --run-test
+  - ./test/e2e-tests-multicluster.sh
+  excluded_requirements:
+  - gcp
+  name: integration-tests-multicluster
+  requirements:
+  - docker
+  resources: multicluster
+  timeout: 1h30m0s
   types:
   - presubmit
 - command:
@@ -75,7 +89,7 @@ jobs:
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.20
+  - release-1.22
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -86,3 +100,11 @@ jobs:
   - periodic
 org: knative
 repo: operator
+resources_presets:
+  multicluster:
+    limits:
+      cpu: "4"
+      memory: 12Gi
+    requests:
+      cpu: "4"
+      memory: 12Gi
