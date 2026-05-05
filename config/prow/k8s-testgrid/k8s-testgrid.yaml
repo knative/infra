@@ -40,8 +40,6 @@ dashboard_groups:
   - net-gateway-api
   - net-istio
   - net-kourier
-  - sample-controller
-  - sample-source
   - security-guard
   name: knative-extensions
 dashboards:
@@ -83,8 +81,6 @@ dashboards:
 - name: net-istio
 - name: net-kourier
 - name: operator
-- name: sample-controller
-- name: sample-source
 - name: security-guard
 - name: serving
 - name: utilities
