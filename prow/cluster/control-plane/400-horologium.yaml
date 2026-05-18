@@ -33,7 +33,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: horologium
-        image: us-docker.pkg.dev/k8s-infra-prow/images/horologium:v20260511-5c4ab968b
+        image: us-docker.pkg.dev/k8s-infra-prow/images/horologium:v20260518-5e429888d
         args:
         - --config-path=/etc/config/config.yaml
         - --job-config-path=/etc/job-config
