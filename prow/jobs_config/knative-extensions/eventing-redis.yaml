@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-redis
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260603-80d1bbafb
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260611-7a1b73d6f
 
 jobs:
   - name: continuous
