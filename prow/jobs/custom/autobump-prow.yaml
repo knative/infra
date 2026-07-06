@@ -19,7 +19,7 @@ periodics:
       report_template: '"The autobump-prow periodic job fails, check the log: <{{.Status.URL}}|View logs>"'
   spec:
     containers:
-    - image: us-docker.pkg.dev/k8s-infra-prow/images/generic-autobumper:v20260624-2b5fea27a
+    - image: us-docker.pkg.dev/k8s-infra-prow/images/generic-autobumper:v20260702-ef12e757d
       command:
       - generic-autobumper
       args:
