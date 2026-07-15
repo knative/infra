@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: eventing-gitlab
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260709-3ba6ed852
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260714-b47521e89
 
 jobs:
   - name: continuous
