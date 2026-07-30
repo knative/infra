@@ -5,27 +5,32 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.21
+- release-1.23
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260714-b47521e89
 jobs:
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --kafka-source
-  modifiers:
-  - presubmit_optional
-  name: integration-test-kafka-source
+  - --build-tests
+  excluded_requirements:
+  - gcp
+  name: build-tests
   types:
   - presubmit
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --run-test
-  - ./test/e2e-tests.sh --kafka-mt-source
-  modifiers:
-  - presubmit_optional
-  name: integration-test-kafka-mt-source
+  - --unit-tests
+  excluded_requirements:
+  - gcp
+  name: unit-tests
+  types:
+  - presubmit
+- command:
+  - runner.sh
+  - ./test/presubmit-tests.sh
+  - --integration-tests
+  name: integration-tests
   types:
   - presubmit
 - command:
@@ -40,13 +45,13 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/eventing-autoscaler-keda
+  - knative-releases/autoscaler-keda
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
   - --branch
-  - release-1.21
+  - release-1.23
   excluded_requirements:
   - gcp
   max_concurrency: 1
@@ -56,4 +61,4 @@ jobs:
   types:
   - periodic
 org: knative-extensions
-repo: eventing-autoscaler-keda
+repo: autoscaler-keda
