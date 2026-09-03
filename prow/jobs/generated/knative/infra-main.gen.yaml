@@ -21,7 +21,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260827-52a38c7cb
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260902-65c669156
         name: ""
         resources: {}
         securityContext:
@@ -44,7 +44,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260827-52a38c7cb
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260902-65c669156
         name: ""
         resources: {}
         securityContext:
