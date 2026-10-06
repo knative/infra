@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: autoscaler-keda
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20260922-0d57c2cde
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261005-8b357da95
 
 jobs:
   - name: build-tests
