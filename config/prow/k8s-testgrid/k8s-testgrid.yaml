@@ -28,6 +28,7 @@ dashboard_groups:
   - eventing-natss
   - eventing-rabbitmq
   - eventing-redis
+  - func-adapter-kafka
   - kn-plugin-admin
   - kn-plugin-event
   - kn-plugin-operator
@@ -58,6 +59,7 @@ dashboards:
 - name: eventing-rabbitmq
 - name: eventing-redis
 - name: func
+- name: func-adapter-kafka
 - name: kn-plugin-admin
 - name: kn-plugin-event
 - name: kn-plugin-operator
