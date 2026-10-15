@@ -13,7 +13,7 @@ module "cosign" {
 
 module "cosign_iam" {
   source        = "terraform-google-modules/iam/google//modules/kms_key_rings_iam"
-  version       = "~> 7"
+  version       = "~> 7.7"
   kms_key_rings = [module.cosign.keyring_resource.id]
   mode          = "authoritative"
 

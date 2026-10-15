@@ -1,6 +1,6 @@
 module "iam" {
   source  = "terraform-google-modules/iam/google//modules/projects_iam"
-  version = "~> 7"
+  version = "~> 7.7"
 
   projects = [module.project.project_id]
 
@@ -44,7 +44,7 @@ resource "google_service_account" "gke_nodes_contribfest" {
 
 module "iam_contribfest" {
   source  = "terraform-google-modules/iam/google//modules/projects_iam"
-  version = "~> 7"
+  version = "~> 7.7"
 
   projects = [module.contribfest.project_id]
 

@@ -10,6 +10,7 @@ resource "google_storage_bucket" "nightly" {
 
 module "buckets_nightly" {
   source          = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
+  version         = "~> 7.7"
   storage_buckets = [google_storage_bucket.nightly.name]
   mode            = "authoritative"
 

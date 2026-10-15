@@ -1,6 +1,6 @@
 module "iam" {
   source  = "terraform-google-modules/iam/google//modules/projects_iam"
-  version = "~> 7"
+  version = "~> 7.1"
 
   projects = ["knative-tests"]
 

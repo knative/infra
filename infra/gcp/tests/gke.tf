@@ -162,14 +162,16 @@ module "prow_build" {
       location_policy    = "BALANCED"
     },
     {
-      name               = "testing-pool-v1"
-      machine_type       = "n2d-standard-16"
-      node_locations     = "us-central1-c,us-central1-f"
-      local_ssd_count    = 1
-      min_count          = 0
-      max_count          = 20
-      disk_size_gb       = 100
-      disk_type          = "pd-ssd"
+      name           = "testing-pool-v1"
+      machine_type   = "c4d-standard-16-lssd"
+      node_locations = "us-central1-a,us-central1-b,us-central1-c,us-central1-f"
+      min_count      = 0
+      max_count      = 20
+      disk_size_gb   = 100
+      ephemeral_storage_local_ssd_config = {
+        local_ssd_count = 1
+      }
+      disk_type          = "hyperdisk-balanced"
       image_type         = "COS_CONTAINERD"
       auto_repair        = true
       auto_upgrade       = true
@@ -177,7 +179,6 @@ module "prow_build" {
       enable_secure_boot = true
       initial_node_count = 0
       location_policy    = "BALANCED"
-
     },
   ]
 
