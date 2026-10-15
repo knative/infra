@@ -13,7 +13,7 @@ locals {
 module "project" {
   for_each = toset(local.boskos_projects)
   source   = "terraform-google-modules/project-factory/google"
-  version  = "~> 12"
+  version  = "~> 14.5"
 
   name            = each.key
   project_id      = each.key
