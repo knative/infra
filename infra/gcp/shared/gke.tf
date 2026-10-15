@@ -2,7 +2,7 @@
 
 module "shared" {
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  version                    = "~> 30.0"
+  version                    = "~> 45.0"
   project_id                 = module.project.project_id
   name                       = "shared"
   region                     = "us-central1"

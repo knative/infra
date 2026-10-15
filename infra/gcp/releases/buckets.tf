@@ -18,7 +18,7 @@ resource "google_storage_bucket" "releases" {
 
 module "buckets_releases" {
   source          = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
-  version         = "~> 7.7"
+  version         = "~> 8.3"
   storage_buckets = [google_storage_bucket.releases.name]
   mode            = "authoritative"
 
