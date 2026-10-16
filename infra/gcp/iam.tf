@@ -1,6 +1,6 @@
 module "iam" {
   source        = "terraform-google-modules/iam/google//modules/organizations_iam"
-  version       = "~> 7.4"
+  version       = "~> 8.3"
   organizations = [data.google_organization.org.org_id]
   mode          = "authoritative"
 

@@ -7,4 +7,5 @@
 pj.yaml
 pod.yaml
 .terraform
+.terraform.lock.hcl
 terraform.tfstate

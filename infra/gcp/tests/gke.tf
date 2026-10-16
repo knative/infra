@@ -2,7 +2,7 @@
 
 module "prow_trusted" {
   source                       = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  version                      = "~> 30.0"
+  version                      = "~> 45.0"
   project_id                   = module.project.project_id
   name                         = "prow-trusted"
   regional                     = false
@@ -58,7 +58,7 @@ module "prow_trusted" {
 
 module "prow" {
   source                       = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  version                      = "~> 30.0"
+  version                      = "~> 45.0"
   project_id                   = module.project.project_id
   name                         = "prow"
   region                       = "us-central1"
@@ -109,7 +109,7 @@ module "prow" {
 
 module "prow_build" {
   source                       = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  version                      = "~> 30.0"
+  version                      = "~> 45.0"
   project_id                   = module.project.project_id
   name                         = "prow-build"
   region                       = "us-central1"
@@ -162,23 +162,21 @@ module "prow_build" {
       location_policy    = "BALANCED"
     },
     {
-      name           = "testing-pool-v1"
-      machine_type   = "c4d-standard-16-lssd"
-      node_locations = "us-central1-a,us-central1-b,us-central1-c,us-central1-f"
-      min_count      = 0
-      max_count      = 20
-      disk_size_gb   = 100
-      ephemeral_storage_local_ssd_config = {
-        local_ssd_count = 1
-      }
-      disk_type          = "hyperdisk-balanced"
-      image_type         = "COS_CONTAINERD"
-      auto_repair        = true
-      auto_upgrade       = true
-      service_account    = google_service_account.gke_nodes.email
-      enable_secure_boot = true
-      initial_node_count = 0
-      location_policy    = "BALANCED"
+      name                              = "testing-pool-v1"
+      machine_type                      = "c4d-standard-16-lssd"
+      node_locations                    = "us-central1-a,us-central1-b,us-central1-c,us-central1-f"
+      min_count                         = 0
+      max_count                         = 20
+      disk_size_gb                      = 100
+      local_ssd_ephemeral_storage_count = 1
+      disk_type                         = "hyperdisk-balanced"
+      image_type                        = "COS_CONTAINERD"
+      auto_repair                       = true
+      auto_upgrade                      = true
+      service_account                   = google_service_account.gke_nodes.email
+      enable_secure_boot                = true
+      initial_node_count                = 0
+      location_policy                   = "BALANCED"
     },
   ]
 

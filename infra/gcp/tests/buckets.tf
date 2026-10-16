@@ -27,7 +27,7 @@ resource "google_storage_bucket" "prow" {
 module "iam_prow_bucket" {
   source          = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
   storage_buckets = [google_storage_bucket.prow.name]
-  version         = "~> 7.1"
+  version         = "~> 8.3"
 
   mode = "authoritative"
 
@@ -76,7 +76,7 @@ resource "google_storage_bucket" "testgrid" {
 module "iam_testgrid_bucket" {
   source          = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
   storage_buckets = [google_storage_bucket.testgrid.name]
-  version         = "~> 7.1"
+  version         = "~> 8.3"
 
   mode = "authoritative"
 

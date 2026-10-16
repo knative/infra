@@ -13,7 +13,7 @@ locals {
 module "project" {
   for_each = toset(local.boskos_projects)
   source   = "terraform-google-modules/project-factory/google"
-  version  = "~> 14.5"
+  version  = "~> 18.4"
 
   name            = each.key
   project_id      = each.key
@@ -34,7 +34,8 @@ module "project" {
     "container.googleapis.com",
     "cloudscheduler.googleapis.com",
     "cloudbuild.googleapis.com",
-    "artifactregistry.googleapis.com"
+    "artifactregistry.googleapis.com",
+    "secretmanager.googleapis.com"
   ]
 }
 

@@ -1,6 +1,6 @@
 module "project" {
   source  = "terraform-google-modules/project-factory/google"
-  version = "~> 14.1"
+  version = "~> 18.4"
 
   name            = "Knative Releases"
   project_id      = "knative-releases"

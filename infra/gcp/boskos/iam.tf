@@ -1,7 +1,7 @@
 # We grant all the boskos permissions on the folder and they get inherited
 module "folder_iam" {
   source  = "terraform-google-modules/iam/google//modules/folders_iam"
-  version = "~> 7.4"
+  version = "~> 8.3"
   folders = [google_folder.boskos.id]
   mode    = "authoritative"
 

@@ -1,6 +1,6 @@
 module "project" {
   source  = "terraform-google-modules/project-factory/google"
-  version = "~> 14.5"
+  version = "~> 18.4"
 
   name            = "Knative Community Infra"
   project_id      = "knative-community"
@@ -24,7 +24,7 @@ module "project" {
 
 module "contribfest" {
   source  = "terraform-google-modules/project-factory/google"
-  version = "~> 14.1"
+  version = "~> 18.4"
 
   name            = "Knative Contribfest"
   project_id      = "knative-contribfest"
