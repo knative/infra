@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: kn-plugin-service-log
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261015-2477bb44a
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261018-bf57f0305
 
 jobs:
   - name: build-tests
