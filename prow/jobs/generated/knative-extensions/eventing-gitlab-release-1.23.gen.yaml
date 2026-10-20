@@ -30,7 +30,7 @@ periodics:
         value: /etc/test-account/service-account.json
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261018-bf57f0305
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261019-886419eb2
       name: ""
       resources:
         limits:
@@ -107,7 +107,7 @@ periodics:
         value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261018-bf57f0305
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261019-886419eb2
       name: ""
       resources:
         limits:
