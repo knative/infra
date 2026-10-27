@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: net-kourier
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261021-2f5e34d90
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
 
 jobs:
   - name: build-tests
