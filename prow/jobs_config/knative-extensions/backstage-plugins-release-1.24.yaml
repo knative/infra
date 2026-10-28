@@ -5,7 +5,7 @@
 # ####                                                                     ####
 # #############################################################################
 branches:
-- release-1.22
+- release-1.24
 image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
 jobs:
 - command:
@@ -24,13 +24,15 @@ jobs:
   excluded_requirements:
   - gcp
   name: unit-tests
+  resources: default
   types:
   - presubmit
 - command:
   - runner.sh
   - ./test/presubmit-tests.sh
-  - --integration-tests
-  name: integration-tests
+  - --run-test
+  - ./test/e2e-tests.sh
+  name: e2e-tests
   types:
   - presubmit
 - command:
@@ -38,6 +40,8 @@ jobs:
   - ./test/presubmit-tests.sh
   - --all-tests
   name: continuous
+  requirements:
+  - docker
   types:
   - periodic
 - command:
@@ -45,26 +49,28 @@ jobs:
   - ./hack/release.sh
   - --dot-release
   - --release-gcs
-  - knative-releases/kn-plugin-event
+  - knative-releases/backstage-plugins
   - --release-gcr
   - gcr.io/knative-releases
   - --github-token
   - /etc/hub-token/token
-  - --apple-codesign-key
-  - /etc/notary/cert.p12
-  - --apple-notary-api-key
-  - /etc/notary/key.json
-  - --apple-codesign-password-file
-  - /etc/notary/password
   - --branch
-  - release-1.22
+  - release-1.24
   excluded_requirements:
   - gcp
   max_concurrency: 1
   name: release
   requirements:
-  - release-notary
+  - release
+  - docker
   types:
   - periodic
 org: knative-extensions
-repo: kn-plugin-event
+repo: backstage-plugins
+resources: default
+resources_presets:
+  default:
+    limits:
+      memory: 10Gi
+    requests:
+      memory: 8Gi
