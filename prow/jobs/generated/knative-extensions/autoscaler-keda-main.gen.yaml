@@ -27,7 +27,7 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
       name: ""
       resources: {}
       securityContext:
@@ -46,114 +46,6 @@ periodics:
         - key: service-account-key.json
           path: service-account.json
         secretName: prow-google-credentials
-- annotations:
-    testgrid-dashboards: autoscaler-keda
-    testgrid-tab-name: nightly
-  cluster: prow-build
-  cron: 35 9 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: main
-    org: knative-extensions
-    path_alias: knative.dev/autoscaler-keda
-    repo: autoscaler-keda
-  max_concurrency: 1
-  name: nightly_autoscaler-keda_main_periodic
-  spec:
-    containers:
-    - command:
-      - runner.sh
-      - ./hack/release.sh
-      - --publish
-      - --tag-release
-      env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/nightly-account/service-account.json
-      - name: SIGN_IMAGES
-        value: "true"
-      - name: ATTEST_IMAGES
-        value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/nightly-account
-        name: nightly-account
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: nightly-account
-      secret:
-        items:
-        - key: nightly.json
-          path: service-account.json
-        secretName: prow-google-credentials
-- annotations:
-    testgrid-dashboards: autoscaler-keda
-    testgrid-tab-name: release
-  cluster: prow-build
-  cron: 11 */9 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: main
-    org: knative-extensions
-    path_alias: knative.dev/autoscaler-keda
-    repo: autoscaler-keda
-  max_concurrency: 1
-  name: release_autoscaler-keda_main_periodic
-  spec:
-    containers:
-    - command:
-      - runner.sh
-      - ./hack/release.sh
-      - --auto-release
-      - --release-gcs
-      - knative-releases/autoscaler-keda
-      - --release-gcr
-      - gcr.io/knative-releases
-      - --github-token
-      - /etc/hub-token/token
-      env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /etc/release-account/service-account.json
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: ORG_NAME
-        value: knative-extensions
-      - name: ATTEST_IMAGES
-        value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/hub-token
-        name: hub-token
-        readOnly: true
-      - mountPath: /etc/release-account
-        name: release-account
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    volumes:
-    - name: hub-token
-      secret:
-        items:
-        - key: hub_token
-          path: token
-        secretName: github-credentials
-    - name: release-account
-      secret:
-        items:
-        - key: release.json
-          path: service-account.json
-        secretName: prow-google-credentials
 presubmits:
   knative-extensions/autoscaler-keda:
   - always_run: true
@@ -170,7 +62,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
         name: ""
         resources: {}
         securityContext:
@@ -193,7 +85,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
         name: ""
         resources: {}
         securityContext:
@@ -219,7 +111,7 @@ presubmits:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
         name: ""
         resources: {}
         securityContext:

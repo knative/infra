@@ -27,7 +27,7 @@ periodics:
       env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/test-account/service-account.json
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
       name: ""
       resources: {}
       securityContext:
@@ -46,132 +46,6 @@ periodics:
         - key: service-account-key.json
           path: service-account.json
         secretName: prow-google-credentials
-- annotations:
-    testgrid-dashboards: kn-plugin-source-kamelet
-    testgrid-tab-name: nightly
-  cluster: prow-build
-  cron: 23 9 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: main
-    org: knative-extensions
-    path_alias: knative.dev/kn-plugin-source-kamelet
-    repo: kn-plugin-source-kamelet
-  name: nightly_kn-plugin-source-kamelet_main_periodic
-  spec:
-    containers:
-    - command:
-      - runner.sh
-      - ./hack/release.sh
-      - --publish
-      - --tag-release
-      - --apple-codesign-key
-      - /etc/notary/cert.p12
-      - --apple-notary-api-key
-      - /etc/notary/key.json
-      - --apple-codesign-password-file
-      - /etc/notary/password
-      env:
-      - name: SIGN_IMAGES
-        value: "true"
-      - name: ATTEST_IMAGES
-        value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/notary
-        name: apple-notary-creds
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    serviceAccountName: nightly
-    volumes:
-    - name: apple-notary-creds
-      secret:
-        items:
-        - key: notary-api-key
-          path: key.json
-        - key: signing-certificate
-          path: cert.p12
-        - key: signing-certificate-password
-          path: password
-        secretName: apple-notary-creds
-- annotations:
-    testgrid-dashboards: kn-plugin-source-kamelet
-    testgrid-tab-name: release
-  cluster: prow-build
-  cron: 39 */9 * * *
-  decorate: true
-  extra_refs:
-  - base_ref: main
-    org: knative-extensions
-    path_alias: knative.dev/kn-plugin-source-kamelet
-    repo: kn-plugin-source-kamelet
-  name: release_kn-plugin-source-kamelet_main_periodic
-  spec:
-    containers:
-    - command:
-      - runner.sh
-      - ./hack/release.sh
-      - --auto-release
-      - --release-gcs
-      - knative-releases/kn-plugin-source-kamelet
-      - --release-gcr
-      - gcr.io/knative-releases
-      - --github-token
-      - /etc/hub-token/token
-      - --apple-codesign-key
-      - /etc/notary/cert.p12
-      - --apple-notary-api-key
-      - /etc/notary/key.json
-      - --apple-codesign-password-file
-      - /etc/notary/password
-      env:
-      - name: E2E_CLUSTER_REGION
-        value: us-central1
-      - name: SIGN_IMAGES
-        value: "true"
-      - name: ORG_NAME
-        value: knative-extensions
-      - name: ATTEST_IMAGES
-        value: "true"
-      image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
-      name: ""
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-      - mountPath: /etc/hub-token
-        name: hub-token
-        readOnly: true
-      - mountPath: /etc/notary
-        name: apple-notary-creds
-        readOnly: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      type: testing
-    serviceAccountName: release
-    volumes:
-    - name: hub-token
-      secret:
-        items:
-        - key: hub_token
-          path: token
-        secretName: github-credentials
-    - name: apple-notary-creds
-      secret:
-        items:
-        - key: notary-api-key
-          path: key.json
-        - key: signing-certificate
-          path: cert.p12
-        - key: signing-certificate-password
-          path: password
-        secretName: apple-notary-creds
 presubmits:
   knative-extensions/kn-plugin-source-kamelet:
   - always_run: true
@@ -188,7 +62,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --build-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
         name: ""
         resources: {}
         securityContext:
@@ -211,7 +85,7 @@ presubmits:
         - runner.sh
         - ./test/presubmit-tests.sh
         - --unit-tests
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
         name: ""
         resources: {}
         securityContext:
@@ -237,7 +111,7 @@ presubmits:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /etc/test-account/service-account.json
-        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+        image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261026-167da0a25
         name: ""
         resources: {}
         securityContext:
