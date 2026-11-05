@@ -17,7 +17,6 @@ approve:
 - repos:
   - "knative"
   - "knative-extensions"
-  - "knative-prow-robot/test-infra"
   ignore_review_state: false
 
 # Settings for the "lgtm" plugin.

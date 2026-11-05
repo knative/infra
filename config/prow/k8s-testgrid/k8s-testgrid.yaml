@@ -16,9 +16,6 @@ dashboard_groups:
   - utilities
   name: knative
 - dashboard_names:
-  - autoscaler-keda
-  - backstage-plugins
-  - eventing-autoscaler-keda
   - eventing-ceph
   - eventing-github
   - eventing-gitlab
@@ -33,22 +30,15 @@ dashboard_groups:
   - kn-plugin-event
   - kn-plugin-operator
   - kn-plugin-quickstart
-  - kn-plugin-sample
-  - kn-plugin-service-log
   - kn-plugin-source-kafka
-  - kn-plugin-source-kamelet
   - net-contour
   - net-gateway-api
   - net-istio
   - net-kourier
-  - security-guard
   name: knative-extensions
 dashboards:
-- name: autoscaler-keda
-- name: backstage-plugins
 - name: client
 - name: eventing
-- name: eventing-autoscaler-keda
 - name: eventing-ceph
 - name: eventing-github
 - name: eventing-gitlab
@@ -64,16 +54,8 @@ dashboards:
 - name: kn-plugin-event
 - name: kn-plugin-operator
 - name: kn-plugin-quickstart
-- name: kn-plugin-sample
-- name: kn-plugin-service-log
 - name: kn-plugin-source-kafka
-- name: kn-plugin-source-kamelet
 - name: knative-extensions-release-0.1
-- name: knative-extensions-release-0.5
-- name: knative-extensions-release-0.6
-- name: knative-extensions-release-1.1
-- name: knative-extensions-release-1.15
-- name: knative-extensions-release-1.16
 - name: knative-extensions-release-1.20
 - name: knative-extensions-release-1.21
 - name: knative-extensions-release-1.23
@@ -85,6 +67,5 @@ dashboards:
 - name: net-istio
 - name: net-kourier
 - name: operator
-- name: security-guard
 - name: serving
 - name: utilities
