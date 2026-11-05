@@ -128,6 +128,8 @@ postsubmits:
         - "--config-path=peribolos/knative.yaml"
         - --github-app-id=$(GITHUB_APP_ID)
         - --github-app-private-key-path=/etc/github/cert
+        - "--github-hourly-tokens=2000"
+        - "--github-allowed-burst=100"
         - "--min-admins=5"
         - "--fix-org=true"
         - "--fix-org-members=true"
@@ -183,6 +185,8 @@ postsubmits:
         - "--config-path=peribolos/knative-extensions.yaml"
         - --github-app-id=$(GITHUB_APP_ID)
         - --github-app-private-key-path=/etc/github/cert
+        - "--github-hourly-tokens=2000"
+        - "--github-allowed-burst=100"
         - "--min-admins=5"
         - "--fix-org=true"
         - "--fix-org-members=true"
@@ -236,6 +240,8 @@ periodics:
       - "--config-path=peribolos/knative.yaml"
       - --github-app-id=$(GITHUB_APP_ID)
       - --github-app-private-key-path=/etc/github/cert
+      - "--github-hourly-tokens=2000"
+      - "--github-allowed-burst=100"
       - "--min-admins=5"
       - "--fix-org=true"
       - "--fix-org-members=true"
@@ -287,6 +293,8 @@ periodics:
       - "--config-path=peribolos/knative-extensions.yaml"
       - --github-app-id=$(GITHUB_APP_ID)
       - --github-app-private-key-path=/etc/github/cert
+      - "--github-hourly-tokens=2000"
+      - "--github-allowed-burst=100"
       - "--min-admins=5"
       - "--fix-org=true"
       - "--fix-org-members=true"
