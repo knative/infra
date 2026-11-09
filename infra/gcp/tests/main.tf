@@ -21,7 +21,8 @@ module "project" {
     "compute.googleapis.com",
     "cloudkms.googleapis.com",
     "certificatemanager.googleapis.com",
-    "artifactregistry.googleapis.com"
+    "artifactregistry.googleapis.com",
+    "pubsub.googleapis.com"
   ]
 }
 
