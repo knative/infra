@@ -64,7 +64,7 @@ periodics:
     testgrid-dashboards: serving
     testgrid-tab-name: istio-latest-mesh
   cluster: prow-build
-  cron: 36 */18 * * *
+  cron: 36 */6 * * *
   decorate: true
   decoration_config:
     timeout: 5h0m0s
@@ -85,6 +85,10 @@ periodics:
       command:
       - runner.sh
       env:
+      - name: ENABLE_GKE_TELEMETRY
+        value: "true"
+      - name: MESH_DIAGNOSTICS
+        value: "true"
       - name: DOCKER_IN_DOCKER_ENABLED
         value: "true"
       image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7

@@ -106,7 +106,13 @@ jobs:
 
   - name: istio-latest-mesh
     types: [periodic]
+    cron: "36 */6 * * *"
     timeout: 5h
+    env:
+      - name: MESH_DIAGNOSTICS
+        value: "true"
+      - name: ENABLE_GKE_TELEMETRY
+        value: "true"
     command:
     - runner.sh
     args:
