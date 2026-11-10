@@ -1,7 +1,7 @@
 org: knative-extensions
 repo: net-istio
 branches: [main]
-image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261102-2071337d7
+image: us-docker.pkg.dev/knative-tests/images/prow-tests:v20261109-cdc1c7138
 
 jobs:
   - name: build-tests
