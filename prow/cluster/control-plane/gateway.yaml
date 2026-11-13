@@ -15,8 +15,12 @@ spec:
       namespaces:
         from: Selector
         selector:
-          matchLabels:
-            shared-https: "true"
+          matchExpressions:
+          - key: kubernetes.io/metadata.name
+            operator: In
+            values:
+            - monitoring
+            - redirects
   # Only the redirect namespace may attach routes to the HTTP listener.
   # Existing infrastructure applications remain HTTPS-only.
   - name: http
