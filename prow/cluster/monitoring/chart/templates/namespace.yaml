@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: {{ .Release.Namespace }}
   labels:
-    shared-lb-access: "true"
+    shared-https: "true"

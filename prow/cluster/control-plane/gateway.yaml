@@ -16,7 +16,18 @@ spec:
         from: Selector
         selector:
           matchLabels:
-            shared-lb-access: "true"
+            shared-https: "true"
+  # Only the redirect namespace may attach routes to the HTTP listener.
+  # Existing infrastructure applications remain HTTPS-only.
+  - name: http
+    protocol: HTTP
+    port: 80
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            kubernetes.io/metadata.name: redirects
   addresses:
   - type: NamedAddress
-    value: grafana-ingress
+    value: knative-infra-ingress
