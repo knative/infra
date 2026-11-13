@@ -1,0 +1,137 @@
+# Copyright 2026 The Knative Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Reuse the existing HTTPS Gateway and its wildcard knative.dev certificate.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: redirects
+  labels:
+    shared-lb-access: "true"
+    infra-redirect-access: "true"
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: testgrid-redirect
+  namespace: redirects
+spec:
+  parentRefs:
+    - name: https-lb
+      namespace: default
+      sectionName: https
+    - name: https-lb
+      namespace: default
+      sectionName: http
+  hostnames:
+    - testgrid.knative.dev
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            hostname: testgrid.k8s.io
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /r/knative-own-testgrid
+            statusCode: 302
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: slack-redirect
+  namespace: redirects
+spec:
+  parentRefs:
+    - name: https-lb
+      namespace: default
+      sectionName: https
+    - name: https-lb
+      namespace: default
+      sectionName: http
+  hostnames:
+    - slack.knative.dev
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            hostname: slack.cncf.io
+            statusCode: 302
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: blog-redirect
+  namespace: redirects
+spec:
+  parentRefs:
+    - name: https-lb
+      namespace: default
+      sectionName: https
+    - name: https-lb
+      namespace: default
+      sectionName: http
+  hostnames:
+    - blog.knative.dev
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            hostname: knative.dev
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /blog
+            statusCode: 302
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: stats-redirect
+  namespace: redirects
+spec:
+  parentRefs:
+    - name: https-lb
+      namespace: default
+      sectionName: https
+    - name: https-lb
+      namespace: default
+      sectionName: http
+  hostnames:
+    - stats.knative.dev
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            # Preserve the destination currently deployed in knative-tests.
+            hostname: knative.teststats.cncf.io
+            statusCode: 302

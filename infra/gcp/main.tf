@@ -7,8 +7,9 @@ data "google_organization" "org" {
 }
 
 module "dns" {
-  source          = "./dns"
-  billing_account = var.billing_account
+  source                   = "./dns"
+  billing_account          = var.billing_account
+  knative_infra_ingress_ip = module.tests.knative_infra_ingress_ip
 }
 
 module "gsuite" {

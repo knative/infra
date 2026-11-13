@@ -91,7 +91,7 @@ module "knative_dev" {
       type = "A"
       ttl  = 300
       records = [
-        "35.244.204.234",
+        var.knative_infra_ingress_ip,
       ]
     },
     {
@@ -104,34 +104,34 @@ module "knative_dev" {
     },
     {
       name = "testgrid"
-      type = "CNAME"
+      type = "A"
       ttl  = 300
       records = [
-        "ghs.googlehosted.com.",
+        var.knative_infra_ingress_ip,
       ]
     },
     {
       name = "slack"
-      type = "CNAME"
+      type = "A"
       ttl  = 300
       records = [
-        "ghs.googlehosted.com.",
+        var.knative_infra_ingress_ip,
       ]
     },
     {
       name = "blog"
-      type = "CNAME"
+      type = "A"
       ttl  = 300
       records = [
-        "ghs.googlehosted.com.",
+        var.knative_infra_ingress_ip,
       ]
     },
     {
       name = "stats"
-      type = "CNAME"
+      type = "A"
       ttl  = 300
       records = [
-        "ghs.googlehosted.com.",
+        var.knative_infra_ingress_ip,
       ]
     },
     {
