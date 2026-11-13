@@ -27,7 +27,7 @@ spec:
         from: Selector
         selector:
           matchLabels:
-            infra-redirect-access: "true"
+            kubernetes.io/metadata.name: redirects
   addresses:
   - type: NamedAddress
     value: knative-infra-ingress

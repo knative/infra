@@ -19,7 +19,6 @@ metadata:
   name: redirects
   labels:
     shared-lb-access: "true"
-    infra-redirect-access: "true"
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
@@ -30,10 +29,6 @@ spec:
   parentRefs:
     - name: https-lb
       namespace: default
-      sectionName: https
-    - name: https-lb
-      namespace: default
-      sectionName: http
   hostnames:
     - testgrid.knative.dev
   rules:
@@ -60,10 +55,6 @@ spec:
   parentRefs:
     - name: https-lb
       namespace: default
-      sectionName: https
-    - name: https-lb
-      namespace: default
-      sectionName: http
   hostnames:
     - slack.knative.dev
   rules:
@@ -87,10 +78,6 @@ spec:
   parentRefs:
     - name: https-lb
       namespace: default
-      sectionName: https
-    - name: https-lb
-      namespace: default
-      sectionName: http
   hostnames:
     - blog.knative.dev
   rules:
@@ -117,10 +104,6 @@ spec:
   parentRefs:
     - name: https-lb
       namespace: default
-      sectionName: https
-    - name: https-lb
-      namespace: default
-      sectionName: http
   hostnames:
     - stats.knative.dev
   rules:
