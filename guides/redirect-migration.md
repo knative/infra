@@ -65,7 +65,7 @@ versions. Account for the mandatory App Engine `default` service separately;
 do not delete a GCP project or disable unrelated infrastructure as part of this
 cleanup.
 
-The new routes intentionally preserve the deployed stats destination,
-`knative.teststats.cncf.io`, rather than the different destination previously
-checked into the App Engine Makefile. The apex `knative.dev` website continues
-to use Netlify; the old App Engine apex dispatch rule is not migrated.
+The stats route redirects to `https://knative.devstats.cncf.io/`, updating the
+old deployed destination `https://knative.teststats.cncf.io/`. The apex
+`knative.dev` website continues to use Netlify; the old App Engine apex dispatch
+rule is not migrated.

@@ -132,6 +132,5 @@ spec:
         - type: RequestRedirect
           requestRedirect:
             scheme: https
-            # Preserve the destination currently deployed in knative-tests.
-            hostname: knative.teststats.cncf.io
+            hostname: knative.devstats.cncf.io
             statusCode: 302
