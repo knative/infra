@@ -6,7 +6,7 @@ metadata:
   annotations:
     networking.gke.io/certmap: knative-dev
 spec:
-  gatewayClassName: gke-l7-gxlb
+  gatewayClassName: gke-l7-global-external-managed
   listeners:
   - name: https
     protocol: HTTPS
