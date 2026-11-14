@@ -27,7 +27,6 @@ module "iam" {
     "roles/viewer" = [ # Will change this in the near future
       "group:wg-leads@knative.team",
       "group:gke-security-groups@knative.dev",
-      "group:k8s-infra-rbac-perf-tests@knative.dev",
     ]
     # "roles/container.viewer" = [
     #   "group:gke-security-groups@knative.dev"
