@@ -63,6 +63,7 @@ module "prow" {
   name                         = "prow"
   region                       = "us-central1"
   release_channel              = "RAPID"
+  gateway_api_channel          = "CHANNEL_STANDARD"
   network                      = module.vpc.network_name
   subnetwork                   = module.vpc.subnets["us-central1/prow-subnet-01"].name
   ip_range_pods                = "prow-pods"
