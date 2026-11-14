@@ -17,5 +17,7 @@ module "project" {
 
   activate_apis = [
     "containerregistry.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "containerscanning.googleapis.com",
   ]
 }
