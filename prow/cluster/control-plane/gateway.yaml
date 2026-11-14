@@ -6,7 +6,7 @@ metadata:
   annotations:
     networking.gke.io/certmap: knative-dev
 spec:
-  gatewayClassName: gke-l7-gxlb
+  gatewayClassName: gke-l7-global-external-managed
   listeners:
   - name: https
     protocol: HTTPS
@@ -15,8 +15,12 @@ spec:
       namespaces:
         from: Selector
         selector:
-          matchLabels:
-            shared-https: "true"
+          matchExpressions:
+          - key: kubernetes.io/metadata.name
+            operator: In
+            values:
+            - monitoring
+            - redirects
   # Only the redirect namespace may attach routes to the HTTP listener.
   # Existing infrastructure applications remain HTTPS-only.
   - name: http
