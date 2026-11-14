@@ -1,4 +1,7 @@
 grafana:
+  # Users sign in with GitHub; don't generate a random bootstrap admin password.
+  env:
+    GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: "true"
   resources:
    limits:
      cpu: 4000m
@@ -10,6 +13,8 @@ grafana:
     dashboards:
       enabled: true
       searchNamespace: ALL
+      # Grafana polls dashboard files every 30s; no admin API credentials needed.
+      skipReload: true
     datasources:
       defaultDatasourceEnabled: false
   serviceAccount:
