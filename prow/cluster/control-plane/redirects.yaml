@@ -30,6 +30,20 @@ spec:
   hostnames:
     - testgrid.knative.dev
   rules:
+    # Testgrid's dashboard URL returns 404 with a trailing slash.
+    - matches:
+        - path:
+            type: Exact
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            hostname: testgrid.k8s.io
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /r/knative-own-testgrid
+            statusCode: 302
     - matches:
         - path:
             type: PathPrefix
