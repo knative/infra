@@ -1,4 +1,7 @@
 grafana:
+  # Users sign in with GitHub; don't generate a random bootstrap admin password.
+  env:
+    GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: "true"
   resources:
    limits:
      cpu: 4000m
@@ -10,6 +13,8 @@ grafana:
     dashboards:
       enabled: true
       searchNamespace: ALL
+      # Grafana polls dashboard files every 30s; no admin API credentials needed.
+      skipReload: true
     datasources:
       defaultDatasourceEnabled: false
   serviceAccount:
@@ -60,7 +65,7 @@ grafana:
       auth_url: https://github.com/login/oauth/authorize
       token_url: https://github.com/login/oauth/access_token
       api_url: https://api.github.com/user
-      role_attribute_path: contains(groups[*], '@knative/productivity-wg-leads') && 'Admin' || contains(groups[*], '@knative/productivity-writers') && 'Editor' || 'Viewer'
+      role_attribute_path: (contains(groups[*], '@knative/productivity-wg-leads') || contains(groups[*], '@knative/steering-committee')) && 'Admin' || contains(groups[*], '@knative/productivity-writers') && 'Editor' || 'Viewer'
       allowed_organizations: knative kubernetes
       client_id: $__file{/etc/secrets/oauth/client_id}
       client_secret: $__file{/etc/secrets/oauth/client_secret}
