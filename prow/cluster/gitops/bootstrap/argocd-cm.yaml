@@ -5,6 +5,9 @@ metadata:
 data:
   url: https://argo.knative.dev
   users.anonymous.enabled: "true"
+  # Preserve resource ownership across the Argo CD 3 annotation-tracking default change.
+  # Migrate tracking separately; monitoring uses ApplyOutOfSyncOnly=true.
+  application.resourceTrackingMethod: label
   application.instanceLabelKey: knative.dev/instance
   resource.compareoptions: |
     ignoreAggregatedRoles: true
