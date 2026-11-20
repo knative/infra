@@ -41,7 +41,7 @@ allows prow cluster creating secrets based on values from google secret manager
 declared in this repositories:
 
 - Secrets for prow
-service cluster are stored under [`/prow/cluster`](/prow/cluster)
+  service cluster are stored under [`/prow/cluster`](/prow/cluster)
 - Secrets for prow build cluster are stored under [`/prow/cluster/build`](/prow/cluster/build)
 
 Please make sure

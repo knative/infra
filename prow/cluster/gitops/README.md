@@ -1,11 +1,10 @@
-
 We use argocd to sync cluster state with the configuration specified in knative/infra.
 
 ArgoCD runs in the prow cluster and manages the following clusters:
+
 - prow
 - prow-build
 - ~~prow-trusted~~
-
 
 ## Installation ownership
 
@@ -70,6 +69,7 @@ kubectl --context "$CONTEXT" apply -f prow/cluster/gitops/bootstrap/apps.yaml
    `--force-conflicts` to transfer ownership; this overwrites conflicting live
    customizations, so add any required customizations to the patches first. If
    needed, repeat the dry-run with that flag before using it in the actual apply.
+
 6. Apply the reviewed output (adding `--force-conflicts` only after the review):
 
    ```sh
@@ -91,6 +91,7 @@ kubectl --context "$CONTEXT" apply -f prow/cluster/gitops/bootstrap/apps.yaml
    This installation uses `emptyDir` for Redis cache data; restarting these pods
    clears that cache, not the deployed applications. Verify the storage setup
    before using this recovery step on a different installation.
+
 7. Verify all component rollouts, Redis HA health, IAP-protected UI access, Dex login,
    repository access, all managed clusters, and application diffs before resuming
    automatic sync. Update the CLI to match the server.
@@ -100,6 +101,6 @@ reconciliation. Reapplying the previous manifests does not necessarily undo CRD 
 configuration changes; use the tested recovery plan and secure backup rather than
 assuming an image downgrade is sufficient.
 
-
 Couple of notes:
+
 - Argo UI is accessible at https://argo.knative.dev, but it is restricted to the Google Groups that have IAP-secured Web App User on the knative-tests project.

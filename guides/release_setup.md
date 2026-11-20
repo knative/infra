@@ -77,23 +77,23 @@ Versioned releases can be one of two kinds:
 
 1. Fetch the upstream remote.
 
-    ```sh
-    git fetch upstream
-    ```
+   ```sh
+   git fetch upstream
+   ```
 
 1. Create a `release-X.Y` branch from `upstream/main`.
 
-    ```sh
-    git branch --no-track release-X.Y upstream/main
-    ```
+   ```sh
+   git branch --no-track release-X.Y upstream/main
+   ```
 
 1. Push the branch to upstream.
 
-    ```sh
-    git push upstream release-X.Y
-    ```
+   ```sh
+   git push upstream release-X.Y
+   ```
 
-    _You must have write permissions to the repo to create a branch._
+   _You must have write permissions to the repo to create a branch._
 
 ### Finishing the release
 
@@ -109,33 +109,33 @@ Write release notes and add them to the release at
 
 1. Fetch the upstream remote.
 
-    ```sh
-    git fetch upstream
-    ```
+   ```sh
+   git fetch upstream
+   ```
 
 1. Create a branch based on the desired (usually the latest) `release-X.Y`
-    branch.
+   branch.
 
-    ```sh
-    git checkout -b my-backport-branch upstream/release-X.Y
-    ```
+   ```sh
+   git checkout -b my-backport-branch upstream/release-X.Y
+   ```
 
 1. Cherry-pick desired commits from main into the new branch.
 
-    ```sh
-    git cherry-pick <commitid>
-    ```
+   ```sh
+   git cherry-pick <commitid>
+   ```
 
 1. Push the branch to your fork.
 
-    ```sh
-    git push origin
-    ```
+   ```sh
+   git push origin
+   ```
 
 1. Create a PR for your branch based on the `release-X.Y` branch.
 
 1. Once the PR is merged, it will be included in the next minor release, which
-    is usually built Tuesday nights, between 2AM and 3AM.
+   is usually built Tuesday nights, between 2AM and 3AM.
 
 **Note**: If a minor release is required for a release branch that's not the
 latest, the job must be

@@ -10,6 +10,7 @@ collecting metrics and displaying test results.
 This is the main repo for the [Productivity Working Group](https://github.com/knative/community/blob/main/working-groups/WORKING-GROUPS.md#productivity)
 
 The Productivity Working Group also has other repos:
+
 - [knative/actions](https://github.com/knative/actions)
 
   Reusable github workflows and actions
@@ -38,6 +39,7 @@ The Productivity Working Group also has other repos:
 ## Tools we use
 
 We use two big platforms for running automation:
+
 - [Prow](https://github.com/kubernetes/infra/tree/master/prow)
 
   To schedule testing and update issues. Prow handles the merge queue
@@ -72,7 +74,7 @@ build/deploy/test Knative clusters (managed by Prow).
 ## Contributing
 
 If you are interested in contributing, see [CONTRIBUTING.md](./CONTRIBUTING.md)
-and [DEVELOPMENT.md](./DEVELOPMENT.md). For a list of help wanted issues in Knative, 
+and [DEVELOPMENT.md](./DEVELOPMENT.md). For a list of help wanted issues in Knative,
 look at [CLOTRIBUTOR](https://clotributor.dev/search?project=knative&page=1).
 
 ## Guides

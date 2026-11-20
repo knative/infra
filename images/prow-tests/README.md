@@ -14,7 +14,7 @@ See parent README.md
 
 ## Testing and Deploying Images
 
-A normal release process would involve first editing Dockerfile and/or program 
+A normal release process would involve first editing Dockerfile and/or program
 it installs from infra/toolbox, then running `make iterative-build` to build a
 local copy and ensure it still builds. Next, if adding a new tool or doing
 something complicated, do some rudimentary exploration in the image by running

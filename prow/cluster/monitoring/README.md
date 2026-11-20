@@ -4,7 +4,7 @@ This folder contains the manifest files for monitoring prow resources.
 
 ## Deploy
 
-Cluster admins need to create `secret`s  manually.
+Cluster admins need to create `secret`s manually.
 
 ```
 ### replace the sensitive inforamtion in the files before executing:
@@ -61,23 +61,23 @@ _Note_ that the `servicemonitor` has to have label `app` as key (value could be 
 We use [jsonnet](https://jsonnet.org) to generate the json files for grafana dashboards and [jsonnet-bundler](https://github.com/jsonnet-bundler/jsonnet-bundler) to manage the jsonnet libs.
 Developing a new dashboard can be achieved by
 
-* Create a new file `<dashhoard_name>.jsonnet` in folder [grafana_dashboards](grafana_dashboards).
+- Create a new file `<dashhoard_name>.jsonnet` in folder [grafana_dashboards](grafana_dashboards).
 
-* Use the configMap above in [grafana_deployment.yaml](grafana_deployment.yaml).
+- Use the configMap above in [grafana_deployment.yaml](grafana_deployment.yaml).
 
 ## Access components' Web page
 
-* For `grafana`, `prometheus` and `alertmanager`, there is no public domain configured based on the security
-concerns (no authorization out of the box).
-Cluster admins can use [k8s port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) to
-access the web.
+- For `grafana`, `prometheus` and `alertmanager`, there is no public domain configured based on the security
+  concerns (no authorization out of the box).
+  Cluster admins can use [k8s port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) to
+  access the web.
 
-    ```
-    $ kubectl -n prow-monitoring port-forward $( kubectl -n prow-monitoring get pods --selector app=grafana -o jsonpath={.items[0].metadata.name} ) 8080:80
-    $ kubectl -n prow-monitoring port-forward $( kubectl -n prow-monitoring get pods --selector app=prometheus -o jsonpath={.items[0].metadata.name} ) 9090
-    $ kubectl -n prow-monitoring port-forward $( kubectl -n prow-monitoring get pods --selector app=alertmanager -o jsonpath={.items[0].metadata.name} ) 9093
-    ```
+  ```
+  $ kubectl -n prow-monitoring port-forward $( kubectl -n prow-monitoring get pods --selector app=grafana -o jsonpath={.items[0].metadata.name} ) 8080:80
+  $ kubectl -n prow-monitoring port-forward $( kubectl -n prow-monitoring get pods --selector app=prometheus -o jsonpath={.items[0].metadata.name} ) 9090
+  $ kubectl -n prow-monitoring port-forward $( kubectl -n prow-monitoring get pods --selector app=alertmanager -o jsonpath={.items[0].metadata.name} ) 9093
+  ```
 
-    Then, visit [127.0.0.1:9090](http://127.0.0.1:9090) for the `prometheus` pod and [127.0.0.1:9093](http://127.0.0.1:9093) for the `alertmanager` pod.
+  Then, visit [127.0.0.1:9090](http://127.0.0.1:9090) for the `prometheus` pod and [127.0.0.1:9093](http://127.0.0.1:9093) for the `alertmanager` pod.
 
-    As a result of no public domain for those two components, some of the links on the UI do not work, eg, the links on the slack alerts.
+  As a result of no public domain for those two components, some of the links on the UI do not work, eg, the links on the slack alerts.

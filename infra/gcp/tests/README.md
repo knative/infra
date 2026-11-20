@@ -1,8 +1,9 @@
 # Knative Tests Project
 
-Please be careful when making changes to infrastructure in this folder. Pay *extra* attention when modifying GKE Clusters as Prow runs on it.
+Please be careful when making changes to infrastructure in this folder. Pay _extra_ attention when modifying GKE Clusters as Prow runs on it.
 
 Key Infrastructure:
+
 - prow cluster
 - prow build cluster
 - prow trusted cluster
@@ -22,4 +23,3 @@ and consumes `knative-tests/testgrid` as
 Without this subscription, result ingestion falls back to hourly polling.
 The subscription has auto-expiration disabled so updater inactivity does not
 remove it.
-
